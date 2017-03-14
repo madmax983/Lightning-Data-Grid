@@ -20,7 +20,6 @@
                   event="c:childToggle"
                   action="{!c.handleChildToggle}"
                   includeFacets="true"/>
-    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
     <tr class="slds-hint-parent" aria-expanded="{!v.childrenVisible == true ? 'true' : 'false'}" aria-level="{!v.level}">
         <aura:iteration items="{!v.columns}" var="column" indexVar="index">
             <c:cell columnName="{!column.name}" dataItem="{!v.rowData}" indexVar="{!index}"/>

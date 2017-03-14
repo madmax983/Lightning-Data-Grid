@@ -1,10 +1,7 @@
 ({
-    doInit: function(component) {
-        console.log(component);
-    },
-
     handleChildToggle: function(component, event) {
         component.set("v.childrenVisible", event.getParam("childrenVisible"));
+        event.stopPropagation();
         /*if(event.getParam("childrenVisible")) {
             var rowData = component.get("v.rowData");
             var level = component.get("v.level");
