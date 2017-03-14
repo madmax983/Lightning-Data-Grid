@@ -1,0 +1,12 @@
+<aura:component description="DataGridImpl" implements="flexipage:availableForAllPageTypes" access="global">
+    <aura:attribute name="config"
+                    access="global"
+                    type="object"
+                    description="Configuration properties for the data grid" />
+    <aura:attribute name="data"
+                    access="global"
+                    type="object"
+                    description="The data that the grid will iterate over" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <c:DataGrid data="{!v.data}" config="{!v.config}"/>
+</aura:component>

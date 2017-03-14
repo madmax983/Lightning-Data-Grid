@@ -1,0 +1,54 @@
+<aura:component description="cell">
+    <aura:attribute name="dataItem"
+                    access="global"
+                    type="object"
+                    description="Individual data item" />
+    <aura:attribute name="columnName"
+                    access="public"
+                    type="String"
+                    description="Column Data" />
+    <aura:attribute name="indexVar"
+                    access="public"
+                    type="Integer"
+                    description="Column Data" />
+    <aura:attribute name="hasChildren"
+                    access="public"
+                    type="Boolean"
+                    description="Data Value" />
+    <aura:attribute name="childrenVisible"
+                    access="public"
+                    type="Boolean"
+                    description="Data Value" />
+    <aura:attribute name="value"
+                    access="public"
+                    type="object"
+                    description="Data Value" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:registerEvent name="childToggle" type="c:childToggle"/>
+    <aura:if isTrue="{!v.indexVar == 0}">
+        <th class="slds-tree__item" data-label="" scope="row" >
+            <aura:if isTrue="{!v.childrenVisible}">
+                <lightning:buttonIcon alternativeText="toggle"
+                                      iconName="utility:chevrondown"
+                                      size="small"
+                                      class="{!v.hasChildren == true ? '' : 'slds-is-disabled'}"
+                                      variant="bare"
+                                      onclick="{!c.childrenToggle}"/>
+                <aura:set attribute="else">
+                    <lightning:buttonIcon alternativeText="toggle"
+                                          iconName="utility:chevronright"
+                                          size="small"
+                                          class="{!v.hasChildren == true ? '' : 'slds-is-disabled'}"
+                                          variant="bare"
+                                          onclick="{!c.childrenToggle}"/>
+                </aura:set>
+            </aura:if>
+            <div class="slds-truncate" title="{!v.value}">{!v.value}</div>
+        </th>
+        <aura:set attribute="else">
+            <td data-label="{!v.columnName}">
+                <div class="slds-truncate" title="{!v.value}">{!v.value}</div>
+            </td>
+        </aura:set>
+    </aura:if>
+</aura:component>

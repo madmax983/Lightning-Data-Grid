@@ -1,0 +1,34 @@
+<aura:component description="row">
+    <aura:attribute name="rowData"
+                    access="public"
+                    type="object"
+                    description="Individual data item" />
+    <aura:attribute name="columns"
+                    access="public"
+                    type="object"
+                    description="Column Data" />
+    <aura:attribute name="childrenVisible"
+                    access="public"
+                    type="Boolean"
+                    description="Data Value" />
+    <aura:attribute name="level"
+                    access="public"
+                    type="integer"
+                    description="Data Value"
+                    default="1"/>
+    <aura:handler name="childToggle"
+                  event="c:childToggle"
+                  action="{!c.handleChildToggle}"
+                  includeFacets="true"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <tr class="slds-hint-parent" aria-expanded="{!v.childrenVisible == true ? 'true' : 'false'}" aria-level="{!v.level}">
+        <aura:iteration items="{!v.columns}" var="column" indexVar="index">
+            <c:cell columnName="{!column.name}" dataItem="{!v.rowData}" indexVar="{!index}"/>
+        </aura:iteration>
+    </tr>
+    <aura:if isTrue="{!v.childrenVisible}">
+        <aura:iteration items="{!v.rowData.children}" var="item" >
+            <c:row rowData="{!item}" columns="{!v.columns}" level="{!v.level + 1}"/>
+        </aura:iteration>
+    </aura:if>
+</aura:component>
