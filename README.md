@@ -9,6 +9,7 @@ The Data Grid currently has a pretty simple API, it expects a config javascript 
 
 The config should look like:
 <code>
+<pre>
 {
   columns: [
       {
@@ -18,12 +19,14 @@ The config should look like:
   ],
   rowsDisplayed: *Integer*
 }
+</pre>
 </code>
 
 The columns portion of the config object is your columns Model, and the rowsDisplayed controls how many rows are displayed at one time. 
 
 The data object currently takes the following shape:
 <code>
+<pre>
 {
     data: {
         id: "dataId",
@@ -35,6 +38,7 @@ The data object currently takes the following shape:
     expanded: false,
     children: null
 }
+</pre>
 </code>
 Right now I am trying to keep the actual record data seperate from some of the row properties needed for displaying hierarchies and such. This way you only have to extract the data object out of the row data, instead of doing a bunch of property deleting, which is always fun.
 Explanation of other properties:
