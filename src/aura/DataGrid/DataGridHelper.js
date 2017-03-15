@@ -26,9 +26,9 @@
     },
     setHasChildren: function(data, mChildren) {
         for(var i = 0; i < data.length; i++) {
-            if(mChildren.has(data[i].id)) {
+            if(mChildren.has(data[i].data.id)) {
                 data[i].hasChildren = true;
-                data[i].children = mChildren.get(data[i].id);
+                data[i].children = mChildren.get(data[i].data.id);
                 for(var j = 0; j < data[i].children.length; j++) {
                     this.setHasChildren(data[i].children, mChildren);
                 }

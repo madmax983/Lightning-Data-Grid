@@ -16,6 +16,7 @@
                     type="integer"
                     description="Data Value"
                     default="1"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
     <aura:handler name="childToggle"
                   event="c:childToggle"
                   action="{!c.handleChildToggle}"
@@ -29,5 +30,8 @@
         <aura:iteration items="{!v.rowData.children}" var="item" >
             <c:row rowData="{!item}" columns="{!v.columns}" level="{!v.level + 1}"/>
         </aura:iteration>
+        <aura:set attribute="else">
+            <div style="display:none"></div>
+        </aura:set>
     </aura:if>
 </aura:component>

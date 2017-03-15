@@ -2,7 +2,7 @@
     doInit: function(component) {
         var dataItem = component.get("v.dataItem");
         var columnName = component.get("v.columnName");
-        component.set("v.value", dataItem[columnName]);
+        component.set("v.value", dataItem.data[columnName]);
         if(dataItem.hasChildren) {
             component.set("v.hasChildren", dataItem.hasChildren);
         }

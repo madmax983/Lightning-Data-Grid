@@ -13,7 +13,7 @@
 
         component.mouseWheelHandler = function(e) {
             if(e.wheelDeltaY < 0) {
-                e.preventDefault();
+                //e.preventDefault();
                 newOffSet = component.get("v.offSetIndex") + 1;
                 rangeStart = newOffSet - displaySize;
                 newOffSetData = parents.slice(rangeStart, newOffSet);
@@ -21,7 +21,7 @@
                 component.set("v.view", newOffSetData);
                 component.set("v.offSetIndex", newOffSet);
             } else if(e.wheelDeltaY > 0) {
-                e.preventDefault();
+                //e.preventDefault();
                 newOffSet = component.get("v.offSetIndex") - 1;
                 rangeStart = newOffSet - displaySize;
                 if(rangeStart > 0) {
@@ -43,5 +43,10 @@
 
     unbindMouseWheel: function(component) {
         document.removeEventListener("wheel", component.mouseWheelHandler);
+    },
+
+    viewChange: function(component) {
+        var view = component.get("v.view");
+        console.log(view);
     }
 })

@@ -9,7 +9,7 @@
                     description="The data that the grid will iterate over" />
     <aura:attribute name="view"
                     access="public"
-                    type="object"
+                    type="List"
                     description="The current data that is visible on the screen" />
     <aura:attribute name="offSetIndex"
                     access="global"
@@ -17,6 +17,7 @@
                     description="The index of the current data offset"
                     default="0"/>
     <aura:handler name="change" value="{!v.data}" action="{!c.dataChange}"/>
+    <aura:handler name="change" value="{!v.view}" action="{!c.viewChange}"/>
     <c:toolbar/>
     <div class="slds-scrollable--x">
         <table aura:id="table" class="slds-table slds-table--bordered slds-tree slds-table--tree" role="treegrid" onmouseenter="{!c.bindMouseWheel}" onmouseleave="{!c.unbindMouseWheel}">
