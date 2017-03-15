@@ -23,7 +23,7 @@
                   includeFacets="true"/>
     <tr class="slds-hint-parent" aria-expanded="{!v.childrenVisible == true ? 'true' : 'false'}" aria-level="{!v.level}">
         <aura:iteration items="{!v.columns}" var="column" indexVar="index">
-            <c:cell columnName="{!column.name}" dataItem="{!v.rowData}" indexVar="{!index}"/>
+            <c:cell columnName="{!column.name}" dataItem="{!v.rowData}" childrenVisible="{!v.childrenVisible}" indexVar="{!index}"/>
         </aura:iteration>
     </tr>
     <aura:if isTrue="{!v.childrenVisible}">
