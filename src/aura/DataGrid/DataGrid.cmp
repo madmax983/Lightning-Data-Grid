@@ -16,8 +16,23 @@
                     type="integer"
                     description="The index of the current data offset"
                     default="0"/>
+    <aura:attribute name="toolbarHeader" type="Aura.Component[]" access="global"/>
+    <aura:attribute name="toolbarButtons" type="Aura.Component[]" access="global"/>
+    <aura:attribute name="toolbarBody" type="Aura.Component[]" access="global"/>
+    <aura:attribute name="toolbarFooter" type="Aura.Component[]" access="global"/>
     <aura:handler name="change" value="{!v.data}" action="{!c.dataChange}"/>
-    <c:toolbar/>
+    <c:toolbar config="{!v.config}">
+        <aura:set attribute="header">
+            {!v.toolbarHeader}
+        </aura:set>
+        <aura:set attribute="buttons">
+            {!v.toolbarButtons}
+        </aura:set>
+        <aura:set attribute="footer">
+            {!v.toolbarFooter}
+        </aura:set>
+        {!v.toolbarBody}
+    </c:toolbar>
     <div class="slds-scrollable--x">
         <table aura:id="table" class="slds-table slds-table--bordered slds-tree slds-table--tree" role="treegrid" onmouseenter="{!c.bindMouseWheel}" onmouseleave="{!c.unbindMouseWheel}">
             <c:headers columns="{!v.config.columns}"/>
