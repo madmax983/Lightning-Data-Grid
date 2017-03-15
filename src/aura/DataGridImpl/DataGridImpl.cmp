@@ -9,7 +9,7 @@
                     description="The data that the grid will iterate over" />
     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
     <c:DataGrid data="{!v.data}" config="{!v.config}">'
-        <aura:set attribute="toolbarHeader">
+        <aura:set attribute="title">
             <aura:text value="Data Grid Example Implementation"/>
         </aura:set>
         <aura:set attribute="toolbarButtons">
@@ -20,10 +20,10 @@
             </lightning:buttonGroup>
         </aura:set>
         <aura:set attribute="toolbarBody">
-            <div>Example Body</div>
+            <div style="display:none"></div>
         </aura:set>
         <aura:set attribute="toolbarFooter">
-            <div>Example Footer</div>
+            <lightning:buttonIcon iconName="utility:settings" alternativeText="Settings"/>
         </aura:set>
     </c:DataGrid>
 </aura:component>

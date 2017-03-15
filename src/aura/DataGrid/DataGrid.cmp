@@ -16,14 +16,14 @@
                     type="integer"
                     description="The index of the current data offset"
                     default="0"/>
-    <aura:attribute name="toolbarHeader" type="Aura.Component[]" access="global"/>
+    <aura:attribute name="title" type="Aura.Component[]" access="global"/>
     <aura:attribute name="toolbarButtons" type="Aura.Component[]" access="global"/>
     <aura:attribute name="toolbarBody" type="Aura.Component[]" access="global"/>
     <aura:attribute name="toolbarFooter" type="Aura.Component[]" access="global"/>
     <aura:handler name="change" value="{!v.data}" action="{!c.dataChange}"/>
     <c:toolbar config="{!v.config}">
-        <aura:set attribute="header">
-            {!v.toolbarHeader}
+        <aura:set attribute="title">
+            {!v.title}
         </aura:set>
         <aura:set attribute="buttons">
             {!v.toolbarButtons}

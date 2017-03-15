@@ -2,25 +2,21 @@
     <aura:attribute name="config" access="public"
                     type="object"
                     description="Configuration object for the toolbar"/>
-    <aura:attribute name="header" type="Aura.Component[]" access="public"/>
+    <aura:attribute name="title" type="Aura.Component[]" access="public"/>
     <aura:attribute name="buttons" type="Aura.Component[]" access="public"/>
     <aura:attribute name="footer" type="Aura.Component[]" access="public"/>
-    <article class="slds-card">
-        <div class="slds-card__header slds-grid">
-            <header class="slds-media slds-media--center slds-has-flexi-truncate">
-                <div class="slds-media__body slds-truncate">
-                    <h2>
-                        <a href="javascript:void(0);" class="slds-text-link--reset">
-                            <span class="slds-text-heading--small">{!v.header}</span>
-                        </a>
-                    </h2>
-                </div>
-            </header>
-            <div class="slds-no-flex">
+    <lightning:card>
+        <aura:set attribute="title">
+                {!v.title}
+        </aura:set>
+        <aura:set attribute="footer">
+                {!v.footer}
+        </aura:set>
+        <aura:set attribute="actions">
                 {!v.buttons}
-            </div>
-        </div>
-        <div class="slds-card__body">{!v.body}</div>
-        <div class="slds-card__footer">{!v.footer}</div>
-    </article>
+        </aura:set>
+        <p class="slds-p-horizontal--small">
+            {!v.body}
+        </p>
+    </lightning:card>
 </aura:component>
