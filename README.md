@@ -2,7 +2,8 @@
 <a href="https://githubsfdeploy.herokuapp.com">
   <img alt="Deploy to Salesforce"
        src="https://raw.githubusercontent.com/afawcett/githubsfdeploy/master/deploy.png">
-</a>
+</a>  
+
 A data grid for Lightning Component Framework  
 
 Currently supports read-only hierarchies, and virtual scrolling. Early days, huge WIP.  
