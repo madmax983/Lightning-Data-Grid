@@ -43,7 +43,7 @@
     <aura:if isTrue="{!v.indexVar == 0}">
         <th id="{!'ltng-grid-col-' + v.columnName + '-' + 'row-' + v.rowIndex}"
             class="slds-tree__item"
-            data-label=""
+            data-label="{!v.column.name}"
             scope="row" >
             <aura:if isTrue="{!v.childrenVisible}">
                 <lightning:buttonIcon alternativeText="toggle"
@@ -71,7 +71,7 @@
             </div>
         </th>
         <aura:set attribute="else">
-            <td id="{!'ltng-grid-col-' + v.columnName + '-' + 'row-' + v.rowIndex}" data-label="{!v.columnName}">
+            <td id="{!'ltng-grid-col-' + v.columnName + '-' + 'row-' + v.rowIndex}" data-label="{!v.column.name}">
                 <div class="slds-truncate" title="{!v.value}">
                     <aura:if isTrue="{!v.editMode}">
                         {!v.editors}

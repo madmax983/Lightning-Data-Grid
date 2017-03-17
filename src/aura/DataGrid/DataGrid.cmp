@@ -36,7 +36,7 @@
         {!v.toolbarBody}
     </c:toolbar>
     <div class="slds-scrollable--x">
-        <table aura:id="table" class="slds-table slds-table--bordered slds-tree slds-table--tree" role="treegrid" onmouseenter="{!c.bindMouseWheel}" onmouseleave="{!c.unbindMouseWheel}">
+        <table aura:id="table" class="slds-table slds-table--bordered slds-tree slds-table--tree slds-max-medium-table--stacked-horizontal" role="treegrid" onmouseenter="{!c.bindMouseWheel}" onmouseleave="{!c.unbindMouseWheel}">
             <c:headers columns="{!v.config.columns}"/>
             <tbody>
             <aura:iteration items="{!v.view}" var="item" indexVar="index">

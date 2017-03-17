@@ -1,4 +1,4 @@
-<aura:component description="DataGridImpl" implements="flexipage:availableForAllPageTypes" access="global">
+<aura:component description="DataGridImpl" implements="force:appHostable, flexipage:availableForAllPageTypes" access="global">
     <aura:attribute name="config"
                     access="global"
                     type="object"
