@@ -31,7 +31,7 @@
             {!v.toolbarButtons}
         </aura:set>
         <aura:set attribute="footer">
-            {!v.toolbarFooter}2
+            {!v.toolbarFooter}
         </aura:set>
         {!v.toolbarBody}
     </c:toolbar>
