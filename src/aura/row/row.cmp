@@ -11,24 +11,49 @@
                     access="public"
                     type="Boolean"
                     description="Data Value" />
+    <aura:attribute name="indexVar"
+                    access="public"
+                    type="Integer"
+                    description="Row Index" />
+    <aura:attribute name="subIndex"
+                    access="public"
+                    type="Integer"
+                    description="Child Row Index" />
     <aura:attribute name="level"
                     access="public"
                     type="integer"
                     description="Data Value"
                     default="1"/>
+    <aura:attribute name="cellDecorators" type="Aura.componentdefref[]" access="public"/>
+    <aura:attribute name="cellEditors" type="Aura.componentdefref[]" access="public"/>
     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
     <aura:handler name="childToggle"
                   event="c:childToggle"
                   action="{!c.handleChildToggle}"
                   includeFacets="true"/>
-    <tr class="slds-hint-parent" aria-expanded="{!v.childrenVisible == true ? 'true' : 'false'}" aria-level="{!v.level}">
+    <tr id="{!v.subIndex != null ? 'ltng-grid-row-' + v.indexVar + '-level-' + v.level + '-childRow-' + v.subIndex : 'ltng-grid-row-' + v.indexVar}"
+        class="slds-hint-parent"
+        aria-expanded="{!v.childrenVisible == true ? 'true' : 'false'}"
+        aria-level="{!v.level}">
         <aura:iteration items="{!v.columns}" var="column" indexVar="index">
-            <c:cell columnName="{!column.name}" dataItem="{!v.rowData}" childrenVisible="{!v.childrenVisible}" indexVar="{!index}"/>
+            <c:cell column="{!column}"
+                    dataItem="{!v.rowData}"
+                    childrenVisible="{!v.childrenVisible}"
+                    rowIndex="{!v.indexVar}"
+                    indexVar="{!index}"
+                    decorators="{!v.cellDecorators}"
+                    editors="{!v.cellEditors}"/>
         </aura:iteration>
     </tr>
     <aura:if isTrue="{!v.childrenVisible}">
-        <aura:iteration items="{!v.rowData.children}" var="item" >
-            <c:row rowData="{!item}" columns="{!v.columns}" level="{!v.level + 1}"/>
+        <aura:iteration items="{!v.rowData.children}" var="item" indexVar="index">
+            <c:row rowData="{!item}"
+                   columns="{!v.columns}"
+                   level="{!v.level + 1}"
+                   indexVar="{!v.indexVar}"
+                   subIndex="{!index}"
+                   cellDecorators="{!v.cellDecorators}"
+                   cellEditors="{!v.cellEditors}"/>
         </aura:iteration>
         <aura:set attribute="else">
             <div style="display:none"></div>

@@ -20,6 +20,8 @@
     <aura:attribute name="toolbarButtons" type="Aura.Component[]" access="global"/>
     <aura:attribute name="toolbarBody" type="Aura.Component[]" access="global"/>
     <aura:attribute name="toolbarFooter" type="Aura.Component[]" access="global"/>
+    <aura:attribute name="cellDecorators" type="Aura.componentdefref[]" access="global"/>
+    <aura:attribute name="cellEditors" type="Aura.componentdefref[]" access="global"/>
     <aura:handler name="change" value="{!v.data}" action="{!c.dataChange}"/>
     <c:toolbar config="{!v.config}">
         <aura:set attribute="title">
@@ -29,7 +31,7 @@
             {!v.toolbarButtons}
         </aura:set>
         <aura:set attribute="footer">
-            {!v.toolbarFooter}
+            {!v.toolbarFooter}2
         </aura:set>
         {!v.toolbarBody}
     </c:toolbar>
@@ -37,8 +39,12 @@
         <table aura:id="table" class="slds-table slds-table--bordered slds-tree slds-table--tree" role="treegrid" onmouseenter="{!c.bindMouseWheel}" onmouseleave="{!c.unbindMouseWheel}">
             <c:headers columns="{!v.config.columns}"/>
             <tbody>
-            <aura:iteration items="{!v.view}" var="item">
-                <c:row rowData="{!item}" columns="{!v.config.columns}"/>
+            <aura:iteration items="{!v.view}" var="item" indexVar="index">
+                <c:row rowData="{!item}"
+                       columns="{!v.config.columns}"
+                       indexVar="{!index}"
+                       cellDecorators="{!v.cellDecorators}"
+                       cellEditors="{!v.cellEditors}"/>
             </aura:iteration>
             </tbody>
         </table>

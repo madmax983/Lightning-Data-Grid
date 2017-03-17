@@ -1,0 +1,3 @@
+<aura:component description="defaultDecorator" implements="c:cellFacet">
+    <ui:outputText value="{!v.value}" />
+</aura:component>

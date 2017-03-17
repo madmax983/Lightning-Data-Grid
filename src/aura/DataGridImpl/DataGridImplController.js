@@ -66,7 +66,9 @@
                 }
             ],
 
-            rowsDisplayed: 10
+            rowsDisplayed: 10,
+            scrollable: true,
+            editable: true
         };
 
         var data = [];
