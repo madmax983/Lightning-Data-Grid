@@ -88,7 +88,7 @@
 
         var data = [];
 
-        for(var i = 0; i < 10000; i++) {
+        for(var i = 0; i < 10000 ; i++) {
             var phone = Math.floor(100000000 + Math.random() * 100000000);
             phone = phone.toString();
             phone = "(" + phone.slice(0,3) + ") " + phone.slice(0,3) + "-" + phone.slice(0,3);

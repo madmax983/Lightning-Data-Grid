@@ -36,6 +36,15 @@
                 }
             }
         }
+
+        document.addEventListener("touchstart", function(e) {
+            setTimeout(function() {
+                newOffSet = component.get("v.offSetIndex") + 1;
+                newOffSetData = parents.slice(rangeStart, newOffSet);
+                component.set("v.view", newOffSetData);
+                component.set("v.offSetIndex", newOffSet);
+            }, 500);
+        }, false);
     },
 
     bindMouseWheel: function(component) {

@@ -48,14 +48,14 @@
             <aura:if isTrue="{!v.childrenVisible}">
                 <lightning:buttonIcon alternativeText="toggle"
                                       iconName="utility:chevrondown"
-                                      size="{!$Browser.isPhone ? 'medium' : 'small'}"
+                                      size="{!$Browser.isPhone ? 'large' : 'small'}"
                                       class="{!v.hasChildren == true ? '' : 'slds-is-disabled'}"
                                       variant="bare"
                                       onclick="{!c.childrenToggle}"/>
                 <aura:set attribute="else">
                     <lightning:buttonIcon alternativeText="toggle"
                                           iconName="utility:chevronright"
-                                          size="{!$Browser.isPhone ? 'medium' : 'small'}"
+                                          size="{!$Browser.isPhone ? 'large' : 'small'}"
                                           class="{!v.hasChildren == true ? '' : 'slds-is-disabled'}"
                                           variant="bare"
                                           onclick="{!c.childrenToggle}"/>
