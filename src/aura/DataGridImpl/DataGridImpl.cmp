@@ -13,17 +13,30 @@
             <aura:text value="Data Grid Example Implementation"/>
         </aura:set>
         <aura:set attribute="toolbarButtons">
-            <lightning:buttonGroup>
-                <lightning:button label="Refresh" />
-                <lightning:button label="Edit" />
-                <lightning:button label="Save" />
-            </lightning:buttonGroup>
+            <aura:if isTrue="{!$Browser.isPhone}">
+                <lightning:buttonMenu alternativeText="Actions" menuAlignment="right">
+                    <lightning:menuItem label="Refresh" value="refresh"/>
+                    <lightning:menuItem label="Edit" value="edit"/>
+                    <lightning:menuItem label="Save" value="save"/>
+                </lightning:buttonMenu>
+                <aura:set attribute="else">
+                    <lightning:buttonGroup>
+                        <lightning:button label="Refresh" />
+                        <lightning:button label="Edit" />
+                        <lightning:button label="Save" />
+                    </lightning:buttonGroup>
+                </aura:set>
+            </aura:if>
         </aura:set>
         <aura:set attribute="toolbarBody">
             <lightning:badge label="{!v.data.length + ' records'}" />
         </aura:set>
         <aura:set attribute="toolbarFooter">
-            <lightning:buttonIcon iconName="utility:settings" alternativeText="Settings"/>
+            <lightning:buttonMenu iconName="utility:settings" alternativeText="Settings" menuAlignment="right">
+                <lightning:menuItem label="Font" value="font" />
+                <lightning:menuItem label="Size" value="size"/>
+                <lightning:menuItem label="Format" value="format" />
+            </lightning:buttonMenu>
         </aura:set>
         <aura:set attribute="cellDecorators">
             <c:defaultDecorator />

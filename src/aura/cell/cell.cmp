@@ -48,14 +48,14 @@
             <aura:if isTrue="{!v.childrenVisible}">
                 <lightning:buttonIcon alternativeText="toggle"
                                       iconName="utility:chevrondown"
-                                      size="small"
+                                      size="{!$Browser.isPhone ? 'medium' : 'small'}"
                                       class="{!v.hasChildren == true ? '' : 'slds-is-disabled'}"
                                       variant="bare"
                                       onclick="{!c.childrenToggle}"/>
                 <aura:set attribute="else">
                     <lightning:buttonIcon alternativeText="toggle"
                                           iconName="utility:chevronright"
-                                          size="small"
+                                          size="{!$Browser.isPhone ? 'medium' : 'small'}"
                                           class="{!v.hasChildren == true ? '' : 'slds-is-disabled'}"
                                           variant="bare"
                                           onclick="{!c.childrenToggle}"/>
@@ -71,7 +71,7 @@
             </div>
         </th>
         <aura:set attribute="else">
-            <td id="{!'ltng-grid-col-' + v.columnName + '-' + 'row-' + v.rowIndex}" data-label="{!v.column.name}">
+            <td id="{!'ltng-grid-col-' + v.columnName + '-' + 'row-' + v.rowIndex}" data-label="{!v.column.name}" scope="row">
                 <div class="slds-truncate" title="{!v.value}">
                     <aura:if isTrue="{!v.editMode}">
                         {!v.editors}

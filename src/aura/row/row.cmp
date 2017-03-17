@@ -34,7 +34,7 @@
     <tr id="{!v.subIndex != null ? 'ltng-grid-row-' + v.indexVar + '-level-' + v.level + '-childRow-' + v.subIndex : 'ltng-grid-row-' + v.indexVar}"
         class="slds-hint-parent"
         aria-expanded="{!v.childrenVisible == true ? 'true' : 'false'}"
-        aria-level="{!v.level}">
+        aria-level="{!$Browser.isPhone ? '' : v.level}">
         <aura:iteration items="{!v.columns}" var="column" indexVar="index">
             <c:cell column="{!column}"
                     dataItem="{!v.rowData}"

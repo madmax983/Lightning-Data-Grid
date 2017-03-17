@@ -88,18 +88,20 @@
 
         var data = [];
 
-        for(var i = 0; i < 99; i++) {
-            var phone = i < 10 ? 10 : 0;
+        for(var i = 0; i < 10000; i++) {
+            var phone = Math.floor(100000000 + Math.random() * 100000000);
+            phone = phone.toString();
+            phone = "(" + phone.slice(0,3) + ") " + phone.slice(0,3) + "-" + phone.slice(0,3);
             var newDataItem = {
                 data: {
                     id: "Id-" + i,
                     name: "Contact Name " + i,
                     title: "Contact Title " + i,
-                    phone: "(650) 812-58" + phone + i,
-                    home_phone: "(650) 932-54" + phone + i,
-                    mobile: "(650) 932-53" + phone + i,
-                    other_phone: "(650) 932-46" + phone + i,
-                    fax: "(650) 932-98" + phone + i,
+                    phone: phone,
+                    home_phone: phone,
+                    mobile: phone,
+                    other_phone: phone,
+                    fax: phone,
                     reports_to: "Contact Reports To " + i,
                     email: "contactemail" + i + "@contact.com",
                     industry: "Contact Industry " + i,
@@ -117,17 +119,17 @@
             data.push(newDataItem);
         }
 
-        for(var j = 0; j < 33; j++) {
+        for(var j = 0; j < 5000; j++) {
             var subDataItem = {
                 data: {
                     id: "Id-Sub-" + j,
                     name: "Sub Contact Name " + j,
                     title: "Sub Contact Title " + j,
-                    phone: "(650) 812-58" + phone + j,
-                    home_phone: "(650) 932-54" + phone + j,
-                    mobile: "(650) 932-53" + phone + j,
-                    other_phone: "(650) 932-46" + phone + j,
-                    fax: "(650) 932-98" + phone + j,
+                    phone: phone,
+                    home_phone: phone,
+                    mobile: phone,
+                    other_phone: phone,
+                    fax: phone,
                     reports_to: " Sub Contact Reports To " + j,
                     email: "subcontactemail" + j + "@contact.com",
                     industry: "Sub Contact Industry " + j,
@@ -150,11 +152,11 @@
                 id: "Id-Sub-Sub-" + j,
                 name: "Sub Sub Contact Name " + j,
                 title: "Sub Sub Contact Title " + j,
-                phone: "(650) 812-58" + phone + j,
-                home_phone: "(650) 812-58" + phone + j,
-                mobile: "(650) 812-58" + phone + j,
-                other_phone: "(650) 812-58" + phone + j,
-                fax: "(650) 812-58" + phone + j,
+                phone: phone,
+                home_phone: phone,
+                mobile: phone,
+                other_phone: phone,
+                fax: phone,
                 reports_to: "Sub Sub Contact Reports To " + j,
                 email: "subsubcontactemail" + j + "@contact.com",
                 industry: "Sub Sub Contact Industry " + j,
