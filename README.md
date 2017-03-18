@@ -23,7 +23,7 @@ The config should look like:
 </pre>
 </code>
 
-columns: Column definition of the data grid. Requires name and label or rendering. Any properties you set here will get populated down to the column.  
+columns: Column definition of the data grid. Requires name and label or rendering. Any properties you set here will get populated down to the cell decorators and cell editors.
 
 rowsDisplayed: How many rows are initially rendered. Control how big the table is!  
 
