@@ -54,8 +54,8 @@ expanded: Again, set by grid, but currently needs to exist in the data set in th
 children: Same situation as above. Would like for these to not have to be included initally, but trying to dynamically add them doesn't appear to work (at least the way I was trying). This holds the rows children as an array for easy iteration when the chevron is clicked.  
 Toolbar is using facets. You can currently set the title, buttons, footer, and body.
 
-Decorators and Editors implement the cellFacet interface. Check out the defaultDecorator and defaultEditor for an example of how this could go. You could either implement it declaratively with aura:if like these do, or programmtically. They get fed the cell value and the associated column data. The general idea is to conditionally render a component based on that information. 
+Decorators and Editors implement the cellFacet interface. Check out the defaultDecorator and defaultEditor for an example of how this could go. You could either implement it declaratively with aura:if like these do, or programmtically. They get fed the cell value and the associated column data. The general idea is to conditionally render a component based on that information. Editors won't do much until inline editing takes fuller shape, but decorators are totally functional right now.
 
 Look at DataGridImpl component for an example of all of this being setup.  
 
-Lots of things to add. Search. Pagination. Filtering. Etc.
+Lots of things to add. Search. Pagination. Filtering. Etc. Currently working on inline editing.
