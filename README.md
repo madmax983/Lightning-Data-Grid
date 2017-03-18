@@ -17,12 +17,17 @@ The config should look like:
           label: "Label string that is displayed for the column header"
       }
   ],
-  rowsDisplayed: *Integer*
+  rowsDisplayed: *Integer*,
+  scrollable: *boolean*
 }
 </pre>
 </code>
 
-The columns portion of the config object is your columns Model, and the rowsDisplayed controls how many rows are displayed at one time. 
+columns: Column definition of the data grid. Requires name and label or rendering. Any properties you set here will get populated down to the column.  
+
+rowsDisplayed: How many rows are initially rendered. Control how big the table is!  
+
+scrollable: Enables virtual scrolling on desktop.
 
 The data object currently takes the following shape:
 <code>
