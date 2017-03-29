@@ -24,8 +24,8 @@
                     type="integer"
                     description="Data Value"
                     default="1"/>
-    <aura:attribute name="cellDecorators" type="Aura.componentdefref[]" access="public"/>
-    <aura:attribute name="cellEditors" type="Aura.componentdefref[]" access="public"/>
+    <aura:attribute name="cellDecorators" type="Aura.ComponentDefRef[]" access="public"/>
+    <aura:attribute name="cellEditors" type="Aura.ComponentDefRef[]" access="public"/>
     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
     <aura:handler name="childToggle"
                   event="c:childToggle"

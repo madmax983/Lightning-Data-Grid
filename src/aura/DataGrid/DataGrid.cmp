@@ -11,8 +11,13 @@
                     access="public"
                     type="List"
                     description="The current data that is visible on the screen" />
-    <aura:attribute name="offSetIndex"
+    <aura:attribute name="tableClassList"
                     access="global"
+                    type="string"
+                    description="The list of classes applied to the table"
+                    default="slds-table slds-table--bordered slds-table--edit slds-no-cell-focus slds-tree slds-table--tree slds-max-medium-table--stacked-horizontal"/>
+    <aura:attribute name="offSetIndex"
+                    access="private"
                     type="integer"
                     description="The index of the current data offset"
                     default="0"/>
@@ -20,8 +25,8 @@
     <aura:attribute name="toolbarButtons" type="Aura.Component[]" access="global"/>
     <aura:attribute name="toolbarBody" type="Aura.Component[]" access="global"/>
     <aura:attribute name="toolbarFooter" type="Aura.Component[]" access="global"/>
-    <aura:attribute name="cellDecorators" type="Aura.componentdefref[]" access="global"/>
-    <aura:attribute name="cellEditors" type="Aura.componentdefref[]" access="global"/>
+    <aura:attribute name="cellDecorators" type="Aura.ComponentDefRef[]" access="global"/>
+    <aura:attribute name="cellEditors" type="Aura.ComponentDefRef[]" access="global"/>
     <aura:handler name="change" value="{!v.data}" action="{!c.dataChange}"/>
     <c:toolbar config="{!v.config}">
         <aura:set attribute="title">
@@ -36,10 +41,17 @@
         {!v.toolbarBody}
     </c:toolbar>
     <div class="slds-scrollable--x">
-        <table aura:id="table" class="slds-table slds-table--bordered slds-tree slds-table--tree slds-max-medium-table--stacked-horizontal" role="treegrid" onmouseenter="{!c.bindMouseWheel}" onmouseleave="{!c.unbindMouseWheel}">
+        <table aura:id="table" class="{!v.tableClassList}" role="treegrid" onmouseenter="{!c.bindMouseWheel}" onmouseleave="{!c.unbindMouseWheel}">
             <c:headers columns="{!v.config.columns}"/>
             <tbody>
             <aura:iteration items="{!v.view}" var="item" indexVar="index">
+                <c:row rowData="{!item}"
+                       columns="{!v.config.columns}"
+                       indexVar="{!index}"
+                       cellDecorators="{!v.cellDecorators}"
+                       cellEditors="{!v.cellEditors}"/>
+            </aura:iteration>
+            <aura:iteration items="{!v.additionalView}" var="item" indexVar="index">
                 <c:row rowData="{!item}"
                        columns="{!v.config.columns}"
                        indexVar="{!index}"

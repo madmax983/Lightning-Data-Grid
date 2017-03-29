@@ -13,6 +13,7 @@
         component.set("v.offSetIndex", displaySize);
 
         component.mouseWheelHandler = function(e) {
+
             if(e.wheelDeltaY < 0) {
                 e.preventDefault();
                 newOffSet = component.get("v.offSetIndex") + 1;
@@ -43,7 +44,7 @@
                 newOffSetData = parents.slice(rangeStart, newOffSet);
                 component.set("v.view", newOffSetData);
                 component.set("v.offSetIndex", newOffSet);
-            }, 500);
+            }, 200);
         }, false);
     },
 

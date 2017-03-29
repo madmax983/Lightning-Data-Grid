@@ -41,5 +41,8 @@
         <aura:set attribute="cellDecorators">
             <c:defaultDecorator />
         </aura:set>
+        <aura:set attribute="cellEditors">
+            <c:defaultEditor />
+        </aura:set>
     </c:DataGrid>
 </aura:component>

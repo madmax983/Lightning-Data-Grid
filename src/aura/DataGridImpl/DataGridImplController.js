@@ -7,77 +7,92 @@
                 {
                     name: "name",
                     label: "Name",
-                    type: "text"
+                    type: "text",
+                    editable: true
                 },
                 {
                     name: "title",
                     label: "Title",
-                    type: "text"
+                    type: "text",
+                    editable: true
                 },
                 {
                     name: "phone",
                     label: "Phone",
-                    type: "phone"
+                    type: "phone",
+                    editable: true
                 },
                 {
                     name: "home_phone",
                     label: "Home Phone",
-                    type: "phone"
+                    type: "phone",
+                    editable: true
                 },
                 {
                     name: "mobile",
                     label: "Mobile",
-                    type: "phone"
+                    type: "phone",
+                    editable: true
                 },
                 {
                     name: "other_phone",
                     label: "Other Phone",
-                    type: "phone"
+                    type: "phone",
+                    editable: true
                 },
                 {
                     name: "fax",
                     label: "Fax",
-                    type: "phone"
+                    type: "phone",
+                    editable: true
                 },
                 {
                     name: "reports_to",
                     label: "Reports To",
-                    type: "text"
+                    type: "text",
+                    editable: true
                 },
                 {
                     name: "email",
                     label: "Email",
-                    type: "email"
+                    type: "email",
+                    editable: true
                 },
                 {
                     name: "industry",
                     label: "Industry",
-                    type: "text"
+                    type: "text",
+                    editable: true
                 },
                 {
                     name: "mailing_address",
                     label: "Mailing Address",
-                    type: "text"
+                    type: "text",
+                    editable: true
                 },
                 {
                     name: "other_address",
                     label: "Other Address",
-                    type: "text"
+                    type: "text",
+                    editable: true
                 },
                 {
                     name: "languages",
                     label: "Languages",
-                    type: "text"
+                    type: "text",
+                    editable: true
                 },
                 {
                     name: "assistant",
                     label: "Assistant",
-                    type: "text"
+                    type: "text",
+                    editable: true
                 },
                 {
                     name: "level",
                     label: "Level",
-                    type: "number"
+                    type: "number",
+                    editable: true
                 }
             ],
 

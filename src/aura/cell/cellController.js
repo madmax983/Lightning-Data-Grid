@@ -30,5 +30,8 @@
             "dataItem": dataItem
         });
         cmpEvt.fire();
+    },
+    editCell: function(component) {
+        component.set("v.editMode", true);
     }
 })
