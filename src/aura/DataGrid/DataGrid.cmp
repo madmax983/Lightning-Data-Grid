@@ -17,7 +17,7 @@
                     description="The list of classes applied to the table"
                     default="slds-table slds-table--bordered slds-table--edit slds-no-cell-focus slds-tree slds-table--tree slds-max-medium-table--stacked-horizontal"/>
     <aura:attribute name="offSetIndex"
-                    access="private"
+                    access="public"
                     type="integer"
                     description="The index of the current data offset"
                     default="0"/>
@@ -40,7 +40,7 @@
         </aura:set>
         {!v.toolbarBody}
     </c:toolbar>
-    <div class="slds-scrollable--x">
+    <div class="slds-table--edit_container slds-scrollable--x">
         <table aura:id="table" class="{!v.tableClassList}" role="treegrid" onmouseenter="{!c.bindMouseWheel}" onmouseleave="{!c.unbindMouseWheel}">
             <c:headers columns="{!v.config.columns}"/>
             <tbody>

@@ -1,6 +1,6 @@
 <aura:component description="defaultEditor" implements="c:cellFacet">
     <aura:if isTrue="{!v.column.type == 'text'}">
-        <ui:inputText value="{!v.value}"/>
+        <ui:inputText value="{!v.value}" updateOn="keyup"/>
     </aura:if>
     <aura:if isTrue="{!v.column.type == 'date'}">
         <ui:inputDate value="{!v.value}"/>
@@ -9,15 +9,15 @@
         <ui:inputDateTime value="{!v.value}"/>
     </aura:if>
     <aura:if isTrue="{!v.column.type == 'phone'}">
-        <ui:inputPhone value="{!v.value}"/>
+        <ui:inputPhone value="{!v.value}" updateOn="keyup"/>
     </aura:if>
     <aura:if isTrue="{!v.column.type == 'email'}">
-        <ui:inputEmail value="{!v.value}"/>
+        <ui:inputEmail value="{!v.value}" updateOn="keyup"/>
     </aura:if>
     <aura:if isTrue="{!v.column.type == 'number'}">
-        <ui:inputNumber value="{!v.value}"/>
+        <ui:inputNumber value="{!v.value}" updateOn="keyup"/>
     </aura:if>
     <aura:if isTrue="{!v.column.type == 'currency'}">
-        <ui:inputCurrency value="{!v.value}"/>
+        <ui:inputCurrency value="{!v.value}" updateOn="keyup"/>
     </aura:if>
 </aura:component>

@@ -23,7 +23,7 @@
                     <lightning:buttonGroup>
                         <lightning:button label="Refresh" />
                         <lightning:button label="Edit" />
-                        <lightning:button label="Save" />
+                        <lightning:button label="Filters" />
                     </lightning:buttonGroup>
                 </aura:set>
             </aura:if>

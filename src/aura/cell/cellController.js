@@ -8,17 +8,7 @@
             component.set("v.hasChildren", dataItem.hasChildren);
         }
 
-        var decorators = component.get("v.decorators");
-        if(decorators.length > 0) {
-            decorators[0].set("v.value", value);
-            decorators[0].set("v.column", component.get("v.column"));
-        }
-
-        var editors = component.get("v.editors");
-        if(editors.length > 0) {
-            editors[0].set("v.value", value);
-            editors[0].set("v.column", component.get("v.column"));
-        }
+        helper.syncFacets(component)
     },
     childrenToggle: function(component) {
         var dataItem = component.get("v.dataItem");
@@ -33,5 +23,16 @@
     },
     editCell: function(component) {
         component.set("v.editMode", true);
+    },
+    handleValueChange: function(component, event, helper) {
+        helper.syncFacets(component)
+    },
+    handleBlur: function(component, event, helper) {
+        helper.handleEdit(component, event);
+    },
+    handleKeyPress: function(component, event, helper) {
+        if(event.keyCode == 13) {
+            helper.handleEdit(component, event)
+        }
     }
 })
