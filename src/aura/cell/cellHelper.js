@@ -3,7 +3,6 @@
         for(var i = 0; i < facets.length; i++) {
             if(facets[i][0]) {
                 if(facets[i][0].isInstanceOf("c:cellFacet")) {
-                    console.log('yayayaya');
                     facets[i][0].set("v.value", value);
                     return;
                 }
@@ -21,8 +20,19 @@
         if(currentValue != newCellValue) {
             component.set("v.value", newCellValue);
 
-            var cell = component.find("cell");
-            $A.util.addClass(cell, "slds-is-edited");
+            var dataItem = component.get("v.dataItem");
+            var columnName = component.get("v.column").name;
+            dataItem.data[columnName] = newCellValue;
+            if(dataItem[columnName]) {
+                dataItem[columnName].isDirty = true;
+            } else {
+                dataItem[columnName] = {};
+                dataItem[columnName].isDirty = true;
+            }
+
+            component.set("v.dataItem", dataItem);
+
+            component.set("v.isDirty", true);
         }
     },
     syncFacets: function(component) {
