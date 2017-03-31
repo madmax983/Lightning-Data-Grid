@@ -1,4 +1,7 @@
 ({
+    editCell: function(component) {
+        component.set("v.editMode", true);
+    },
     provideValueToFacets: function(value, facets) {
         for(var i = 0; i < facets.length; i++) {
             if(facets[i][0]) {
@@ -33,6 +36,7 @@
             component.set("v.dataItem", dataItem);
 
             component.set("v.isDirty", true);
+            event.stopPropagation();
         }
     },
     syncFacets: function(component) {

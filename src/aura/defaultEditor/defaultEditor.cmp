@@ -1,23 +1,23 @@
 <aura:component description="defaultEditor" implements="c:cellFacet">
     <aura:if isTrue="{!v.column.type == 'text'}">
-        <ui:inputText value="{!v.value}" updateOn="keyup"/>
+        <lightning:input type="text" label="{!v.column.name}" name="{!v.column.name}" aura:id="input" value="{!v.value}" />
     </aura:if>
     <aura:if isTrue="{!v.column.type == 'date'}">
-        <ui:inputDate value="{!v.value}"/>
+        <lightning:input type="date" label="{!v.column.name}" name="{!v.column.name}" aura:id="input" value="{!v.value}" />
     </aura:if>
     <aura:if isTrue="{!v.column.type == 'datetime'}">
-        <ui:inputDateTime value="{!v.value}"/>
+        <lightning:input type="datetime-local" label="{!v.column.name}" name="{!v.column.name}" aura:id="input" value="{!v.value}" />
     </aura:if>
     <aura:if isTrue="{!v.column.type == 'phone'}">
-        <ui:inputPhone value="{!v.value}" updateOn="keyup"/>
+        <lightning:input type="tel" label="{!v.column.name}" name="{!v.column.name}" aura:id="input" value="{!v.value}" />
     </aura:if>
     <aura:if isTrue="{!v.column.type == 'email'}">
-        <ui:inputEmail value="{!v.value}" updateOn="keyup"/>
+        <lightning:input type="email" label="{!v.column.name}" name="{!v.column.name}" aura:id="input" value="{!v.value}" />
     </aura:if>
     <aura:if isTrue="{!v.column.type == 'number'}">
-        <ui:inputNumber value="{!v.value}" updateOn="keyup"/>
+        <lightning:input type="number" label="{!v.column.name}" name="{!v.column.name}" aura:id="input" value="{!v.value}" />
     </aura:if>
     <aura:if isTrue="{!v.column.type == 'currency'}">
-        <ui:inputCurrency value="{!v.value}" updateOn="keyup"/>
+        <lightning:input type="number" step="0.01" formatter="currency" label="{!v.column.name}" name="{!v.column.name}" aura:id="input" value="{!v.value}" />
     </aura:if>
 </aura:component>

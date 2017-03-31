@@ -38,6 +38,7 @@
             }
         }
 
+        /*
         document.addEventListener("touchstart", function(e) {
             setTimeout(function() {
                 newOffSet = component.get("v.offSetIndex") + 1;
@@ -46,6 +47,7 @@
                 component.set("v.offSetIndex", newOffSet);
             }, 200);
         }, false);
+        */
     },
 
     bindMouseWheel: function(component) {

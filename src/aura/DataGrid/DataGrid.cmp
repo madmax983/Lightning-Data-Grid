@@ -15,7 +15,7 @@
                     access="global"
                     type="string"
                     description="The list of classes applied to the table"
-                    default="slds-table slds-table--bordered slds-table--edit slds-no-cell-focus slds-tree slds-table--tree slds-max-medium-table--stacked-horizontal"/>
+                    default="slds-table slds-table--bordered slds-no-cell-focus slds-tree slds-table--tree slds-max-medium-table--stacked-horizontal"/>
     <aura:attribute name="offSetIndex"
                     access="public"
                     type="integer"

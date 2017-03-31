@@ -13,7 +13,7 @@
 
         helper.syncFacets(component)
     },
-    childrenToggle: function(component) {
+    childrenToggle: function(component, event) {
         var dataItem = component.get("v.dataItem");
         var childrenVisible = component.get("v.childrenVisible");
         component.set("v.childrenVisible", !childrenVisible);
@@ -24,8 +24,8 @@
         });
         cmpEvt.fire();
     },
-    editCell: function(component) {
-        component.set("v.editMode", true);
+    editCell: function(component, event, helper) {
+        helper.editCell(component);
     },
     handleValueChange: function(component, event, helper) {
         helper.syncFacets(component)
@@ -34,8 +34,13 @@
         helper.handleEdit(component, event);
     },
     handleKeyPress: function(component, event, helper) {
-        if(event.keyCode == 13) {
+
+        //Handle Enter
+        var editMode = component.get("v.editMode");
+        if(event.keyCode == 13 && editMode) {
             helper.handleEdit(component, event)
+        } else if(event.keyCode == 13 && !editMode) {
+            helper.editCell(component);
         }
     }
 })
