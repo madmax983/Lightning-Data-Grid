@@ -1,7 +1,7 @@
 ({
     dataChange: function(component, event, helper) {
-        var data = component.get("v.data");
-        var mChildren = helper.getChildrenMap(data),
+        var data = component.get("v.data"),
+            mChildren = helper.getChildrenMap(data),
             offSetIndex = component.get("v.offSetIndex"),
             parents = helper.getRootNodes(data),
             displaySize = component.get("v.config.rowsDisplayed") ? component.get("v.config.rowsDisplayed") : 10,
@@ -37,17 +37,6 @@
                 }
             }
         }
-
-        /*
-        document.addEventListener("touchstart", function(e) {
-            setTimeout(function() {
-                newOffSet = component.get("v.offSetIndex") + 1;
-                newOffSetData = parents.slice(rangeStart, newOffSet);
-                component.set("v.view", newOffSetData);
-                component.set("v.offSetIndex", newOffSet);
-            }, 200);
-        }, false);
-        */
     },
 
     bindMouseWheel: function(component) {
@@ -65,4 +54,16 @@
             document.removeEventListener("wheel", component.mouseWheelHandler);
         }
     },
+    loadMore: function(component, event, helper) {
+        var data = component.get("v.data");
+        var mChildren = helper.getChildrenMap(data),
+            parents = helper.getRootNodes(data),
+            displaySize = component.get("v.config.rowsDisplayed") ? component.get("v.config.rowsDisplayed") : 10;
+
+        displaySize += 10;
+        component.set("v.config.rowsDisplayed", displaySize);
+        var offSetData = parents.slice(0, displaySize);
+        helper.setHasChildren(offSetData, mChildren);
+        component.set("v.view", offSetData);
+    }
 })

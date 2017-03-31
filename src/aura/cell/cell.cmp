@@ -51,25 +51,25 @@
             data-label="{!v.column.name}"
             onkeypress="{!c.handleKeyPress}"
             tabindex="0">
-            <aura:if isTrue="{!v.childrenVisible}">
-                <lightning:buttonIcon alternativeText="toggle"
-                                      iconName="utility:chevrondown"
-                                      size="{!$Browser.isPhone ? 'large' : 'small'}"
-                                      class="{!v.hasChildren == true ? '' : 'slds-is-disabled'}"
-                                      variant="bare"
-                                      tabindex="0"
-                                      onclick="{!c.childrenToggle}"/>
-                <aura:set attribute="else">
+            <lightning:layout horizontalAlign="end">
+                <aura:if isTrue="{!v.childrenVisible}">
                     <lightning:buttonIcon alternativeText="toggle"
-                                          iconName="utility:chevronright"
+                                          iconName="utility:chevrondown"
                                           size="{!$Browser.isPhone ? 'large' : 'small'}"
                                           class="{!v.hasChildren == true ? '' : 'slds-is-disabled'}"
                                           variant="bare"
                                           tabindex="0"
                                           onclick="{!c.childrenToggle}"/>
-                </aura:set>
-            </aura:if>
-            <span class="slds-grid slds-grid--align-spread">
+                    <aura:set attribute="else">
+                        <lightning:buttonIcon alternativeText="toggle"
+                                              iconName="utility:chevronright"
+                                              size="{!$Browser.isPhone ? 'large' : 'small'}"
+                                              class="{!v.hasChildren == true ? '' : 'slds-is-disabled'}"
+                                              variant="bare"
+                                              tabindex="0"
+                                              onclick="{!c.childrenToggle}"/>
+                    </aura:set>
+                </aura:if>
                 <aura:if isTrue="{!v.editMode}">
                     <div class="slds-popover slds-popover--edit" role="dialog" style="position:absolute;top:0px;left:0.0625rem;">
                         <span aura:id="form-start" id="form-start" tabindex="0"></span>
@@ -97,10 +97,7 @@
                         </span>
                     </aura:set>
                 </aura:if>
-            </span>
-            <div class="slds-truncate" title="{!v.value}">
-
-            </div>
+            </lightning:layout>
         </th>
         <aura:set attribute="else">
             <td aura:id="cell" id="{!'ltng-grid-col-' + v.columnName + '-' + 'row-' + v.rowIndex}"
@@ -109,7 +106,7 @@
                 class="{!v.isDirty ? 'slds-cell-edit slds-is-edited' : 'slds-cell-edit'}"
                 onkeypress="{!c.handleKeyPress}"
                 tabindex="0">
-                <span class="slds-grid slds-grid--align-spread">
+                <lightning:layout horizontalAlign="end" >
                     <aura:if isTrue="{!v.editMode}">
                         <div class="slds-popover slds-popover--edit" role="dialog" style="position:absolute;top:0px;left:0.0625rem;">
                             <span aura:id="form-start" id="form-start" tabindex="0"></span>
@@ -137,7 +134,7 @@
                                 </span>
                         </aura:set>
                     </aura:if>
-                </span>
+                </lightning:layout>
             </td>
         </aura:set>
     </aura:if>
