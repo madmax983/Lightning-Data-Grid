@@ -5,13 +5,15 @@
         var value = dataItem.data[columnName];
         component.set("v.value", value);
 
-        var isDirty = dataItem[columnName] ? dataItem[columnName].isDirty : false;
+        var isDirty = dataItem[columnName]
+            ? dataItem[columnName].isDirty
+            : false;
         component.set("v.isDirty", isDirty);
-        if(dataItem.hasChildren) {
+        if (dataItem.hasChildren) {
             component.set("v.hasChildren", dataItem.hasChildren);
         }
 
-        helper.syncFacets(component)
+        helper.syncFacets(component);
     },
     childrenToggle: function(component, event) {
         var dataItem = component.get("v.dataItem");
@@ -19,8 +21,8 @@
         component.set("v.childrenVisible", !childrenVisible);
         var cmpEvt = component.getEvent("childToggle");
         cmpEvt.setParams({
-            "childrenVisible": component.get("v.childrenVisible"),
-            "dataItem": dataItem
+            childrenVisible: component.get("v.childrenVisible"),
+            dataItem: dataItem
         });
         cmpEvt.fire();
     },
@@ -28,18 +30,17 @@
         helper.editCell(component);
     },
     handleValueChange: function(component, event, helper) {
-        helper.syncFacets(component)
+        helper.syncFacets(component);
     },
     handleBlur: function(component, event, helper) {
         helper.handleEdit(component, event);
     },
     handleKeyPress: function(component, event, helper) {
-
         //Handle Enter
         var editMode = component.get("v.editMode");
-        if(event.keyCode == 13 && editMode) {
-            helper.handleEdit(component, event)
-        } else if(event.keyCode == 13 && !editMode) {
+        if (event.keyCode == 13 && editMode) {
+            helper.handleEdit(component, event);
+        } else if (event.keyCode == 13 && !editMode) {
             helper.editCell(component);
         }
     }

@@ -1,8 +1,7 @@
 /*eslint no-console:0*/
 ({
-    doInit: function(component){
+    doInit: function(component) {
         var config = {
-
             columns: [
                 {
                     name: "name",
@@ -103,10 +102,16 @@
 
         var data = [];
 
-        for(var i = 0; i < 10000 ; i++) {
+        for (var i = 0; i < 10000; i++) {
             var phone = Math.floor(100000000 + Math.random() * 100000000);
             phone = phone.toString();
-            phone = "(" + phone.slice(0,3) + ") " + phone.slice(0,3) + "-" + phone.slice(0,4);
+            phone =
+                "(" +
+                phone.slice(0, 3) +
+                ") " +
+                phone.slice(0, 3) +
+                "-" +
+                phone.slice(0, 4);
             var newDataItem = {
                 data: {
                     id: "Id-" + i,
@@ -130,11 +135,11 @@
                 hasChildren: false,
                 expanded: false,
                 children: null
-            }
+            };
             data.push(newDataItem);
         }
 
-        for(var j = 0; j < 5000; j++) {
+        for (var j = 0; j < 5000; j++) {
             var subDataItem = {
                 data: {
                     id: "Id-Sub-" + j,
@@ -158,7 +163,7 @@
                 hasChildren: false,
                 expanded: false,
                 children: null
-            }
+            };
             data.push(subDataItem);
         }
 
@@ -185,7 +190,7 @@
             hasChildren: false,
             expanded: false,
             children: null
-        }
+        };
 
         data.push(subSubDataItem);
 

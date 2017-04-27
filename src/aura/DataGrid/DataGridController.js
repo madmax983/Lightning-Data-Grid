@@ -4,17 +4,20 @@
             mChildren = helper.getChildrenMap(data),
             offSetIndex = component.get("v.offSetIndex"),
             parents = helper.getRootNodes(data),
-            displaySize = component.get("v.config.rowsDisplayed") ? component.get("v.config.rowsDisplayed") : 10,
+            displaySize = component.get("v.config.rowsDisplayed")
+                ? component.get("v.config.rowsDisplayed")
+                : 10,
             offSetData = parents.slice(offSetIndex, displaySize),
-            newOffSet, rangeStart, newOffSetData;
+            newOffSet,
+            rangeStart,
+            newOffSetData;
 
         helper.setHasChildren(offSetData, mChildren);
         component.set("v.view", offSetData);
         component.set("v.offSetIndex", displaySize);
 
         component.mouseWheelHandler = function(e) {
-
-            if(e.wheelDeltaY < 0) {
+            if (e.wheelDeltaY < 0) {
                 e.preventDefault();
                 newOffSet = component.get("v.offSetIndex") + 1;
                 rangeStart = newOffSet - displaySize;
@@ -22,11 +25,11 @@
                 helper.setHasChildren(newOffSetData, mChildren);
                 component.set("v.view", newOffSetData);
                 component.set("v.offSetIndex", newOffSet);
-            } else if(e.wheelDeltaY > 0) {
+            } else if (e.wheelDeltaY > 0) {
                 e.preventDefault();
                 newOffSet = component.get("v.offSetIndex") - 1;
                 rangeStart = newOffSet - displaySize;
-                if(rangeStart > 0) {
+                if (rangeStart > 0) {
                     newOffSetData = parents.slice(rangeStart, newOffSet);
                     helper.setHasChildren(newOffSetData, mChildren);
                     component.set("v.view", newOffSetData);
@@ -36,21 +39,23 @@
                     component.set("v.offSetIndex", displaySize);
                 }
             }
-        }
+        };
     },
 
     bindMouseWheel: function(component) {
-        var config = component.get("v.config"),
-            scrollable = config.scrollable;
-        if(scrollable) {
-            document.addEventListener("wheel", component.mouseWheelHandler , false);
+        var config = component.get("v.config"), scrollable = config.scrollable;
+        if (scrollable) {
+            document.addEventListener(
+                "wheel",
+                component.mouseWheelHandler,
+                false
+            );
         }
     },
 
     unbindMouseWheel: function(component) {
-        var config = component.get("v.config"),
-            scrollable = config.scrollable;
-        if(scrollable) {
+        var config = component.get("v.config"), scrollable = config.scrollable;
+        if (scrollable) {
             document.removeEventListener("wheel", component.mouseWheelHandler);
         }
     },
@@ -58,7 +63,9 @@
         var data = component.get("v.data");
         var mChildren = helper.getChildrenMap(data),
             parents = helper.getRootNodes(data),
-            displaySize = component.get("v.config.rowsDisplayed") ? component.get("v.config.rowsDisplayed") : 10;
+            displaySize = component.get("v.config.rowsDisplayed")
+                ? component.get("v.config.rowsDisplayed")
+                : 10;
 
         displaySize += 10;
         component.set("v.config.rowsDisplayed", displaySize);
@@ -66,4 +73,4 @@
         helper.setHasChildren(offSetData, mChildren);
         component.set("v.view", offSetData);
     }
-})
+});

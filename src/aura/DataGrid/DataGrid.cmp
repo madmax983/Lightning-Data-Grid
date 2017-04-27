@@ -2,15 +2,15 @@
     <aura:attribute name="config"
                     access="global"
                     type="object"
-                    description="Configuration properties for the data grid" />
+                    description="Configuration properties for the data grid"/>
     <aura:attribute name="data"
                     access="global"
                     type="object"
-                    description="The data that the grid will iterate over" />
+                    description="The data that the grid will iterate over"/>
     <aura:attribute name="view"
                     access="public"
                     type="List"
-                    description="The current data that is visible on the screen" />
+                    description="The current data that is visible on the screen"/>
     <aura:attribute name="tableClassList"
                     access="global"
                     type="string"
@@ -30,18 +30,19 @@
     <aura:handler name="change" value="{!v.data}" action="{!c.dataChange}"/>
     <c:toolbar config="{!v.config}">
         <aura:set attribute="title">
-            {!v.title}
+                {!v.title}
         </aura:set>
         <aura:set attribute="buttons">
-            {!v.toolbarButtons}
+                {!v.toolbarButtons}
         </aura:set>
         <aura:set attribute="footer">
-            {!v.toolbarFooter}
+                {!v.toolbarFooter}
         </aura:set>
-        {!v.toolbarBody}
+            {!v.toolbarBody}
     </c:toolbar>
     <div class="slds-table--edit_container slds-scrollable--x">
-        <table aura:id="table" class="{!v.tableClassList}" role="treegrid" onmouseenter="{!c.bindMouseWheel}" onmouseleave="{!c.unbindMouseWheel}">
+        <table aura:id="table" class="{!v.tableClassList}" role="treegrid" onmouseenter="{!c.bindMouseWheel}"
+               onmouseleave="{!c.unbindMouseWheel}">
             <c:headers columns="{!v.config.columns}"/>
             <tbody>
             <aura:iteration items="{!v.view}" var="item" indexVar="index">
@@ -64,7 +65,7 @@
     <aura:if isTrue="{!$Browser.isPhone}">
         <lightning:button variant="brand" label="Load More" onclick="{!c.loadMore}"/>
         <aura:set attribute="else">
-           <div class="display:none" />
+            <div class="display:none"/>
         </aura:set>
     </aura:if>
 </aura:component>

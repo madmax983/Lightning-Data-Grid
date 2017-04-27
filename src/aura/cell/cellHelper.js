@@ -3,9 +3,9 @@
         component.set("v.editMode", true);
     },
     provideValueToFacets: function(value, facets) {
-        for(var i = 0; i < facets.length; i++) {
-            if(facets[i][0]) {
-                if(facets[i][0].isInstanceOf("c:cellFacet")) {
+        for (var i = 0; i < facets.length; i++) {
+            if (facets[i][0]) {
+                if (facets[i][0].isInstanceOf("c:cellFacet")) {
                     facets[i][0].set("v.value", value);
                     return;
                 }
@@ -20,13 +20,13 @@
         var currentValue = component.get("v.value");
         var newCellValue = editor[0].get("v.value");
 
-        if(currentValue != newCellValue) {
+        if (currentValue != newCellValue) {
             component.set("v.value", newCellValue);
 
             var dataItem = component.get("v.dataItem");
             var columnName = component.get("v.column").name;
             dataItem.data[columnName] = newCellValue;
-            if(dataItem[columnName]) {
+            if (dataItem[columnName]) {
                 dataItem[columnName].isDirty = true;
             } else {
                 dataItem[columnName] = {};
@@ -42,13 +42,13 @@
     syncFacets: function(component) {
         var value = component.get("v.value");
         var decorators = component.get("v.decorators");
-        if(decorators.length > 0) {
+        if (decorators.length > 0) {
             decorators[0].set("v.value", value);
             decorators[0].set("v.column", component.get("v.column"));
         }
 
         var editors = component.get("v.editors");
-        if(editors.length > 0) {
+        if (editors.length > 0) {
             editors[0].set("v.value", value);
             editors[0].set("v.column", component.get("v.column"));
         }

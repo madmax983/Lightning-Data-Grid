@@ -2,31 +2,31 @@
     <aura:attribute name="dataItem"
                     access="global"
                     type="object"
-                    description="Individual data item" />
+                    description="Individual data item"/>
     <aura:attribute name="column"
                     access="public"
                     type="object"
-                    description="Column Data" />
+                    description="Column Data"/>
     <aura:attribute name="indexVar"
                     access="public"
                     type="Integer"
-                    description="Cell Index" />
+                    description="Cell Index"/>
     <aura:attribute name="rowIndex"
                     access="public"
                     type="Integer"
-                    description="Row Index" />
+                    description="Row Index"/>
     <aura:attribute name="rowSubIndex"
                     access="public"
                     type="Integer"
-                    description="Row Index" />
+                    description="Row Index"/>
     <aura:attribute name="hasChildren"
                     access="public"
                     type="Boolean"
-                    description="Data Value" />
+                    description="Data Value"/>
     <aura:attribute name="childrenVisible"
                     access="public"
                     type="Boolean"
-                    description="Are children visible?" />
+                    description="Are children visible?"/>
     <aura:attribute name="editMode"
                     access="public"
                     type="Boolean"
@@ -39,7 +39,7 @@
     <aura:attribute name="value"
                     access="public"
                     type="object"
-                    description="Data Value" />
+                    description="Data Value"/>
     <aura:attribute name="decorators" type="Aura.Component[]" access="public"/>
     <aura:attribute name="editors" type="Aura.Component[]" access="public"/>
     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
@@ -71,29 +71,33 @@
                     </aura:set>
                 </aura:if>
                 <aura:if isTrue="{!v.editMode}">
-                    <div class="slds-popover slds-popover--edit" role="dialog" style="position:absolute;top:0px;left:0.0625rem;">
+                    <div class="slds-popover slds-popover--edit" role="dialog"
+                         style="position:absolute;top:0px;left:0.0625rem;">
                         <span aura:id="form-start" id="form-start" tabindex="0"></span>
                         <div class="slds-popover__body">
-                          <div class="slds-form-element slds-grid">
-                            <label class="slds-form-element__label slds-form-element__label--edit slds-no-flex" for="{!v.column.name + v.rowIndex + v.rowSubIndex}">
-                              <span class="slds-assistive-text">{!v.column.name}</span>
-                            </label>
-                            <div tabindex="-1" aura:id="editorContainer" class="slds-form-element__control slds-grow" onfocusout="{!c.handleBlur}">
-                                    {!v.editors}
+                            <div class="slds-form-element slds-grid">
+                                <label class="slds-form-element__label slds-form-element__label--edit slds-no-flex"
+                                       for="{!v.column.name + v.rowIndex + v.rowSubIndex}">
+                                    <span class="slds-assistive-text">{!v.column.name}</span>
+                                </label>
+                                <div tabindex="-1" aura:id="editorContainer"
+                                     class="slds-form-element__control slds-grow" onfocusout="{!c.handleBlur}">
+                                        {!v.editors}
+                                </div>
                             </div>
-                          </div>
                         </div>
                         <span id="form-end" tabindex="0"></span>
                     </div>
                     <aura:set attribute="else">
-                        <span class="slds-truncate" onkeypress="{!c.handleKeyPress}" ondblclick="{!c.editCell}" title="{!v.value}">
+                        <span class="slds-truncate" onkeypress="{!c.handleKeyPress}" ondblclick="{!c.editCell}"
+                              title="{!v.value}">
                             {!v.decorators}
-                            <lightning:buttonIcon alternativeText="edit"
-                                                  iconName="utility:edit"
-                                                  class="slds-button slds-button--icon slds-cell-edit__button slds-m-left--x-small slds-button__icon slds-button__icon--hint slds-button__icon--edit"
-                                                  variant="bare"
-                                                  tabindex="-1"
-                                                  onclick="{!c.editCell}"/>
+                                <lightning:buttonIcon alternativeText="edit"
+                                                      iconName="utility:edit"
+                                                      class="slds-button slds-button--icon slds-cell-edit__button slds-m-left--x-small slds-button__icon slds-button__icon--hint slds-button__icon--edit"
+                                                      variant="bare"
+                                                      tabindex="-1"
+                                                      onclick="{!c.editCell}"/>
                         </span>
                     </aura:set>
                 </aura:if>
@@ -106,24 +110,28 @@
                 class="{!v.isDirty ? 'slds-cell-edit slds-is-edited' : 'slds-cell-edit'}"
                 onkeypress="{!c.handleKeyPress}"
                 tabindex="0">
-                <lightning:layout horizontalAlign="end" >
+                <lightning:layout horizontalAlign="end">
                     <aura:if isTrue="{!v.editMode}">
-                        <div class="slds-popover slds-popover--edit" role="dialog" style="position:absolute;top:0px;left:0.0625rem;">
+                        <div class="slds-popover slds-popover--edit" role="dialog"
+                             style="position:absolute;top:0px;left:0.0625rem;">
                             <span aura:id="form-start" id="form-start" tabindex="0"></span>
                             <div class="slds-popover__body">
-                              <div class="slds-form-element slds-grid">
-                                <label class="slds-form-element__label slds-form-element__label--edit slds-no-flex" for="{!v.column.name + v.rowIndex + v.rowSubIndex}">
-                                  <span class="slds-assistive-text">{!v.column.name}</span>
-                                </label>
-                                <div tabindex="-1" aura:id="editorContainer" class="slds-form-element__control slds-grow" onfocusout="{!c.handleBlur}">
-                                        {!v.editors}
+                                <div class="slds-form-element slds-grid">
+                                    <label class="slds-form-element__label slds-form-element__label--edit slds-no-flex"
+                                           for="{!v.column.name + v.rowIndex + v.rowSubIndex}">
+                                        <span class="slds-assistive-text">{!v.column.name}</span>
+                                    </label>
+                                    <div tabindex="-1" aura:id="editorContainer"
+                                         class="slds-form-element__control slds-grow" onfocusout="{!c.handleBlur}">
+                                            {!v.editors}
+                                    </div>
                                 </div>
-                              </div>
                             </div>
                             <span id="form-end" tabindex="0"></span>
                         </div>
                         <aura:set attribute="else">
-                                <span class="slds-truncate" onkeypress="{!c.handleKeyPress}" ondblclick="{!c.editCell}" title="{!v.value}">
+                                <span class="slds-truncate" onkeypress="{!c.handleKeyPress}" ondblclick="{!c.editCell}"
+                                      title="{!v.value}">
                                 {!v.decorators}
                                     <lightning:buttonIcon alternativeText="edit"
                                                           iconName="utility:edit"
