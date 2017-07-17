@@ -1,0 +1,23 @@
+<aura:component description="defaultDecorator" implements="c:cellFacet">
+    <aura:if isTrue="{!v.column.type == 'text'}">
+        <ui:outputText value="{!v.value}"/>
+    </aura:if>
+    <aura:if isTrue="{!v.column.type == 'date'}">
+        <ui:outputDate value="{!v.value}"/>
+    </aura:if>
+    <aura:if isTrue="{!v.column.type == 'datetime'}">
+        <ui:outputDateTime value="{!v.value}"/>
+    </aura:if>
+    <aura:if isTrue="{!v.column.type == 'phone'}">
+        <ui:outputPhone value="{!v.value}"/>
+    </aura:if>
+    <aura:if isTrue="{!v.column.type == 'email'}">
+        <ui:outputEmail value="{!v.value}"/>
+    </aura:if>
+    <aura:if isTrue="{!v.column.type == 'number'}">
+        <ui:outputNumber value="{!v.value}"/>
+    </aura:if>
+    <aura:if isTrue="{!v.column.type == 'currency'}">
+        <ui:outputCurrency value="{!v.value}"/>
+    </aura:if>
+</aura:component>
