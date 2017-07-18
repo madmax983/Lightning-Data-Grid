@@ -130,7 +130,7 @@
                     }
                     data.push(newDataItem);
 
-                    for (var j = 0; j < 5; j++) {
+                    for (var j = 0; j < 1; j++) {
                         var subDataItem = {
                             data: {
                                 id: "Id-Sub-" + j + i,
@@ -155,7 +155,7 @@
 
                         data.push(subDataItem);
 
-                        for (var z = 0; z < 3; z++) {
+                        for (var z = 0; z < 1; z++) {
                             var subSubDataItem = {
                                 data: {
                                     id: "Id-Sub-Sub-" + z + j,
@@ -189,6 +189,7 @@
         generateData().then(function(value) {
             component.set("v.config", config);
             component.set("v.data", value);
+            component.find("exampleGrid").init();
         });
     }
 })

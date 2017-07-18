@@ -27,7 +27,7 @@
         } else {
             promiseChunks.push(new Promise($A.getCallback(function(resolve, reject) {
                 var roots = [];
-                _.forEach(chunk, function(item) {
+                _.forEach(data, function(item) {
                     if(item.parent === null) {
                         item.level = 0;
                         roots.push(item);
