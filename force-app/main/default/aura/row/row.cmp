@@ -1,0 +1,47 @@
+<aura:component description="row">
+    <aura:attribute name="name"
+                    access="public"
+                    type="string"
+                    description="Name of the grid" />
+    <aura:attribute name="rowData"
+                    access="public"
+                    type="object"
+                    description="Individual data item" />
+    <aura:attribute name="columns"
+                    access="public"
+                    type="object"
+                    description="Column Data" />
+    <aura:attribute name="childrenVisible"
+                    access="public"
+                    type="Boolean"
+                    description="Data Value" />
+    <aura:attribute name="indexVar"
+                    access="public"
+                    type="Integer"
+                    description="Row Index" />
+    <aura:attribute name="subIndex"
+                    access="public"
+                    type="Integer"
+                    description="Child Row Index" />
+    <aura:attribute name="cellDecorators" type="Aura.ComponentDefRef[]" access="public"/>
+    <aura:attribute name="cellEditors" type="Aura.ComponentDefRef[]" access="public"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:handler name="childToggle"
+                  event="c:childToggle"
+                  action="{!c.handleChildToggle}"
+                  includeFacets="true"/>
+    <tr id="{!v.subIndex != null ? 'ltng-grid-row-' + v.indexVar + '-level-' + v.rowData.level + '-childRow-' + v.subIndex : 'ltng-grid-row-' + v.indexVar}"
+        class="slds-hint-parent"
+        aria-expanded="{!v.childrenVisible == true ? 'true' : 'false'}"
+        aria-level="{!$Browser.isPhone ? '' : v.rowData.level}">
+        <aura:iteration items="{!v.columns}" var="column" indexVar="index">
+            <c:cell column="{#column}"
+                    dataItem="{#v.rowData}"
+                    childrenVisible="{#v.childrenVisible}"
+                    rowIndex="{!v.indexVar}"
+                    indexVar="{#index}"
+                    decorators="{#v.cellDecorators}"
+                    editors="{#v.cellEditors}"/>
+        </aura:iteration>
+    </tr>
+</aura:component>

@@ -1,4 +1,0 @@
-<aura:interface description="cellFacet" access="global">
-    <aura:attribute name="value" type="object"/>
-    <aura:attribute name="column" type="object"/>
-</aura:interface>
