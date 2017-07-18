@@ -26,10 +26,6 @@
     <aura:attribute name="cellDecorators" type="Aura.ComponentDefRef[]" access="public"/>
     <aura:attribute name="cellEditors" type="Aura.ComponentDefRef[]" access="public"/>
     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
-    <aura:handler name="childToggle"
-                  event="c:childToggle"
-                  action="{!c.handleChildToggle}"
-                  includeFacets="true"/>
     <tr id="{!v.subIndex != null ? 'ltng-grid-row-' + v.indexVar + '-level-' + v.rowData.level + '-childRow-' + v.subIndex : 'ltng-grid-row-' + v.indexVar}"
         class="slds-hint-parent"
         aria-expanded="{!v.childrenVisible == true ? 'true' : 'false'}"

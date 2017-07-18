@@ -4,6 +4,7 @@
         var columnName = component.get("v.column").name;
         var value = dataItem.data[columnName];
         component.set("v.value", value);
+        component.set("v.childrenVisible", dataItem.expanded);
 
         var isDirty = dataItem[columnName] ? dataItem[columnName].isDirty : false;
         component.set("v.isDirty", isDirty);
