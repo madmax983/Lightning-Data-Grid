@@ -77,7 +77,6 @@
         }
     },
     handleChildToggle: function(component, event, helper) {
-        debugger;
         var hierarchy = component.get("v.hierarchy");
         var row = event.getSource();
         var rowIndex = row.get("v.rowIndex");
@@ -101,7 +100,8 @@
             component.set("v.view", newOffSetData);
         } else {
             rowData.expanded = false;
-            hierarchy.splice(rowIndex + rangeStart + 1, rowData.children.length)
+            var totalExpandedDepth = helper.findExpandedDepth(0, rowData);
+            hierarchy.splice(rowIndex + rangeStart + 1, totalExpandedDepth);
             component.set("v.hierarchy", hierarchy);
             newOffSetData = hierarchy.slice(rangeStart, offSetIndex);
             if (rangeStart > 0) {

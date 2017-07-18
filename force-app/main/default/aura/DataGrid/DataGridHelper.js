@@ -39,6 +39,16 @@
 
         return promiseChunks;
     },
+    findExpandedDepth: function(totalSize, data) {
+        totalSize += data.children.length;
+        for(var i = 0, len = data.children.length; i < len; i++) {
+            if(data.children[i].expanded) {
+                data.children[i].expanded = false;
+                totalSize = this.findExpandedDepth(totalSize, data.children[i]);
+            }
+        }
+        return totalSize;
+    },
     getChildrenMap: function(data) {
         function process(chunk, index) {
             return new Promise($A.getCallback(function(resolve, reject) {
