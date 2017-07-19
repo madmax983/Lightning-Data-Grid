@@ -58,10 +58,11 @@
     <div class="slds-table--edit_container slds-scrollable--x">
         <table aura:id="table" class="{!v.tableClassList}" role="treegrid" onmouseenter="{!c.bindMouseWheel}"
                onmouseleave="{!c.unbindMouseWheel}">
-            <c:headers columns="{!v.config.columns}"/>
+            <c:headers aura:id="headers" columns="{!v.config.columns}"/>
             <tbody>
             <aura:iteration items="{!v.view}" var="item" indexVar="index">
-                <c:row rowData="{#item}"
+                <c:row aura:id="rows"
+                       rowData="{#item}"
                        columns="{#v.config.columns}"
                        indexVar="{!index}"
                        cellDecorators="{!v.cellDecorators}"
