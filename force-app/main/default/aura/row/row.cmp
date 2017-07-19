@@ -19,19 +19,16 @@
                     access="public"
                     type="Integer"
                     description="Row Index" />
-    <aura:attribute name="subIndex"
-                    access="public"
-                    type="Integer"
-                    description="Child Row Index" />
     <aura:attribute name="cellDecorators" type="Aura.ComponentDefRef[]" access="public"/>
     <aura:attribute name="cellEditors" type="Aura.ComponentDefRef[]" access="public"/>
     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
-    <tr id="{!v.subIndex != null ? 'ltng-grid-row-' + v.indexVar + '-level-' + v.rowData.level + '-childRow-' + v.subIndex : 'ltng-grid-row-' + v.indexVar}"
+    <tr id="{!'ltng-grid-row-' + v.indexVar}"
         class="slds-hint-parent"
         aria-expanded="{!v.childrenVisible == true ? 'true' : 'false'}"
         aria-level="{!$Browser.isPhone ? '' : v.rowData.level}">
         <aura:iteration items="{!v.columns}" var="column" indexVar="index">
-            <c:cell column="{#column}"
+            <c:cell aura:id="cells"
+                    column="{#column}"
                     dataItem="{#v.rowData}"
                     childrenVisible="{#v.childrenVisible}"
                     rowIndex="{!v.indexVar}"

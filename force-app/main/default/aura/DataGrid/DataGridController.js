@@ -126,11 +126,5 @@
         var offSetData = parents.slice(0, displaySize);
         helper.setHasChildren(offSetData, component.mChildren);
         component.set("v.view", offSetData);
-    },
-    handleMessage: function(component, event, helper) {
-        debugger;
-    },
-    handleError: function(component, event, helper) {
-        debugger;
     }
 });
