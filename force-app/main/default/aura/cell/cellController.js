@@ -34,13 +34,18 @@
     handleBlur: function(component, event, helper) {
         helper.handleEdit(component, event);
     },
-    handleKeyPress: function(component, event, helper) {
+    handleEdit: function(component, event, helper) {
 
-        //Handle Enter
         var editMode = component.get("v.editMode");
-        if(event.keyCode == 13 && editMode) {
+        if((event.getType &&
+                event.getType() === "aura:methodCall" ||
+                event.key == "Enter") &&
+                editMode) {
             helper.handleEdit(component, event)
-        } else if(event.keyCode == 13 && !editMode) {
+        } else if((event.getType &&
+                event.getType() === "aura:methodCall" ||
+                event.key == "Enter") &&
+                !editMode) {
             helper.editCell(component);
         }
     }

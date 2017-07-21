@@ -80,6 +80,64 @@ describe("Grid Tests", function() {
                         expect(grid.get("v.hierarchy").length).toBe(101);
                         expect(rows[0].get("v.rowData").expanded).toBe(true);
                         expect(subRow.get("v.rowData").data.name).toBe("Sub Contact Name 0");
+
+
+                        var subCells = subRow.find("cells");
+                        subCells[0].set("v.childrenVisible", !childrenVisible);
+                        cmpEvt = subCells[0].getEvent("childToggle");
+                        cmpEvt.setParams({
+                            "childrenVisible": subCells[0].get("v.childrenVisible"),
+                            "dataItem": dataItem
+                        });
+                        cmpEvt.fire();
+
+                        rows = grid.find("rows");
+                        var subSubRow = rows[9];
+                        expect(grid.get("v.hierarchy").length).toBe(102);
+                        expect(rows[8].get("v.rowData").expanded).toBe(true);
+                        expect(subSubRow.get("v.rowData").parent).toBe("Id-Sub-00");
+
+                        cells[0].set("v.childrenVisible", !childrenVisible);
+                        var cmpEvt = cells[0].getEvent("childToggle");
+                        cmpEvt.setParams({
+                            "childrenVisible": cells[0].get("v.childrenVisible"),
+                            "dataItem": dataItem
+                        });
+                        cmpEvt.fire();
+
+                        expect(grid.get("v.hierarchy").length).toBe(100);
+                        expect(rows[0].get("v.rowData").expanded).toBe(false);
+
+                        done();
+                    });
+                }).catch(function(e) {
+                done.fail(e);
+            });
+        });
+
+        it('test edit cell', function(done) {
+            var renderInto = document.getElementById("renderTestComponents");
+            $T.createComponent("c:DataGridImpl", {}, renderInto)
+                .then(function(component) {
+                    return $T.waitFor(function() {
+                        var grid = component.find("exampleGrid");
+                        return grid.get("v.view").length > 0;
+                    }).then(function(){
+                        var grid = component.find("exampleGrid");
+                        var rows = grid.find("rows");
+                        var cells = rows[0].find("cells");
+                        var dataItem = cells[0].get("v.dataItem");
+                        var childrenVisible = cells[0].get("v.childrenVisible");
+
+                        var cellEle = document.getElementById("ltng-grid-col-name-row-0-clickable");
+                        var dblClickEvent = new MouseEvent('dblclick');
+                        cellEle.dispatchEvent(dblClickEvent);
+                        expect(cells[0].get("v.editMode")).toBe(true);
+                        var editor = cells[0].get("v.editors")[0];
+                        editor.set("v.value", "Peter Venkman");
+                        cells[0].editCell();
+                        expect(cells[0].get("v.editMode")).toBe(false);
+                        expect(grid.get("v.data")[0].data.name).toBe("Peter Venkman");
                         done();
                     });
                 }).catch(function(e) {

@@ -19,10 +19,6 @@
                     access="public"
                     type="Integer"
                     description="Row Index" />
-    <aura:attribute name="rowSubIndex"
-                    access="public"
-                    type="Integer"
-                    description="Row Index" />
     <aura:attribute name="hasChildren"
                     access="public"
                     type="Boolean"
@@ -46,6 +42,7 @@
                     description="Data Value" />
     <aura:attribute name="decorators" type="Aura.Component[]" access="public"/>
     <aura:attribute name="editors" type="Aura.Component[]" access="public"/>
+    <aura:method name="editCell" action="{!c.handleEdit}"/>
     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
     <aura:handler name="change" value="{!v.value}" action="{!c.handleValueChange}"/>
     <aura:registerEvent name="childToggle" type="c:childToggle"/>
@@ -53,7 +50,7 @@
         <th id="{!'ltng-grid-col-' + v.column.name + '-' + 'row-' + v.rowIndex}"
             class="{!v.isDirty ? 'slds-tree__item slds-cell-edit slds-is-edited' : 'slds-tree__item slds-cell-edit'}"
             data-label="{!v.column.name}"
-            onkeypress="{!c.handleKeyPress}"
+            onkeypress="{!c.handleEdit}"
             tabindex="0">
             <lightning:layout horizontalAlign="end">
                 <aura:if isTrue="{!v.childrenVisible}">
@@ -81,7 +78,7 @@
                         <span aura:id="form-start" id="form-start" tabindex="0"></span>
                         <div class="slds-popover__body">
                           <div class="slds-form-element slds-grid">
-                            <label class="slds-form-element__label slds-form-element__label--edit slds-no-flex" for="{!v.column.name + v.rowIndex + v.rowSubIndex}">
+                            <label class="slds-form-element__label slds-form-element__label--edit slds-no-flex" for="{!v.column.name + v.rowIndex}">
                               <span class="slds-assistive-text">{!v.column.name}</span>
                             </label>
                             <div tabindex="-1" aura:id="editorContainer" class="slds-form-element__control slds-grow" onfocusout="{!c.handleBlur}">
@@ -92,7 +89,11 @@
                         <span id="form-end" tabindex="0"></span>
                     </div>
                     <aura:set attribute="else">
-                        <span class="slds-truncate" onkeypress="{!c.handleKeyPress}" ondblclick="{!c.editCell}" title="{!v.value}">
+                        <span id="{!'ltng-grid-col-' + v.column.name + '-' + 'row-' + v.rowIndex + '-clickable'}"
+                              class="slds-truncate"
+                              onkeypress="{!c.handleEdit}"
+                              ondblclick="{!c.editCell}"
+                              title="{!v.value}">
                             {!v.decorators}
                             <lightning:buttonIcon aura:id="editButton"
                                                   alternativeText="edit"
@@ -111,7 +112,7 @@
                 data-label="{!v.column.name}"
                 role="gridcell"
                 class="{!v.isDirty ? 'slds-cell-edit slds-is-edited' : 'slds-cell-edit'}"
-                onkeypress="{!c.handleKeyPress}"
+                onkeypress="{!c.handleEdit}"
                 tabindex="0">
                 <lightning:layout horizontalAlign="end" >
                     <aura:if isTrue="{!v.editMode}">
@@ -119,7 +120,7 @@
                             <span aura:id="form-start" id="form-start" tabindex="0"></span>
                             <div class="slds-popover__body">
                               <div class="slds-form-element slds-grid">
-                                <label class="slds-form-element__label slds-form-element__label--edit slds-no-flex" for="{!v.column.name + v.rowIndex + v.rowSubIndex}">
+                                <label class="slds-form-element__label slds-form-element__label--edit slds-no-flex" for="{!v.column.name + v.rowIndex}">
                                   <span class="slds-assistive-text">{!v.column.name}</span>
                                 </label>
                                 <div tabindex="-1" aura:id="editorContainer" class="slds-form-element__control slds-grow" onfocusout="{!c.handleBlur}">
@@ -130,7 +131,11 @@
                             <span id="form-end" tabindex="0"></span>
                         </div>
                         <aura:set attribute="else">
-                                <span class="slds-truncate" onkeypress="{!c.handleKeyPress}" ondblclick="{!c.editCell}" title="{!v.value}">
+                                <span id="{!'ltng-grid-col-' + v.column.name + '-' + 'row-' + v.rowIndex + '-clickable'}"
+                                      class="slds-truncate"
+                                      onkeypress="{!c.handleEdit}"
+                                      ondblclick="{!c.editCell}"
+                                      title="{!v.value}">
                                 {!v.decorators}
                                     <lightning:buttonIcon aura:id="editButton"
                                                           alternativeText="edit"
