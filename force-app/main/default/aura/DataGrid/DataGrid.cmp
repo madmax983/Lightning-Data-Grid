@@ -42,7 +42,7 @@
     <aura:handler name="childToggle"
                   event="c:childToggle"
                   action="{!c.handleChildToggle}"/>
-    <c:toolbar config="{!v.config}">
+    <c:toolbar aura:id="toolbar" config="{!v.config}">
         <aura:set attribute="title">
                 {!v.title}
         </aura:set>
@@ -55,7 +55,7 @@
             {!v.toolbarBody}
     </c:toolbar>
     <lightning:spinner aura:id="spinner" variant="brand" size="large"/>
-    <div class="slds-table--edit_container slds-scrollable--x">
+    <div id="{!v.name}" class="slds-table--edit_container slds-scrollable--x">
         <table aura:id="table" class="{!v.tableClassList}" role="treegrid" onmouseenter="{!c.bindMouseWheel}"
                onmouseleave="{!c.unbindMouseWheel}">
             <c:headers aura:id="headers" columns="{!v.config.columns}"/>
