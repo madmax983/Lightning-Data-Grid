@@ -18,7 +18,33 @@ describe("Grid Tests", function() {
             });
         });
 
-        it('Offsets the view', function(done) {
+        it('has a toolbar', function(done) {
+            var renderInto = document.getElementById("renderTestComponents");
+            $T.createComponent("c:DataGridImpl", {}, renderInto)
+                .then(function(component) {
+                    var grid = component.find("exampleGrid");
+                    var toolbar = grid.find("toolbar");
+                    expect(toolbar).toBeTruthy();
+                    done();
+                }).catch(function(e) {
+                done.fail(e);
+            });
+        });
+
+        it('has headers', function(done) {
+            var renderInto = document.getElementById("renderTestComponents");
+            $T.createComponent("c:DataGridImpl", {}, renderInto)
+                .then(function(component) {
+                    var grid = component.find("exampleGrid");
+                    var headers = grid.find("headers");
+                    expect(headers).toBeTruthy();
+                    done();
+                }).catch(function(e) {
+                done.fail(e);
+            });
+        });
+
+        it('offsets the view', function(done) {
             var renderInto = document.getElementById("renderTestComponents");
             $T.createComponent("c:DataGridImpl", {}, renderInto)
                 .then(function(component) {
@@ -54,7 +80,7 @@ describe("Grid Tests", function() {
             });
         });
 
-        it('test childToggle', function(done) {
+        it('handles the child toggle', function(done) {
             var renderInto = document.getElementById("renderTestComponents");
             $T.createComponent("c:DataGridImpl", {}, renderInto)
                 .then(function(component) {
@@ -115,7 +141,7 @@ describe("Grid Tests", function() {
             });
         });
 
-        it('test edit cell', function(done) {
+        it('handles a cell edit', function(done) {
             var renderInto = document.getElementById("renderTestComponents");
             $T.createComponent("c:DataGridImpl", {}, renderInto)
                 .then(function(component) {
