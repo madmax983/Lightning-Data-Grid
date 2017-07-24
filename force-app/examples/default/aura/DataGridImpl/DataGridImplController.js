@@ -1,5 +1,6 @@
 ({
     doInit: function(component){
+        var type = component.get("v.type");
         var config = {
 
             columns: [
@@ -99,7 +100,10 @@
             editable: true
         };
 
-        function generateData() {
+        config = type === "tree" ? Object.assign({}, config, {tree: true}) : Object.assign({}, config, {tree: false});
+
+
+        function generateTreeData() {
             return new Promise($A.getCallback(function(resolve, reject) {
                 var data = [];
 
@@ -130,7 +134,7 @@
                     }
                     data.push(newDataItem);
 
-                    for (var j = 0; j < 1; j++) {
+                    for (var j = 0; j < 5; j++) {
                         var subDataItem = {
                             data: {
                                 id: "Id-Sub-" + j + i,
@@ -155,7 +159,7 @@
 
                         data.push(subDataItem);
 
-                        for (var z = 0; z < 1; z++) {
+                        for (var z = 0; z < 5; z++) {
                             var subSubDataItem = {
                                 data: {
                                     id: "Id-Sub-Sub-" + z + j,
@@ -186,10 +190,54 @@
             }));
         }
 
-        generateData().then(function(value) {
-            component.set("v.config", config);
-            component.set("v.data", value);
-            component.find("exampleGrid").init();
-        });
+        function generateGridData() {
+            return new Promise($A.getCallback(function(resolve, reject) {
+                var data = [];
+
+                for(var i = 0; i < 100; i++) {
+                    var phone = Math.floor(100000000 + Math.random() * 100000000);
+                    phone = phone.toString();
+                    phone = "(" + phone.slice(0, 3) + ") " + phone.slice(0, 3) + "-" + phone.slice(0, 4);
+                    var newDataItem = {
+                        data: {
+                            id: "Id-" + i,
+                            name: "Contact Name " + i,
+                            title: "Contact Title " + i,
+                            phone: phone,
+                            home_phone: phone,
+                            mobile: phone,
+                            other_phone: phone,
+                            fax: phone,
+                            reports_to: "Contact Reports To " + i,
+                            email: "contactemail" + i + "@contact.com",
+                            industry: "Contact Industry " + i,
+                            mailing_address: "Contact Mailing Address " + i,
+                            other_address: "Contact Other Address " + i,
+                            languages: "Contact Languages " + i,
+                            assistant: "Contact Assistant " + i,
+                            level: i
+                        }
+                    }
+                    data.push(newDataItem);
+                }
+
+                resolve(data);
+            }));
+        }
+
+        if(type === "tree") {
+            generateTreeData().then(function(value) {
+                component.set("v.config", config);
+                component.set("v.data", value);
+                component.find("exampleGrid").init();
+            });
+        } else {
+            generateGridData().then(function(value) {
+                component.set("v.config", config);
+                component.set("v.data", value);
+                component.find("exampleGrid").init();
+            });
+        }
+
     }
 })
