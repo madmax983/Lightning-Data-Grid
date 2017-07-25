@@ -3,7 +3,7 @@
         var value = component.getReference("v.value");
         var column = component.get("v.column");
         if(value && column)
-        var inputType = "";
+            var inputType = "";
 
         switch(column.type) {
             case "date":

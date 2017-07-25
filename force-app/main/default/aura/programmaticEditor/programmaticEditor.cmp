@@ -1,0 +1,5 @@
+<aura:component description="programmaticEditor" implements="c:cellFacet">
+    <aura:dependency resource="markup://lightning:input" />
+    <aura:handler name="change" value="{!v.column}" action="{!c.columnChange}"/>
+        {!v.body}
+</aura:component>
