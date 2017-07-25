@@ -1,6 +1,6 @@
 ({
     columnChange: function(component) {
-        var value = component.get("v.value");
+        var value = component.getReference("v.value");
         var column = component.get("v.column");
         if(value && column)
         var inputType = "";

@@ -55,6 +55,7 @@
     },
     mouseWheelHandler: function(attribute, component) {
         var scrolling;
+        var scrollingTracker = 0;
         var self = this;
         var offSetIndex = component.get("v.offSetIndex"),
             displaySize = component.get("v.config.rowsDisplayed"),
@@ -67,14 +68,15 @@
             var data = component.get(attribute);
             var table = component.find("table");
             $A.util.addClass(table, "scrolling");
+            scrollingTracker++;
+            var jumpSize = scrollingTracker > 10 ? 2 : 1;
             if (e.wheelDeltaY < 0) {
                 e.preventDefault();
-
-                newOffSet = (component.get("v.offSetIndex") + 1) > data.length ? data.length : component.get("v.offSetIndex") + 1;
+                newOffSet = (component.get("v.offSetIndex") + jumpSize) > data.length ? data.length : component.get("v.offSetIndex") + jumpSize;
                 rangeStart = newOffSet - displaySize;
                 newOffSetData = data.slice(rangeStart, newOffSet);
                 var resetSize = newOffSetData.length - displaySize;
-                newOffSetData.splice(-1, resetSize);
+                newOffSetData.splice(-jumpSize, resetSize);
                 if(tree) {
                     self.setHasChildren(newOffSetData, component.mChildren);
                 }
@@ -84,10 +86,11 @@
                 scrolling = setTimeout($A.getCallback(function() {
                     scrolling = undefined;
                     $A.util.removeClass(table, "scrolling");
+                    scrollingTracker = 0;
                 }, true), 150);
             } else if (e.wheelDeltaY > 0) {
                 e.preventDefault();
-                newOffSet = ((component.get("v.offSetIndex") - 1 - displaySize) <= 0) ? displaySize : component.get("v.offSetIndex") - 1;
+                newOffSet = ((component.get("v.offSetIndex") - jumpSize - displaySize) <= 0) ? displaySize : component.get("v.offSetIndex") - jumpSize;
                 rangeStart = newOffSet - displaySize;
                 newOffSetData = data.slice(rangeStart, newOffSet);
                 if(tree) {
@@ -99,6 +102,7 @@
                 scrolling = setTimeout($A.getCallback(function() {
                     scrolling = undefined;
                     $A.util.removeClass(table, "scrolling");
+                    scrollingTracker = 0;
                 }, true), 150);
             }
         }

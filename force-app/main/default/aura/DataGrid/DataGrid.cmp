@@ -1,5 +1,5 @@
 <aura:component description="DataGrid" access="global">
-    <aura:dependency resource="markup://c:row" />
+    <!--        Attributes         -->
     <aura:attribute name="name"
                     access="global"
                     type="string"
@@ -39,12 +39,20 @@
     <aura:attribute access="private" name="error" type="String" default=""/>
     <aura:attribute access="private" name="lodashLoaded" type="Boolean" default="false"/>
     <aura:attribute access="private" name="initFired" type="Boolean" default="false"/>
+
+    <!--        External Scripts        -->
     <ltng:require scripts="{!$Resource.lodash}"
                     afterScriptsLoaded="{!c.lodashLoaded}"/>
+
+    <!--         Methods        -->
     <aura:method name="init" action="{!c.dataGridInit}"/>
+
+    <!--        Handlers        -->
     <aura:handler name="childToggle"
                   event="c:childToggle"
                   action="{!c.handleChildToggle}"/>
+
+    <!--        Body         -->
     <c:toolbar aura:id="toolbar" config="{!v.config}">
         <aura:set attribute="title">
                 {!v.title}

@@ -1,11 +1,4 @@
 ({
-    lodashLoaded: function(component) {
-        component.set("v.lodashLoaded", true);
-        var initFired = component.get("v.initFired");
-        if(initFired) {
-            component.init();
-        }
-    },
     dataGridInit: function(component, event, helper) {
         var config = component.get("v.config"), scrollable = config.scrollable;
         var lodashLoaded = component.get("v.lodashLoaded");
@@ -20,6 +13,13 @@
             component.set("v.initFired", true)
         }
 
+    },
+    lodashLoaded: function(component) {
+        component.set("v.lodashLoaded", true);
+        var initFired = component.get("v.initFired");
+        if(initFired) {
+            component.init();
+        }
     },
     bindMouseWheel: function(component) {
         var config = component.get("v.config"), scrollable = config.scrollable;

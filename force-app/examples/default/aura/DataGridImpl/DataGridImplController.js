@@ -134,7 +134,7 @@
                     }
                     data.push(newDataItem);
 
-                    for (var j = 0; j < 5; j++) {
+                    for (var j = 0; j < 1; j++) {
                         var subDataItem = {
                             data: {
                                 id: "Id-Sub-" + j + i,
@@ -159,7 +159,7 @@
 
                         data.push(subDataItem);
 
-                        for (var z = 0; z < 5; z++) {
+                        for (var z = 0; z < 1; z++) {
                             var subSubDataItem = {
                                 data: {
                                     id: "Id-Sub-Sub-" + z + j,
