@@ -66,46 +66,48 @@
         return function(e) {
             e.preventDefault();
             if(!ticking) {
-                window.requestAnimationFrame(function() {
-                    clearTimeout(scrolling);
-                    var data = component.get(attribute);
-                    var table = component.find("table");
-                    $A.util.addClass(table, "scrolling");
-                    ticking = false;
-                    if (e.wheelDeltaY < 0) {
-                        newOffSet = (component.get("v.offSetIndex") + 1) > data.length ? data.length : component.get("v.offSetIndex") + 1;
-                        rangeStart = newOffSet - displaySize;
-                        newOffSetData = data.slice(rangeStart, newOffSet);
-                        var resetSize = newOffSetData.length - displaySize;
-                        newOffSetData.splice(-1, resetSize);
-                        if(tree) {
-                            self.setHasChildren(newOffSetData, component.mChildren);
-                        }
-                        component.set("v.view", newOffSetData);
-                        component.set("v.offSetIndex", newOffSet);
+                window.requestAnimationFrame($A.getCallback(function() {
+                    if(component.isValid()) {
+                        clearTimeout(scrolling);
+                        var data = component.get(attribute);
+                        var table = component.find("table");
+                        $A.util.addClass(table, "scrolling");
+                        ticking = false;
+                        if (e.wheelDeltaY < 0) {
+                            newOffSet = (component.get("v.offSetIndex") + 1) > data.length ? data.length : component.get("v.offSetIndex") + 1;
+                            rangeStart = newOffSet - displaySize;
+                            newOffSetData = data.slice(rangeStart, newOffSet);
+                            var resetSize = newOffSetData.length - displaySize;
+                            newOffSetData.splice(-1, resetSize);
+                            if(tree) {
+                                self.setHasChildren(newOffSetData, component.mChildren);
+                            }
+                            component.set("v.view", newOffSetData);
+                            component.set("v.offSetIndex", newOffSet);
 
-                        scrolling = setTimeout($A.getCallback(function() {
-                            scrolling = undefined;
-                            $A.util.removeClass(table, "scrolling");
-                            scrollingTracker = 0;
-                        }, true), 150);
-                    } else if (e.wheelDeltaY > 0) {
-                        newOffSet = ((component.get("v.offSetIndex") - 1 - displaySize) <= 0) ? displaySize : component.get("v.offSetIndex") - 1;
-                        rangeStart = newOffSet - displaySize;
-                        newOffSetData = data.slice(rangeStart, newOffSet);
-                        if(tree) {
-                            self.setHasChildren(newOffSetData, component.mChildren);
-                        }
-                        component.set("v.view", newOffSetData);
-                        component.set("v.offSetIndex", newOffSet);
+                            scrolling = setTimeout($A.getCallback(function() {
+                                scrolling = undefined;
+                                $A.util.removeClass(table, "scrolling");
+                                scrollingTracker = 0;
+                            }, true), 150);
+                        } else if (e.wheelDeltaY > 0) {
+                            newOffSet = ((component.get("v.offSetIndex") - 1 - displaySize) <= 0) ? displaySize : component.get("v.offSetIndex") - 1;
+                            rangeStart = newOffSet - displaySize;
+                            newOffSetData = data.slice(rangeStart, newOffSet);
+                            if(tree) {
+                                self.setHasChildren(newOffSetData, component.mChildren);
+                            }
+                            component.set("v.view", newOffSetData);
+                            component.set("v.offSetIndex", newOffSet);
 
-                        scrolling = setTimeout($A.getCallback(function() {
-                            scrolling = undefined;
-                            $A.util.removeClass(table, "scrolling");
-                            scrollingTracker = 0;
-                        }, true), 150);
+                            scrolling = setTimeout($A.getCallback(function() {
+                                scrolling = undefined;
+                                $A.util.removeClass(table, "scrolling");
+                                scrollingTracker = 0;
+                            }, true), 150);
+                        }
                     }
-                });
+                }));
             }
             ticking = true;
         }

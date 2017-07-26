@@ -106,40 +106,56 @@ describe("Grid Tests", function() {
                         });
                         cmpEvt.fire();
 
-                        rows = grid.find("rows");
-                        var subRow = rows[9];
-                        expect(grid.get("v.hierarchy").length).toBe(101);
-                        expect(rows[0].get("v.rowData").expanded).toBe(true);
-                        expect(subRow.get("v.rowData").data.name).toBe("Sub Contact Name 0");
+                        return $T.waitFor(function() {
+                            var grid = component.find("exampleGrid");
+                            return grid.get("v.hierarchy").length > 100;
+                        }).then(function() {
+                            rows = grid.find("rows");
+                            var subRow = rows[9];
+                            expect(grid.get("v.hierarchy").length).toBe(101);
+                            expect(rows[0].get("v.rowData").expanded).toBe(true);
+                            expect(subRow.get("v.rowData").data.name).toBe("Sub Contact Name 0");
 
 
-                        var subCells = subRow.find("cells");
-                        subCells[0].set("v.childrenVisible", !childrenVisible);
-                        cmpEvt = subCells[0].getEvent("childToggle");
-                        cmpEvt.setParams({
-                            "childrenVisible": subCells[0].get("v.childrenVisible"),
-                            "dataItem": dataItem
+                            var subCells = subRow.find("cells");
+                            subCells[0].set("v.childrenVisible", !childrenVisible);
+                            cmpEvt = subCells[0].getEvent("childToggle");
+                            cmpEvt.setParams({
+                                "childrenVisible": subCells[0].get("v.childrenVisible"),
+                                "dataItem": dataItem
+                            });
+                            cmpEvt.fire();
+
+                            return $T.waitFor(function() {
+                                var grid = component.find("exampleGrid");
+                                return grid.get("v.hierarchy").length > 101;
+                            }).then(function() {
+                                rows = grid.find("rows");
+                                var subSubRow = rows[9];
+                                expect(grid.get("v.hierarchy").length).toBe(102);
+                                expect(rows[8].get("v.rowData").expanded).toBe(true);
+                                expect(subSubRow.get("v.rowData").parent).toBe("Id-Sub-00");
+
+                                cells[0].set("v.childrenVisible", !childrenVisible);
+                                var cmpEvt = cells[0].getEvent("childToggle");
+                                cmpEvt.setParams({
+                                    "childrenVisible": cells[0].get("v.childrenVisible"),
+                                    "dataItem": dataItem
+                                });
+                                cmpEvt.fire();
+
+                                return $T.waitFor(function() {
+                                    var grid = component.find("exampleGrid");
+                                    return grid.get("v.hierarchy").length == 100;
+                                }).then(function() {
+
+                                    expect(grid.get("v.hierarchy").length).toBe(100);
+                                    expect(rows[0].get("v.rowData").expanded).toBe(false);
+
+                                    done();
+                                });
+                            });
                         });
-                        cmpEvt.fire();
-
-                        rows = grid.find("rows");
-                        var subSubRow = rows[9];
-                        expect(grid.get("v.hierarchy").length).toBe(102);
-                        expect(rows[8].get("v.rowData").expanded).toBe(true);
-                        expect(subSubRow.get("v.rowData").parent).toBe("Id-Sub-00");
-
-                        cells[0].set("v.childrenVisible", !childrenVisible);
-                        var cmpEvt = cells[0].getEvent("childToggle");
-                        cmpEvt.setParams({
-                            "childrenVisible": cells[0].get("v.childrenVisible"),
-                            "dataItem": dataItem
-                        });
-                        cmpEvt.fire();
-
-                        expect(grid.get("v.hierarchy").length).toBe(100);
-                        expect(rows[0].get("v.rowData").expanded).toBe(false);
-
-                        done();
                     });
                 }).catch(function(e) {
                 done.fail(e);
