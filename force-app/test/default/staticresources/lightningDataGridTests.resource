@@ -72,7 +72,12 @@ describe("Grid Tests", function() {
                         return grid.get("v.view").length > 0;
                     }).then(function(){
                         var grid = component.find("exampleGrid");
+                        var table = grid.find("table");
+                        var mouseEnter = new MouseEvent("mouseenter");
+                        table.getElement().dispatchEvent(mouseEnter);
                         expect(typeof grid.mouseWheelHandler).toBe("function");
+                        var mouseLeave = new MouseEvent("mouseLeave");
+                        table.getElement().dispatchEvent(mouseLeave);
                         done();
                     });
                 }).catch(function(e) {
@@ -164,6 +169,40 @@ describe("Grid Tests", function() {
                         cells[0].editCell();
                         expect(cells[0].get("v.editMode")).toBe(false);
                         expect(grid.get("v.data")[0].data.name).toBe("Peter Venkman");
+                        done();
+                    });
+                }).catch(function(e) {
+                done.fail(e);
+            });
+        });
+
+        it('handles larger volume', function(done) {
+            var renderInto = document.getElementById("renderTestComponents");
+            $T.createComponent("c:DataGridImpl", {"dataSize": 1000}, renderInto)
+                .then(function(component) {
+                    return $T.waitFor(function() {
+                        var grid = component.find("exampleGrid");
+                        return grid.get("v.view").length > 0;
+                    }).then(function(){
+                        var grid = component.find("exampleGrid");
+                        expect(grid.get("v.view").length).toBe(10);
+                        done();
+                    });
+                }).catch(function(e) {
+                done.fail(e);
+            });
+        });
+
+        it('renders a grid instead of a tree', function(done) {
+            var renderInto = document.getElementById("renderTestComponents");
+            $T.createComponent("c:DataGridImpl", {"type": "grid"}, renderInto)
+                .then(function(component) {
+                    return $T.waitFor(function() {
+                        var grid = component.find("exampleGrid");
+                        return grid.get("v.view").length > 0;
+                    }).then(function(){
+                        var grid = component.find("exampleGrid");
+                        expect(grid.get("v.view").length).toBe(10);
                         done();
                     });
                 }).catch(function(e) {

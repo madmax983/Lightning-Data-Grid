@@ -12,7 +12,6 @@
         } else {
             component.set("v.initFired", true)
         }
-
     },
     lodashLoaded: function(component) {
         component.set("v.lodashLoaded", true);
@@ -38,40 +37,42 @@
         }
     },
     handleChildToggle: function(component, event, helper) {
-        var hierarchy = component.get("v.hierarchy");
-        var row = event.getSource();
-        var rowIndex = row.get("v.rowIndex");
-        var rowData = row.get("v.dataItem");
-        var displaySize = component.get("v.config.rowsDisplayed")
-            ? component.get("v.config.rowsDisplayed")
-            : 20;
-        var newOffSetData;
-        var offSetIndex = component.get("v.offSetIndex");
-        var rangeStart = offSetIndex - displaySize;
+        window.requestAnimationFrame(function() {
+            var hierarchy = component.get("v.hierarchy");
+            var row = event.getSource();
+            var rowIndex = row.get("v.rowIndex");
+            var rowData = row.get("v.dataItem");
+            var displaySize = component.get("v.config.rowsDisplayed")
+                ? component.get("v.config.rowsDisplayed")
+                : 20;
+            var newOffSetData;
+            var offSetIndex = component.get("v.offSetIndex");
+            var rangeStart = offSetIndex - displaySize;
 
-        if(!rowData.expanded) {
-            rowData.expanded = true;
-            for(var i = 0, len = rowData.children.length; i < len; i++) {
-                var idx = rowIndex + i + rangeStart + 1;
-                hierarchy.splice(idx, 0, rowData.children[i]);
-            }
-            component.set("v.hierarchy", hierarchy);
-            var newOffSetData = hierarchy.slice(rangeStart, offSetIndex);
-            helper.setHasChildren(newOffSetData, component.mChildren);
-            component.set("v.view", newOffSetData);
-        } else {
-            rowData.expanded = false;
-            var totalExpandedDepth = helper.findExpandedDepth(0, rowData);
-            hierarchy.splice(rowIndex + rangeStart + 1, totalExpandedDepth);
-            component.set("v.hierarchy", hierarchy);
-            newOffSetData = hierarchy.slice(rangeStart, offSetIndex);
-            if (rangeStart > 0) {
+            if(!rowData.expanded) {
+                rowData.expanded = true;
+                for(var i = 0, len = rowData.children.length; i < len; i++) {
+                    var idx = rowIndex + i + rangeStart + 1;
+                    hierarchy.splice(idx, 0, rowData.children[i]);
+                }
+                component.set("v.hierarchy", hierarchy);
+                var newOffSetData = hierarchy.slice(rangeStart, offSetIndex);
                 helper.setHasChildren(newOffSetData, component.mChildren);
                 component.set("v.view", newOffSetData);
             } else {
-                component.set("v.view", newOffSetData);
+                rowData.expanded = false;
+                var totalExpandedDepth = helper.findExpandedDepth(0, rowData);
+                hierarchy.splice(rowIndex + rangeStart + 1, totalExpandedDepth);
+                component.set("v.hierarchy", hierarchy);
+                newOffSetData = hierarchy.slice(rangeStart, offSetIndex);
+                if (rangeStart > 0) {
+                    helper.setHasChildren(newOffSetData, component.mChildren);
+                    component.set("v.view", newOffSetData);
+                } else {
+                    component.set("v.view", newOffSetData);
+                }
             }
-        }
+        });
     },
 
     loadMore: function(component, event, helper) {
