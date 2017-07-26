@@ -1,63 +1,24 @@
 ({
     dataGridInit: function(component, event, helper) {
-        if(_){
-            var data = component.get("v.data"),
-                offSetIndex = component.get("v.offSetIndex"),
-                displaySize = component.get("v.config.rowsDisplayed")
-                    ? component.get("v.config.rowsDisplayed")
-                    : 20,
-                newOffSet,
-                rangeStart,
-                newOffSetData;
+        var config = component.get("v.config"), scrollable = config.scrollable;
+        var lodashLoaded = component.get("v.lodashLoaded");
 
-            if(data) {
-                var promises = helper.getRootNodes(data);
-
-                Promise.all(promises).then(function(response) {
-                    var parents = [].concat.apply([], response);
-                    var childrenPromises = helper.getChildrenMap(data);
-                    Promise.all(childrenPromises).then(function(values) {
-                        component.mChildren = new Map();
-                        _.forEach(values, function(value) {
-                            var valueArray = value.entries();
-                            var mChildren = component.mChildren.entries();
-                            component.mChildren = new Map([...component.mChildren, ...value]);
-                        });
-
-                        var offSetData = parents.slice(offSetIndex, displaySize);
-                        helper.setHasChildren(offSetData, component.mChildren);
-
-                        helper.toggleSpinner(component);
-                        component.set("v.hierarchy", parents);
-                        component.set("v.view", offSetData);
-                        component.set("v.offSetIndex", displaySize);
-
-                        component.mouseWheelHandler = function(e) {
-                            parents = component.get("v.hierarchy");
-                            if (e.wheelDeltaY < 0) {
-                                e.preventDefault();
-
-                                newOffSet = (component.get("v.offSetIndex") + 1) > parents.length ? parents.length : component.get("v.offSetIndex") + 1;
-                                rangeStart = newOffSet - displaySize;
-                                newOffSetData = parents.slice(rangeStart, newOffSet);
-                                var resetSize = newOffSetData.length - displaySize;
-                                newOffSetData.splice(-1, resetSize);
-                                helper.setHasChildren(newOffSetData, component.mChildren);
-                                component.set("v.view", newOffSetData);
-                                component.set("v.offSetIndex", newOffSet);
-                            } else if (e.wheelDeltaY > 0) {
-                                e.preventDefault();
-                                newOffSet = ((component.get("v.offSetIndex") - 1 - displaySize) <= 0) ? displaySize : component.get("v.offSetIndex") - 1;
-                                rangeStart = newOffSet - displaySize;
-                                newOffSetData = parents.slice(rangeStart, newOffSet);
-                                helper.setHasChildren(newOffSetData, component.mChildren);
-                                component.set("v.view", newOffSetData);
-                                component.set("v.offSetIndex", newOffSet);
-                            }
-                        };
-                    });
-                });
+        if(lodashLoaded) {
+            if(config.tree === true) {
+                helper.treeInit(component);
+            } else {
+                helper.gridInit(component);
             }
+        } else {
+            component.set("v.initFired", true)
+        }
+
+    },
+    lodashLoaded: function(component) {
+        component.set("v.lodashLoaded", true);
+        var initFired = component.get("v.initFired");
+        if(initFired) {
+            component.init();
         }
     },
     bindMouseWheel: function(component) {

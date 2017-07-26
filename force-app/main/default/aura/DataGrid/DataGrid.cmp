@@ -1,4 +1,5 @@
-<aura:component description="DataGrid">
+<aura:component description="DataGrid" access="global">
+    <!--        Attributes         -->
     <aura:attribute name="name"
                     access="global"
                     type="string"
@@ -23,7 +24,7 @@
                     access="global"
                     type="string"
                     description="The list of classes applied to the table"
-                    default="slds-table slds-table--bordered slds-no-cell-focus slds-tree slds-table--tree slds-max-medium-table--stacked-horizontal"/>
+                    default="slds-table slds-table--bordered slds-no-cell-focus slds-tree slds-table--tree slds-max-medium-table--stacked-horizontal data-grid"/>
     <aura:attribute name="offSetIndex"
                     access="public"
                     type="integer"
@@ -36,12 +37,22 @@
     <aura:attribute name="cellDecorators" type="Aura.ComponentDefRef[]" access="global"/>
     <aura:attribute name="cellEditors" type="Aura.ComponentDefRef[]" access="global"/>
     <aura:attribute access="private" name="error" type="String" default=""/>
+    <aura:attribute access="private" name="lodashLoaded" type="Boolean" default="false"/>
+    <aura:attribute access="private" name="initFired" type="Boolean" default="false"/>
+
+    <!--        External Scripts        -->
     <ltng:require scripts="{!$Resource.lodash}"
-                    afterScriptsLoaded="{!c.dataGridInit}"/>
+                    afterScriptsLoaded="{!c.lodashLoaded}"/>
+
+    <!--         Methods        -->
     <aura:method name="init" action="{!c.dataGridInit}"/>
+
+    <!--        Handlers        -->
     <aura:handler name="childToggle"
                   event="c:childToggle"
                   action="{!c.handleChildToggle}"/>
+
+    <!--        Body         -->
     <c:toolbar aura:id="toolbar" config="{!v.config}">
         <aura:set attribute="title">
                 {!v.title}
@@ -55,12 +66,12 @@
             {!v.toolbarBody}
     </c:toolbar>
     <lightning:spinner aura:id="spinner" variant="brand" size="large"/>
-    <div id="{!v.name}" class="slds-table--edit_container slds-scrollable--x">
+    <div aura:id="tableDiv" id="{!v.name}" class="slds-table--edit_container slds-scrollable">
         <table aura:id="table" class="{!v.tableClassList}" role="treegrid" onmouseenter="{!c.bindMouseWheel}"
                onmouseleave="{!c.unbindMouseWheel}">
             <c:headers aura:id="headers" columns="{!v.config.columns}"/>
-            <tbody>
-            <aura:iteration items="{!v.view}" var="item" indexVar="index">
+            <tbody aura:id="tbody">
+            <aura:iteration aura:id="rowIteration" items="{!v.view}" var="item" indexVar="index">
                 <c:row aura:id="rows"
                        rowData="{#item}"
                        columns="{#v.config.columns}"

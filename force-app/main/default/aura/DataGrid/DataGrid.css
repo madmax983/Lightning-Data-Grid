@@ -1,0 +1,7 @@
+.THIS .data-grid{
+    will-change: transform;
+}
+
+.THIS .scrolling{
+    pointer-events: none !important;
+}

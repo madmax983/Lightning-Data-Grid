@@ -1,6 +1,9 @@
 <aura:component description="DataGridImpl" implements="force:appHostable,flexipage:availableForAllPageTypes" access="global">
     <ltng:require scripts="{!$Resource.exampleData2}"
                   afterScriptsLoaded="{!c.doInit}"/>
+    <aura:attribute name="type"
+                    type="string"
+                    default="tree"/>
     <aura:attribute name="config"
                     access="global"
                     type="object"

@@ -1,40 +1,156 @@
 ({
     chunks: {},
+    treeInit: function(component) {
+        var config = component.get("v.config"), scrollable = config.scrollable;
+        var data = component.get("v.data"),
+            offSetIndex = component.get("v.offSetIndex"),
+            displaySize = component.get("v.config.rowsDisplayed")
+                ? component.get("v.config.rowsDisplayed")
+                : 20,
+            self = this;
+
+        var promises = self.getRootNodes(data);
+
+        Promise.all(promises).then(function(response) {
+            var parents = [].concat.apply([], response);
+            var childrenPromises = self.getChildrenMap(data);
+            Promise.all(childrenPromises).then(function(values) {
+                component.mChildren = new Map();
+                _.forEach(values, function(value) {
+                    var valueArray = value.entries();
+                    var mChildren = component.mChildren.entries();
+                    component.mChildren = new Map([...component.mChildren, ...value]);
+                });
+
+                var offSetData = parents.slice(offSetIndex, displaySize);
+                self.setHasChildren(offSetData, component.mChildren);
+
+                self.toggleSpinner(component);
+                component.set("v.hierarchy", parents);
+                component.set("v.view", offSetData);
+                component.set("v.offSetIndex", displaySize);
+
+                if(scrollable) {
+                    component.mouseWheelHandler = self.mouseWheelHandler("v.hierarchy", component);
+                }
+            });
+        });
+    },
+    gridInit: function(component) {
+        var config = component.get("v.config"), scrollable = config.scrollable;
+        var data = component.get("v.data"),
+            offSetIndex = component.get("v.offSetIndex"),
+            displaySize = component.get("v.config.rowsDisplayed")
+                ? component.get("v.config.rowsDisplayed")
+                : 20;
+
+        this.toggleSpinner(component);
+        var offSetData = data.slice(offSetIndex, displaySize);
+        component.set("v.view", offSetData);
+        component.set("v.offSetIndex", displaySize);
+
+        if(scrollable) {
+            component.mouseWheelHandler = this.mouseWheelHandler("v.data", component);
+        }
+    },
+    mouseWheelHandler: function(attribute, component) {
+        var scrolling;
+        var scrollingTracker = 0;
+        var self = this;
+        var offSetIndex = component.get("v.offSetIndex"),
+            displaySize = component.get("v.config.rowsDisplayed"),
+            tree = component.get("v.config.tree"),
+            newOffSet,
+            rangeStart,
+            newOffSetData;
+        return function(e) {
+            clearTimeout(scrolling);
+            var data = component.get(attribute);
+            var table = component.find("table");
+            $A.util.addClass(table, "scrolling");
+            scrollingTracker++;
+            var jumpSize = scrollingTracker > 10 ? 2 : 1;
+            if (e.wheelDeltaY < 0) {
+                e.preventDefault();
+                newOffSet = (component.get("v.offSetIndex") + jumpSize) > data.length ? data.length : component.get("v.offSetIndex") + jumpSize;
+                rangeStart = newOffSet - displaySize;
+                newOffSetData = data.slice(rangeStart, newOffSet);
+                var resetSize = newOffSetData.length - displaySize;
+                newOffSetData.splice(-jumpSize, resetSize);
+                if(tree) {
+                    self.setHasChildren(newOffSetData, component.mChildren);
+                }
+                component.set("v.view", newOffSetData);
+                component.set("v.offSetIndex", newOffSet);
+
+                scrolling = setTimeout($A.getCallback(function() {
+                    scrolling = undefined;
+                    $A.util.removeClass(table, "scrolling");
+                    scrollingTracker = 0;
+                }, true), 150);
+            } else if (e.wheelDeltaY > 0) {
+                e.preventDefault();
+                newOffSet = ((component.get("v.offSetIndex") - jumpSize - displaySize) <= 0) ? displaySize : component.get("v.offSetIndex") - jumpSize;
+                rangeStart = newOffSet - displaySize;
+                newOffSetData = data.slice(rangeStart, newOffSet);
+                if(tree) {
+                    self.setHasChildren(newOffSetData, component.mChildren);
+                }
+                component.set("v.view", newOffSetData);
+                component.set("v.offSetIndex", newOffSet);
+
+                scrolling = setTimeout($A.getCallback(function() {
+                    scrolling = undefined;
+                    $A.util.removeClass(table, "scrolling");
+                    scrollingTracker = 0;
+                }, true), 150);
+            }
+        }
+    },
     getRootNodes: function(data) {
         function process(chunk, index) {
             return new Promise($A.getCallback(function(resolve, reject) {
-                if(_.isUndefined(chunk)) {
-                    reject();
-                }
-                var roots = [];
-                _.forEach(chunk, function(item) {
-                    if(item.parent === null) {
-                        item.level = 0;
-                        roots.push(item);
+                try {
+                    if(_.isUndefined(chunk)) {
+                        reject();
                     }
-                });
-                resolve(roots);
+                    var roots = [];
+                    _.forEach(chunk, function(item) {
+                        if(item.parent === null) {
+                            item.level = 0;
+                            roots.push(item);
+                        }
+                    });
+                    resolve(roots);
+                } catch(e) {
+                    reject(e);
+                }
+
             }));
         }
 
         var promiseChunks = [];
 
-        if(data.length > 1000) {
-            this.chunks = _.chunk(data, data.length/10);
-            _.forEach(this.chunks, function(chunk, index) {
-                promiseChunks.push(process(chunk, index));
-            });
-        } else {
-            promiseChunks.push(new Promise($A.getCallback(function(resolve, reject) {
-                var roots = [];
-                _.forEach(data, function(item) {
-                    if(item.parent === null) {
-                        item.level = 0;
-                        roots.push(item);
-                    }
+        try {
+            if(data.length > 1000) {
+                this.chunks = _.chunk(data, data.length/10);
+                _.forEach(this.chunks, function(chunk, index) {
+                    promiseChunks.push(process(chunk, index));
                 });
-                resolve(roots);
-            })));
+            } else {
+                promiseChunks.push(new Promise($A.getCallback(function(resolve, reject) {
+                    var roots = [];
+                    _.forEach(data, function(item) {
+                        if(item.parent === null) {
+                            item.level = 0;
+                            roots.push(item);
+                        }
+                    });
+                    resolve(roots);
+                })));
+            }
+        } catch(e) {
+            $A.reportError(e);
         }
 
         return promiseChunks;
@@ -52,46 +168,53 @@
     getChildrenMap: function(data) {
         function process(chunk, index) {
             return new Promise($A.getCallback(function(resolve, reject) {
-                if(_.isUndefined(chunk)) {
-                    reject();
-                }
-                var mChildren= new Map();
-                _.forEach(chunk, function(item) {
-                    if(item.parent != null) {
-                        var childArray = mChildren.get(item.parent);
-                        if(!childArray){
-                            childArray = [];
-                        }
-                        childArray.push(item);
-                        mChildren.set(item.parent, childArray);
+                try {
+                    if(_.isUndefined(chunk)) {
+                        reject();
                     }
-                });
-                console.log('doing expensive map work' + index);
-                resolve(mChildren);
+                    var mChildren= new Map();
+                    _.forEach(chunk, function(item) {
+                        if(item.parent != null) {
+                            var childArray = mChildren.get(item.parent);
+                            if(!childArray){
+                                childArray = [];
+                            }
+                            childArray.push(item);
+                            mChildren.set(item.parent, childArray);
+                        }
+                    });
+                    resolve(mChildren);
+                } catch(e) {
+                    reject(e);
+                }
             }));
         }
 
         var promiseChunks = [];
 
-        if(data.length > 1000) {
-            _.forEach(this.chunks, function(chunk, index) {
-                promiseChunks.push(process(chunk, index));
-            });
-        } else {
-            promiseChunks.push(new Promise($A.getCallback(function(resolve, reject) {
-                var mChildren= new Map();
-                _.forEach(data, function(item) {
-                    if(item.parent != null) {
-                        var childArray = mChildren.get(item.parent);
-                        if(!childArray){
-                            childArray = [];
-                        }
-                        childArray.push(item);
-                        mChildren.set(item.parent, childArray);
-                    }
+        try {
+            if(data.length > 1000) {
+                _.forEach(this.chunks, function(chunk, index) {
+                    promiseChunks.push(process(chunk, index));
                 });
-                resolve(mChildren);
-            })));
+            } else {
+                promiseChunks.push(new Promise($A.getCallback(function(resolve, reject) {
+                    var mChildren= new Map();
+                    _.forEach(data, function(item) {
+                        if(item.parent != null) {
+                            var childArray = mChildren.get(item.parent);
+                            if(!childArray){
+                                childArray = [];
+                            }
+                            childArray.push(item);
+                            mChildren.set(item.parent, childArray);
+                        }
+                    });
+                    resolve(mChildren);
+                })));
+            }
+        } catch(e) {
+            $A.reportError(e);
         }
         return promiseChunks;
     },
