@@ -1,6 +1,7 @@
 ({
     doInit: function(component){
         var type = component.get("v.type");
+        var dataSize = component.get("v.dataSize");
         var config = {
 
             columns: [
@@ -107,7 +108,7 @@
             return new Promise($A.getCallback(function(resolve, reject) {
                 var data = [];
 
-                for(var i = 0; i < 100; i++) {
+                for(var i = 0; i < dataSize; i++) {
                     var phone = Math.floor(100000000 + Math.random() * 100000000);
                     phone = phone.toString();
                     phone = "(" + phone.slice(0, 3) + ") " + phone.slice(0, 3) + "-" + phone.slice(0, 4);
@@ -194,7 +195,7 @@
             return new Promise($A.getCallback(function(resolve, reject) {
                 var data = [];
 
-                for(var i = 0; i < 100; i++) {
+                for(var i = 0; i < dataSize; i++) {
                     var phone = Math.floor(100000000 + Math.random() * 100000000);
                     phone = phone.toString();
                     phone = "(" + phone.slice(0, 3) + ") " + phone.slice(0, 3) + "-" + phone.slice(0, 4);

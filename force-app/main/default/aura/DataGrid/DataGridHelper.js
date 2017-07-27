@@ -29,12 +29,11 @@
                 component.set("v.hierarchy", parents);
                 component.set("v.view", offSetData);
                 component.set("v.offSetIndex", displaySize);
-
-                if(scrollable) {
-                    component.mouseWheelHandler = self.mouseWheelHandler("v.hierarchy", component);
-                }
             });
         });
+        if(scrollable) {
+            component.mouseWheelHandler = self.mouseWheelHandler("v.hierarchy", component);
+        }
     },
     gridInit: function(component) {
         var config = component.get("v.config"), scrollable = config.scrollable;
@@ -55,6 +54,7 @@
     },
     mouseWheelHandler: function(attribute, component) {
         var scrolling;
+        var ticking = false;
         var scrollingTracker = 0;
         var self = this;
         var offSetIndex = component.get("v.offSetIndex"),
@@ -64,47 +64,52 @@
             rangeStart,
             newOffSetData;
         return function(e) {
-            clearTimeout(scrolling);
-            var data = component.get(attribute);
-            var table = component.find("table");
-            $A.util.addClass(table, "scrolling");
-            scrollingTracker++;
-            var jumpSize = scrollingTracker > 10 ? 2 : 1;
-            if (e.wheelDeltaY < 0) {
-                e.preventDefault();
-                newOffSet = (component.get("v.offSetIndex") + jumpSize) > data.length ? data.length : component.get("v.offSetIndex") + jumpSize;
-                rangeStart = newOffSet - displaySize;
-                newOffSetData = data.slice(rangeStart, newOffSet);
-                var resetSize = newOffSetData.length - displaySize;
-                newOffSetData.splice(-jumpSize, resetSize);
-                if(tree) {
-                    self.setHasChildren(newOffSetData, component.mChildren);
-                }
-                component.set("v.view", newOffSetData);
-                component.set("v.offSetIndex", newOffSet);
+            e.preventDefault();
+            if(!ticking) {
+                window.requestAnimationFrame($A.getCallback(function() {
+                    if(component.isValid()) {
+                        clearTimeout(scrolling);
+                        var data = component.get(attribute);
+                        var table = component.find("table");
+                        $A.util.addClass(table, "scrolling");
+                        ticking = false;
+                        if (e.wheelDeltaY < 0) {
+                            newOffSet = (component.get("v.offSetIndex") + 1) > data.length ? data.length : component.get("v.offSetIndex") + 1;
+                            rangeStart = newOffSet - displaySize;
+                            newOffSetData = data.slice(rangeStart, newOffSet);
+                            var resetSize = newOffSetData.length - displaySize;
+                            newOffSetData.splice(-1, resetSize);
+                            if(tree) {
+                                self.setHasChildren(newOffSetData, component.mChildren);
+                            }
+                            component.set("v.view", newOffSetData);
+                            component.set("v.offSetIndex", newOffSet);
 
-                scrolling = setTimeout($A.getCallback(function() {
-                    scrolling = undefined;
-                    $A.util.removeClass(table, "scrolling");
-                    scrollingTracker = 0;
-                }, true), 150);
-            } else if (e.wheelDeltaY > 0) {
-                e.preventDefault();
-                newOffSet = ((component.get("v.offSetIndex") - jumpSize - displaySize) <= 0) ? displaySize : component.get("v.offSetIndex") - jumpSize;
-                rangeStart = newOffSet - displaySize;
-                newOffSetData = data.slice(rangeStart, newOffSet);
-                if(tree) {
-                    self.setHasChildren(newOffSetData, component.mChildren);
-                }
-                component.set("v.view", newOffSetData);
-                component.set("v.offSetIndex", newOffSet);
+                            scrolling = setTimeout($A.getCallback(function() {
+                                scrolling = undefined;
+                                $A.util.removeClass(table, "scrolling");
+                                scrollingTracker = 0;
+                            }, true), 150);
+                        } else if (e.wheelDeltaY > 0) {
+                            newOffSet = ((component.get("v.offSetIndex") - 1 - displaySize) <= 0) ? displaySize : component.get("v.offSetIndex") - 1;
+                            rangeStart = newOffSet - displaySize;
+                            newOffSetData = data.slice(rangeStart, newOffSet);
+                            if(tree) {
+                                self.setHasChildren(newOffSetData, component.mChildren);
+                            }
+                            component.set("v.view", newOffSetData);
+                            component.set("v.offSetIndex", newOffSet);
 
-                scrolling = setTimeout($A.getCallback(function() {
-                    scrolling = undefined;
-                    $A.util.removeClass(table, "scrolling");
-                    scrollingTracker = 0;
-                }, true), 150);
+                            scrolling = setTimeout($A.getCallback(function() {
+                                scrolling = undefined;
+                                $A.util.removeClass(table, "scrolling");
+                                scrollingTracker = 0;
+                            }, true), 150);
+                        }
+                    }
+                }));
             }
+            ticking = true;
         }
     },
     getRootNodes: function(data) {

@@ -4,6 +4,9 @@
     <aura:attribute name="type"
                     type="string"
                     default="tree"/>
+    <aura:attribute name="dataSize"
+                    type="Integer"
+                    default="100"/>
     <aura:attribute name="config"
                     access="global"
                     type="object"
