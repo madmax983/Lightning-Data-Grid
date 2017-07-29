@@ -82,10 +82,4 @@
             </tbody>
         </table>
     </div>
-    <aura:if isTrue="{!$Browser.isPhone}">
-        <lightning:button variant="brand" label="Load More" onclick="{!c.loadMore}"/>
-        <aura:set attribute="else">
-            <div class="display:none"/>
-        </aura:set>
-    </aura:if>
 </aura:component>

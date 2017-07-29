@@ -63,7 +63,7 @@ describe("Grid Tests", function() {
             });
         });
 
-        it('binds the mouse wheel handler', function(done) {
+        it('handles mouse wheel events', function(done) {
             var renderInto = document.getElementById("renderTestComponents");
             $T.createComponent("c:DataGridImpl", {}, renderInto)
                 .then(function(component) {
@@ -76,9 +76,30 @@ describe("Grid Tests", function() {
                         var mouseEnter = new MouseEvent("mouseenter");
                         table.getElement().dispatchEvent(mouseEnter);
                         expect(typeof grid.mouseWheelHandler).toBe("function");
-                        var mouseLeave = new MouseEvent("mouseLeave");
-                        table.getElement().dispatchEvent(mouseLeave);
-                        done();
+                        //LockerService isn't currently exposing the WheelEvent as a CTOR. Workaround for now.
+                        var wheelDown = new CustomEvent("wheel");
+                        wheelDown.wheelDeltaY = -1;
+                        table.getElement().dispatchEvent(wheelDown);
+                        return $T.waitFor(function() {
+                            var grid = component.find("exampleGrid");
+                            return grid.get("v.offSetIndex") === 11;
+                        }).then(function() {
+                            expect(grid.get("v.offSetIndex")).toBe(11);
+                            expect(grid.get("v.view")[0].data.name).toBe("Contact Name 1");
+                            var wheelUp = new CustomEvent("wheel");
+                            wheelUp.wheelDeltaY = 1;
+                            table.getElement().dispatchEvent(wheelUp);
+                            return $T.waitFor(function() {
+                                var grid = component.find("exampleGrid");
+                                return grid.get("v.offSetIndex") === 10;
+                            }).then(function() {
+                                expect(grid.get("v.offSetIndex")).toBe(10);
+                                expect(grid.get("v.view")[0].data.name).toBe("Contact Name 0");
+                                var mouseLeave = new MouseEvent("mouseleave");
+                                table.getElement().dispatchEvent(mouseLeave);
+                                done();
+                            });
+                        });
                     });
                 }).catch(function(e) {
                 done.fail(e);
@@ -96,15 +117,7 @@ describe("Grid Tests", function() {
                         var grid = component.find("exampleGrid");
                         var rows = grid.find("rows");
                         var cells = rows[0].find("cells");
-                        var dataItem = cells[0].get("v.dataItem");
-                        var childrenVisible = cells[0].get("v.childrenVisible");
-                        cells[0].set("v.childrenVisible", !childrenVisible);
-                        var cmpEvt = cells[0].getEvent("childToggle");
-                        cmpEvt.setParams({
-                            "childrenVisible": cells[0].get("v.childrenVisible"),
-                            "dataItem": dataItem
-                        });
-                        cmpEvt.fire();
+                        cells[0].toggleChildren();
 
                         return $T.waitFor(function() {
                             var grid = component.find("exampleGrid");
@@ -116,15 +129,8 @@ describe("Grid Tests", function() {
                             expect(rows[0].get("v.rowData").expanded).toBe(true);
                             expect(subRow.get("v.rowData").data.name).toBe("Sub Contact Name 0");
 
-
                             var subCells = subRow.find("cells");
-                            subCells[0].set("v.childrenVisible", !childrenVisible);
-                            cmpEvt = subCells[0].getEvent("childToggle");
-                            cmpEvt.setParams({
-                                "childrenVisible": subCells[0].get("v.childrenVisible"),
-                                "dataItem": dataItem
-                            });
-                            cmpEvt.fire();
+                            subCells[0].toggleChildren();
 
                             return $T.waitFor(function() {
                                 var grid = component.find("exampleGrid");
@@ -136,13 +142,7 @@ describe("Grid Tests", function() {
                                 expect(rows[8].get("v.rowData").expanded).toBe(true);
                                 expect(subSubRow.get("v.rowData").parent).toBe("Id-Sub-00");
 
-                                cells[0].set("v.childrenVisible", !childrenVisible);
-                                var cmpEvt = cells[0].getEvent("childToggle");
-                                cmpEvt.setParams({
-                                    "childrenVisible": cells[0].get("v.childrenVisible"),
-                                    "dataItem": dataItem
-                                });
-                                cmpEvt.fire();
+                                cells[0].toggleChildren();
 
                                 return $T.waitFor(function() {
                                     var grid = component.find("exampleGrid");

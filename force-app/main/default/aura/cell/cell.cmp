@@ -43,6 +43,7 @@
     <aura:attribute name="decorators" type="Aura.Component[]" access="public"/>
     <aura:attribute name="editors" type="Aura.Component[]" access="public"/>
     <aura:method name="editCell" action="{!c.handleEdit}"/>
+    <aura:method name="toggleChildren" action="{!c.childrenToggle}"/>
     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
     <aura:handler name="change" value="{!v.value}" action="{!c.handleValueChange}"/>
     <aura:registerEvent name="childToggle" type="c:childToggle"/>
