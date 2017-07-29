@@ -22,8 +22,9 @@
     },
     bindMouseWheel: function(component) {
         var config = component.get("v.config"), scrollable = config.scrollable;
+        var table = component.find("table");
         if (scrollable) {
-            document.addEventListener(
+            table.getElement().addEventListener(
                 "wheel",
                 component.mouseWheelHandler,
                 false
@@ -32,8 +33,9 @@
     },
     unbindMouseWheel: function(component) {
         var config = component.get("v.config"), scrollable = config.scrollable;
+        var table = component.find("table");
         if (scrollable) {
-            document.removeEventListener("wheel", component.mouseWheelHandler);
+            table.getElement().removeEventListener("wheel", component.mouseWheelHandler);
         }
     },
     handleChildToggle: function(component, event, helper) {
@@ -76,20 +78,5 @@
             }
 
         }));
-    },
-
-    loadMore: function(component, event, helper) {
-        var data = component.get("v.data");
-        var mChildren = helper.getChildrenMap(data),
-            parents = helper.getRootNodes(data),
-            displaySize = component.get("v.config.rowsDisplayed")
-                ? component.get("v.config.rowsDisplayed")
-                : 10;
-
-        displaySize += 10;
-        component.set("v.config.rowsDisplayed", displaySize);
-        var offSetData = parents.slice(0, displaySize);
-        helper.setHasChildren(offSetData, component.mChildren);
-        component.set("v.view", offSetData);
     }
 });
