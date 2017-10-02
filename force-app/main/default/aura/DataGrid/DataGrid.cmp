@@ -51,6 +51,14 @@
     <aura:handler name="childToggle"
                   event="c:childToggle"
                   action="{!c.handleChildToggle}"/>
+    <aura:handler name="getAttribute"
+                  event="c:GetGridAttribute"
+                  action="{!c.getAttribute}"
+                  includeFacets="true"/>
+    <aura:handler name="viewMutation"
+                  event="c:GridViewMutation"
+                  action="{!c.handleViewMutation}"
+                  includeFacets="true"/>
 
     <!--        Body         -->
     <c:toolbar aura:id="toolbar" config="{!v.config}">

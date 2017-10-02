@@ -45,11 +45,12 @@
 
         this.toggleSpinner(component);
         var offSetData = data.slice(offSetIndex, displaySize);
+        component.set("v.hierarchy", data);
         component.set("v.view", offSetData);
         component.set("v.offSetIndex", displaySize);
 
         if(scrollable) {
-            component.mouseWheelHandler = this.mouseWheelHandler("v.data", component);
+            component.mouseWheelHandler = this.mouseWheelHandler("v.hierarchy", component);
         }
     },
     mouseWheelHandler: function(attribute, component) {
@@ -65,6 +66,7 @@
             newOffSetData;
         return function(e) {
             e.preventDefault();
+            e.stopImmediatePropagation();
             if(!ticking) {
                 window.requestAnimationFrame($A.getCallback(function() {
                     if(component.isValid()) {
@@ -110,6 +112,22 @@
                 }));
             }
             ticking = true;
+        }
+    },
+    updateView: function(component) {
+        var view = component.get("v.view");
+        var hierarchy = component.get("v.hierarchy");
+        var tree = tree = component.get("v.config.tree");
+        var displaySize = component.get("v.config.rowsDisplayed");
+        var offSetIndex = component.get("v.offSetIndex");
+        var rangeStart = offSetIndex - displaySize;
+        var newData = hierarchy.slice(rangeStart, displaySize);
+        if(!_.isEqual(component._lastSearch, newData)) {
+            component._lastSearch = _.cloneDeep(newData);
+            if(tree) {
+                this.setHasChildren(newData, component.mChildren, true);
+            }
+            component.set("v.view", newData);
         }
     },
     getRootNodes: function(data) {

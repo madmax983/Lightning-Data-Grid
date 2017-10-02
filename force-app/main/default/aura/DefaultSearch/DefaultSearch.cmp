@@ -1,0 +1,9 @@
+<aura:component description="DefaultSearch">
+    <aura:attribute name="data" type="object" />
+    <aura:attribute name="query" type="String" />
+    <aura:registerEvent name="viewMutation" type="c:GridViewMutation" />
+    <aura:registerEvent name="getAttribute" type="c:GetGridAttribute" />
+    <aura:handler name="change" value="{!v.query}" action="{!c.handleQueryChange}" />
+    <aura:method name="setHierarchy" action="{!c.setHierarchy}" />
+    <lightning:input label="Search" name="searchField" value="{!v.query}"/>
+</aura:component>

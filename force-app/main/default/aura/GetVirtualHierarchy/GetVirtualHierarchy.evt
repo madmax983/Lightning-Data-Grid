@@ -1,0 +1,3 @@
+<aura:event type="COMPONENT" description="GetVirtualHierarchy">
+    <aura:attribute name="callback" type="String" />
+</aura:event>

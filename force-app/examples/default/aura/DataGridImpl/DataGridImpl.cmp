@@ -39,11 +39,18 @@
             <lightning:badge label="{!v.data.length + ' records'}" />
         </aura:set>
         <aura:set attribute="toolbarFooter">
-            <lightning:buttonMenu iconName="utility:settings" alternativeText="Settings" menuAlignment="right">
-                <lightning:menuItem label="Font" value="font" />
-                <lightning:menuItem label="Size" value="size"/>
-                <lightning:menuItem label="Format" value="format" />
-            </lightning:buttonMenu>
+            <lightning:layout horizontalAlign="end" verticalAlign="end">
+                <lightning:layoutItem flexibility="auto" padding="horizontal-small">
+                    <c:DefaultSearch />
+                </lightning:layoutItem>
+                <lightning:layoutItem flexibility="auto">
+                    <lightning:buttonMenu iconName="utility:settings" alternativeText="Settings" menuAlignment="right">
+                        <lightning:menuItem label="Font" value="font" />
+                        <lightning:menuItem label="Size" value="size"/>
+                        <lightning:menuItem label="Format" value="format" />
+                    </lightning:buttonMenu>
+                </lightning:layoutItem>
+            </lightning:layout>
         </aura:set>
         <aura:set attribute="cellDecorators">
             <c:defaultDecorator />
