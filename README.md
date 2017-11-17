@@ -1,7 +1,7 @@
 # Lightning-Data-Grid [![Build Status](https://travis-ci.org/madmax983/Lightning-Data-Grid.svg?branch=master)](https://travis-ci.org/madmax983/Lightning-Data-Grid)
 A data grid for Lightning Component Framework  
 
-![screenshot of lightning data grid](/assets/screenshot.png "Ligthing Data Grid Screenshot")
+![screenshot of lightning data grid](/assets/screenshot.png "Lighting Data Grid Screenshot")
 
 Currently supports inline-editing of hierarchical data , and virtual scrolling. This is a huge WIP, use as your own risk.
 
@@ -51,7 +51,7 @@ The data object currently takes the following shape:
 Right now I am trying to keep the actual record data separate from some of the row properties needed for displaying hierarchies and such. This way you only have to extract the data object out of the row data, instead of doing a bunch of property deleting, which is always fun.  
 
 Explanation of other properties:  
-  
+
 parent: id of the parent row for a child row. In the future, I would like to be able to determine this via configuration, and specify a parent field within the data object.  
 
 Decorators and Editors implement the cellFacet interface. Check out the defaultDecorator, defaultEditor, programmaticDecorator, and programmaticEditor for examples. The two default use aura:if for their implementation, while the two programmatic components perform their logic with a javascript controller and $A.createComponent. They get fed the cell value and the associated column data. The general idea is to conditionally render a component based on that information.
