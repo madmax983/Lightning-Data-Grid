@@ -1,9 +1,19 @@
+[![Deploy](https://deploy-to-sfdx.com/dist/assets/images/DeployToSFDX.svg)](https://deploy-to-sfdx.com)
+
 # Lightning-Data-Grid [![Build Status](https://travis-ci.org/madmax983/Lightning-Data-Grid.svg?branch=master)](https://travis-ci.org/madmax983/Lightning-Data-Grid)
 A data grid for Lightning Component Framework  
 
 ![screenshot of lightning data grid](/assets/screenshot.png "Lighting Data Grid Screenshot")
 
 Currently supports inline-editing of hierarchical data , and virtual scrolling. This is a huge WIP, use as your own risk.
+
+## Quick Demo Setup
+
+1. Click on `Deploy to SFDX` button.
+2. Navigate to a page you want to add the data grid component.
+3. Add in the `DataGridImpl` component to a page layout.
+
+## About
 
 The Data Grid contains a toolbar component, a header component (right now this just renders the column names, in the future it can contain filtering/column menus), a row component, and a cell component.  
 
