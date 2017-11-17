@@ -5,6 +5,14 @@ A data grid for Lightning Component Framework
 
 Currently supports inline-editing of hierarchical data , and virtual scrolling. This is a huge WIP, use as your own risk.
 
+## Quick Demo Setup
+
+1. Click on `Deploy to SFDX` button.
+2. Navigate to a page you want to add the data grid component.
+3. Add in the `DataGridImpl` component to a page layout.
+
+## About
+
 The Data Grid contains a toolbar component, a header component (right now this just renders the column names, in the future it can contain filtering/column menus), a row component, and a cell component.  
 
 The Data Grid currently has a pretty simple API, it expects a config javascript object, and a data javascript object.   
