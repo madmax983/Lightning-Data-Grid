@@ -3,6 +3,8 @@
 # Lightning-Data-Grid [![Build Status](https://travis-ci.org/madmax983/Lightning-Data-Grid.svg?branch=master)](https://travis-ci.org/madmax983/Lightning-Data-Grid)
 A data grid for Lightning Component Framework  
 
+![screenshot of lightning data grid](/assets/screenshot.png "Ligthing Data Grid Screenshot")
+
 Currently supports inline-editing of hierarchical data , and virtual scrolling. This is a huge WIP, use as your own risk.
 
 ## Quick Demo Setup
