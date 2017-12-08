@@ -10,7 +10,7 @@ addons:
 env:
 - URL=https://developer.salesforce.com/media/salesforce-cli/sfdx-linux-amd64.tar.xz
 before_install:
-- openssl aes-256-cbc -K $encrypted_bc21448d0b37_key -iv $encrypted_bc21448d0b37_iv
+- openssl aes-256-cbc -K $encrypted_b7e3b789fefa_key -iv $encrypted_b7e3b789fefa_iv
   -in assets/server.key.enc -out assets/server.key -d
 - wget -qO- $URL | tar xJf -
 - ./sfdx/install
