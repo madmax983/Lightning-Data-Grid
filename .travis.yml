@@ -22,11 +22,12 @@ before_script:
 - export SFDX_DOMAIN_RETRY=300
 - export SFDX_AUTOUPDATE_DISABLE=true
 - sfdx plugins:install salesforcedx
+- sed -i  '' 's/[err.message ||err.name]/[err.message || err.name || err,]' ~/.local/share/sfdx/client/node_modules/salesforce-alm/dist/index.js
 - sfdx force:auth:jwt:grant --clientid $CONSUMERKEY --jwtkeyfile assets/server.key
   --username $USERNAME --setdefaultdevhubusername -a HubOrg
 script:
 - sfdx force:org:create -v HubOrg -s -f config/project-scratch-def.json -a ciorg
 - sfdx force:source:push -u ciorg
-- sfdx force:lightning:test:run -a Tests.app -u ciorg
+- sfdx force:lightning:test:run -f -f config/lts-config.json -a Tests.app -u ciorg
 - sleep 10
 - sfdx force:org:delete -u ciorg -p
