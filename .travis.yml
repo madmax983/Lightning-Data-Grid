@@ -22,9 +22,10 @@ before_install:
 - sfdx plugins --core
 - export PATH=./heroku/$(pwd):$PATH
 before_script:
-- "export DISPLAY=:99.0"
+- export DISPLAY=:0
 - "sh -e /etc/init.d/xvfb start"
 - sleep 3 # give xvfb some time to start
+- Xvfb :0 -ac -screen 0 1024x768x24 &
 - heroku plugins:install salesforce-lightning-cli
 - export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true
 - export SFDX_DOMAIN_RETRY=300
@@ -35,7 +36,6 @@ before_script:
 script:
 - sfdx force:org:create -v HubOrg -s -f config/project-scratch-def.json -a ciorg
 - sfdx force:source:push -u ciorg
-- sfdx force:apex:test:run -u ciorg -c -r human
 - sfdx force:lightning:test:run -a Tests.app -u ciorg
 - sleep 4
 - sfdx force:org:delete -u ciorg -p
