@@ -27,6 +27,6 @@ before_script:
 script:
 - sfdx force:org:create -v HubOrg -s -f config/project-scratch-def.json -a ciorg
 - sfdx force:source:push -u ciorg
-- sfdx force:lightning:test:run -f -f config/lts-config.json -a Tests.app -u ciorg
+- sfdx force:lightning:test:run -f config/lts-config.json -a Tests.app -u ciorg
 - sleep 10
 - sfdx force:org:delete -u ciorg -p
