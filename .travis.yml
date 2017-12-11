@@ -22,7 +22,6 @@ before_script:
 - export SFDX_DOMAIN_RETRY=300
 - export SFDX_AUTOUPDATE_DISABLE=true
 - sfdx plugins:install salesforcedx
-- sed -i  '' 's/[err.message ||err.name]/[err.message || err.name || err,]' ~/.local/share/sfdx/client/node_modules/salesforce-alm/dist/index.js
 - sfdx force:auth:jwt:grant --clientid $CONSUMERKEY --jwtkeyfile assets/server.key
   --username $USERNAME --setdefaultdevhubusername -a HubOrg
 script:
