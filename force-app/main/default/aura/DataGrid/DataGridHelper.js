@@ -140,7 +140,7 @@
                         var table = component.find("table");
                         $A.util.addClass(table, "scrolling");
                         ticking = false;
-                        if (e.deltaY < 0) {
+                        if (e.deltaY > 0) {
                             newOffSet = (component.get("v.offSetIndex") + 1) > data.length ? data.length : component.get("v.offSetIndex") + 1;
                             rangeStart = newOffSet - displaySize;
                             newOffSetData = data.slice(rangeStart, newOffSet);
@@ -157,7 +157,7 @@
                                 $A.util.removeClass(table, "scrolling");
                                 scrollingTracker = 0;
                             }, true), 150);
-                        } else if (e.deltaY > 0) {
+                        } else if (e.deltaY < 0) {
                             newOffSet = ((component.get("v.offSetIndex") - 1 - displaySize) <= 0) ? displaySize : component.get("v.offSetIndex") - 1;
                             rangeStart = newOffSet - displaySize;
                             newOffSetData = data.slice(rangeStart, newOffSet);
