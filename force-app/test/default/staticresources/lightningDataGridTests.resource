@@ -69,7 +69,7 @@ describe("Grid Tests", function() {
                     expect(grid.get("v.offSetIndex")).toBe(11);
                     expect(grid.get("v.view")[0].data.name).toBe("Contact Name 1");
                     var wheelUp = new CustomEvent("wheel");
-                    wheelUp.deltaY = 1;
+                    wheelUp.deltaY = -1;
                     table.getElement().dispatchEvent(wheelUp);
                     return $T.waitFor(function() {
                         var grid = cmp.find("exampleGrid");
