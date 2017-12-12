@@ -60,7 +60,7 @@ describe("Grid Tests", function() {
                 expect(typeof grid.mouseWheelHandler).toBe("function");
                 //LockerService isn't currently exposing the WheelEvent as a CTOR. Workaround for now.
                 var wheelDown = new CustomEvent("wheel");
-                wheelDown.deltaY = -1;
+                wheelDown.deltaY = 1;
                 table.getElement().dispatchEvent(wheelDown);
                 return $T.waitFor(function() {
                     var grid = cmp.find("exampleGrid");
