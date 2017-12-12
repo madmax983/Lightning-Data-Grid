@@ -186,15 +186,34 @@
         var hierarchy = component.get("v.hierarchy");
         var tree = tree = component.get("v.config.tree");
         var displaySize = component.get("v.config.rowsDisplayed");
-        var offSetIndex = component.get("v.offSetIndex");
-        var rangeStart = offSetIndex - displaySize;
-        var newData = hierarchy.slice(rangeStart, displaySize);
+        var newData = hierarchy.slice(0, displaySize);
+        var self = this;
+
         if(!_.isEqual(component._lastSearch, newData)) {
             component._lastSearch = _.cloneDeep(newData);
             if(tree) {
-                this.setHasChildren(newData, component.mChildren, true);
+                var promises = self.getRootNodes(hierarchy);
+
+                Promise.all(promises).then(function(response) {
+                    var parents = [].concat.apply([], response);
+                    if(parents.length > 0) {
+                        var offSetData = parents.slice(0, displaySize);
+                        self.setHasChildren(offSetData, component.mChildren);
+                        component.set("v.hierarchy", parents);
+                        component.set("v.view", offSetData);
+                        component.set("v.offSetIndex", displaySize);
+                    } else {
+                        var offSetData = hierarchy.slice(0, displaySize);
+                        self.setHasChildren(offSetData, component.mChildren);
+
+                        component.set("v.hierarchy", hierarchy);
+                        component.set("v.view", offSetData);
+                        component.set("v.offSetIndex", displaySize);
+                    }
+                });
+            } else {
+                component.set("v.view", newData);
             }
-            component.set("v.view", newData);
         }
     },
     getRootNodes: function(data) {

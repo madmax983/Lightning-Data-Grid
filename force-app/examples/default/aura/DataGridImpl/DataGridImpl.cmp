@@ -7,6 +7,12 @@
     <aura:attribute name="dataSize"
                     type="Integer"
                     default="100"/>
+    <aura:attribute name="secondLevelDepth"
+                    type="Integer"
+                    default="1"/>
+    <aura:attribute name="thirdLevelDepth"
+                    type="Integer"
+                    default="1"/>
     <aura:attribute name="config"
                     access="global"
                     type="object"
@@ -41,7 +47,7 @@
         <aura:set attribute="toolbarFooter">
             <lightning:layout horizontalAlign="end" verticalAlign="end">
                 <lightning:layoutItem flexibility="auto" padding="horizontal-small">
-                    <c:DefaultSearch />
+                    <c:DefaultSearch aura:id="search"/>
                 </lightning:layoutItem>
                 <lightning:layoutItem flexibility="auto">
                     <lightning:buttonMenu iconName="utility:settings" alternativeText="Settings" menuAlignment="right">

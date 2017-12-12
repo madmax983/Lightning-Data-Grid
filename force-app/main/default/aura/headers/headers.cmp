@@ -1,7 +1,7 @@
 <aura:component description="headers">
     <aura:attribute name="columns"
                     access="public"
-                    type="object"
+                    type="Map"
                     description="The columns the header will generate"/>
     <thead>
         <tr class="slds-text-title--caps">
