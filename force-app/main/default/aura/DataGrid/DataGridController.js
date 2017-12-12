@@ -2,6 +2,7 @@
     dataGridInit: function(component, event, helper) {
         var config = component.get("v.config"), scrollable = config.scrollable;
         var lodashLoaded = component.get("v.lodashLoaded");
+        helper.initWheelPolyfill();
 
         if(lodashLoaded) {
             if(config.tree === true) {
@@ -24,8 +25,7 @@
         var config = component.get("v.config"), scrollable = config.scrollable;
         var table = component.find("table");
         if (scrollable) {
-            table.getElement().addEventListener(
-                "wheel",
+            window.addWheelListener(table.getElement(),
                 component.mouseWheelHandler,
                 false
             );

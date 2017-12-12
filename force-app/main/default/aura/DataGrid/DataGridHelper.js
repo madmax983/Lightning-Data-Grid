@@ -1,5 +1,72 @@
 ({
     chunks: {},
+    initWheelPolyfill: function() {
+        // https://gist.github.com/asemler/f914c7a5fb115f0574ef
+        // creates a global "addWheelListener" method
+        // example: addWheelListener( elem, function( e ) { console.log( e.deltaY ); e.preventDefault(); } );
+        (function(window,document) {
+
+            var prefix = "", _addEventListener, support;
+
+            // detect event model
+            if ( window.addEventListener ) {
+                _addEventListener = "addEventListener";
+            } else {
+                _addEventListener = "attachEvent";
+                prefix = "on";
+            }
+
+            // detect available wheel event
+            support = "onwheel" in document.createElement("div") ? "wheel" : // Modern browsers support "wheel"
+                document.onmousewheel !== undefined ? "mousewheel" : // Webkit and IE support at least "mousewheel"
+                    "DOMMouseScroll"; // let's assume that remaining browsers are older Firefox
+
+            window.addWheelListener = function( elem, callback, useCapture ) {
+                _addWheelListener( elem, support, callback, useCapture );
+
+                // handle MozMousePixelScroll in older Firefox
+                if( support == "DOMMouseScroll" ) {
+                    _addWheelListener( elem, "MozMousePixelScroll", callback, useCapture );
+                }
+            };
+
+            function _addWheelListener( elem, eventName, callback, useCapture ) {
+                elem[ _addEventListener ]( prefix + eventName, support == "wheel" ? callback : function( originalEvent ) {
+                    !originalEvent && ( originalEvent = window.event );
+
+                    // create a normalized event object
+                    var event = {
+                        // keep a ref to the original event object
+                        originalEvent: originalEvent,
+                        target: originalEvent.target || originalEvent.srcElement,
+                        type: "wheel",
+                        deltaMode: originalEvent.type == "MozMousePixelScroll" ? 0 : 1,
+                        deltaX: 0,
+                        deltaZ: 0,
+                        preventDefault: function() {
+                            originalEvent.preventDefault ?
+                                originalEvent.preventDefault() :
+                                originalEvent.returnValue = false;
+                        }
+                    };
+
+                    // calculate deltaY (and deltaX) according to the event
+                    if ( support == "mousewheel" ) {
+                        event.deltaY = - 1/40 * originalEvent.wheelDelta;
+                        // Webkit also support wheelDeltaX
+                        originalEvent.wheelDeltaX && ( event.deltaX = - 1/40 * originalEvent.wheelDeltaX );
+                    } else {
+                        event.deltaY = originalEvent.detail;
+                    }
+
+                    // it's time to fire the callback
+                    return callback( event );
+
+                }, useCapture || false );
+            }
+
+        })(window,document);
+    },
     treeInit: function(component) {
         var config = component.get("v.config"), scrollable = config.scrollable;
         var data = component.get("v.data"),
@@ -75,7 +142,7 @@
                         var table = component.find("table");
                         $A.util.addClass(table, "scrolling");
                         ticking = false;
-                        if (e.wheelDeltaY < 0) {
+                        if (e.deltaY > 0) {
                             newOffSet = (component.get("v.offSetIndex") + 1) > data.length ? data.length : component.get("v.offSetIndex") + 1;
                             rangeStart = newOffSet - displaySize;
                             newOffSetData = data.slice(rangeStart, newOffSet);
@@ -92,7 +159,7 @@
                                 $A.util.removeClass(table, "scrolling");
                                 scrollingTracker = 0;
                             }, true), 150);
-                        } else if (e.wheelDeltaY > 0) {
+                        } else if (e.deltaY < 0) {
                             newOffSet = ((component.get("v.offSetIndex") - 1 - displaySize) <= 0) ? displaySize : component.get("v.offSetIndex") - 1;
                             rangeStart = newOffSet - displaySize;
                             newOffSetData = data.slice(rangeStart, newOffSet);

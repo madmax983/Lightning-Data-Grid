@@ -60,7 +60,7 @@ describe("Grid Tests", function() {
                 expect(typeof grid.mouseWheelHandler).toBe("function");
                 //LockerService isn't currently exposing the WheelEvent as a CTOR. Workaround for now.
                 var wheelDown = new CustomEvent("wheel");
-                wheelDown.wheelDeltaY = -1;
+                wheelDown.deltaY = 1;
                 table.getElement().dispatchEvent(wheelDown);
                 return $T.waitFor(function() {
                     var grid = cmp.find("exampleGrid");
@@ -69,7 +69,7 @@ describe("Grid Tests", function() {
                     expect(grid.get("v.offSetIndex")).toBe(11);
                     expect(grid.get("v.view")[0].data.name).toBe("Contact Name 1");
                     var wheelUp = new CustomEvent("wheel");
-                    wheelUp.wheelDeltaY = 1;
+                    wheelUp.deltaY = -1;
                     table.getElement().dispatchEvent(wheelUp);
                     return $T.waitFor(function() {
                         var grid = cmp.find("exampleGrid");
@@ -161,6 +161,7 @@ describe("Grid Tests", function() {
 
         it('handles larger volume', function(done) {
             $T.clearRenderedTestComponents();
+            jasmine.DEFAULT_TIMEOUT_INTERVAL = 50000;
             var renderInto = document.getElementById("renderTestComponents");
             $T.createComponent("c:DataGridImpl", {"dataSize": 1000}, renderInto)
                 .then(function(component) {
