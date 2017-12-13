@@ -104,7 +104,7 @@ describe("Grid Tests", function() {
                     var subRow = rows[9];
                     expect(grid.get("v.hierarchy").length).toBe(101);
                     expect(rows[8].get("v.rowData").expanded).toBe(true);
-                    expect(subRow.get("v.rowData").data.name).toBe("Sub Contact Name 0");
+                    expect(subRow.get("v.rowData").data.name).toBe("Sub Contact Name 00");
 
                     var subCells = subRow.find("cells");
                     subCells[0].toggleChildren();
