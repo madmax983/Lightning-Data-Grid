@@ -5,11 +5,11 @@
                     description="Name of the grid" />
     <aura:attribute name="dataItem"
                     access="global"
-                    type="object"
+                    type="Map"
                     description="Individual data item" />
     <aura:attribute name="column"
                     access="public"
-                    type="object"
+                    type="Map"
                     description="Column Data" />
     <aura:attribute name="indexVar"
                     access="public"
@@ -38,7 +38,7 @@
                     description="Value in cell has changed or not"/>
     <aura:attribute name="value"
                     access="public"
-                    type="object"
+                    type="Map"
                     description="Data Value" />
     <aura:attribute name="decorators" type="Aura.Component[]" access="public"/>
     <aura:attribute name="editors" type="Aura.Component[]" access="public"/>

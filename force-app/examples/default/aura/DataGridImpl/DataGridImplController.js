@@ -135,24 +135,24 @@
                     }
                     data.push(newDataItem);
 
-                    for (var j = 0; j < 1; j++) {
+                    for (var j = 0; j < component.get("v.secondLevelDepth"); j++) {
                         var subDataItem = {
                             data: {
                                 id: "Id-Sub-" + j + i,
-                                name: "Sub Contact Name " + j,
-                                title: "Sub Contact Title " + j,
+                                name: "Sub Contact Name " + j + i,
+                                title: "Sub Contact Title " + j + i,
                                 phone: phone,
                                 home_phone: phone,
                                 mobile: phone,
                                 other_phone: phone,
                                 fax: phone,
-                                reports_to: " Sub Contact Reports To " + j,
-                                email: "subcontactemail" + j + "@contact.com",
-                                industry: "Sub Contact Industry " + j,
-                                mailing_address: "Sub Contact Mailing Address " + j,
-                                other_address: "Sub Contact Other Address " + j,
-                                languages: "Sub Contact Languages " + j,
-                                assistant: "Sub Contact Assistant " + j,
+                                reports_to: " Sub Contact Reports To " + j + i,
+                                email: "subcontactemail" + j + i + "@contact.com",
+                                industry: "Sub Contact Industry " + j + i,
+                                mailing_address: "Sub Contact Mailing Address " + j + i,
+                                other_address: "Sub Contact Other Address " + j + i,
+                                languages: "Sub Contact Languages " + j + i,
+                                assistant: "Sub Contact Assistant " + j + i,
                                 level: j
                             },
                             parent: "Id-" + i
@@ -160,24 +160,24 @@
 
                         data.push(subDataItem);
 
-                        for (var z = 0; z < 1; z++) {
+                        for (var z = 0; z < component.get("v.thirdLevelDepth"); z++) {
                             var subSubDataItem = {
                                 data: {
-                                    id: "Id-Sub-Sub-" + z + j,
-                                    name: "Sub Contact Name " + z,
-                                    title: "Sub Contact Title " + z,
+                                    id: "Id-Sub-Sub-" + z + j + i,
+                                    name: "Nested Contact Name " + z + j + i,
+                                    title: "Nested Contact Title " + z + j + i,
                                     phone: phone,
                                     home_phone: phone,
                                     mobile: phone,
                                     other_phone: phone,
                                     fax: phone,
-                                    reports_to: " Sub Contact Reports To " + z,
-                                    email: "subcontactemail" + z + "@contact.com",
-                                    industry: "Sub Contact Industry " + z,
-                                    mailing_address: "Sub Contact Mailing Address " + z,
-                                    other_address: "Sub Contact Other Address " + z,
-                                    languages: "Sub Contact zLanguages " + z,
-                                    assistant: "Sub Contact Assistant " + z,
+                                    reports_to: " Nested Contact Reports To " + z + j + i,
+                                    email: "nestedcontactemail" + z + j + i + "@contact.com",
+                                    industry: "Nested Contact Industry " + z + j + i,
+                                    mailing_address: "Nested Contact Mailing Address "  + z + j + i,
+                                    other_address: "Nested Contact Other Address " + z + j + i,
+                                    languages: "Nested Contact Languages " + z + j + i,
+                                    assistant: "Nested Contact Assistant " + z + j + i,
                                     level: z
                                 },
                                 parent: "Id-Sub-" + j + i

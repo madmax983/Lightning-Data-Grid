@@ -1,4 +1,5 @@
 describe("Grid Tests", function() {
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = 50000;
     //Reusing the same grid for most tests to save on setup/teardown costs
     var cmp;
 
@@ -103,7 +104,7 @@ describe("Grid Tests", function() {
                     var subRow = rows[9];
                     expect(grid.get("v.hierarchy").length).toBe(101);
                     expect(rows[8].get("v.rowData").expanded).toBe(true);
-                    expect(subRow.get("v.rowData").data.name).toBe("Sub Contact Name 0");
+                    expect(subRow.get("v.rowData").data.name).toBe("Sub Contact Name 00");
 
                     var subCells = subRow.find("cells");
                     subCells[0].toggleChildren();
@@ -159,9 +160,31 @@ describe("Grid Tests", function() {
             });
         });
 
+        it('handles a search', function(done) {
+            return $T.waitFor(function() {
+                var grid = cmp.find("exampleGrid");
+                return grid.get("v.view").length > 0;
+            }).then(function() {
+                var grid = cmp.find("exampleGrid");
+                var searchbar = cmp.find("search");
+
+                searchbar.set("v.query", "Peter Venkman");
+                searchbar.search();
+
+                return $T.waitFor(function() {
+                    var grid = cmp.find("exampleGrid");
+                    return grid.get("v.view").length == 1;
+                }).then(function() {
+                    var grid = cmp.find("exampleGrid");
+                    var rows = grid.find("rows");
+                    expect(rows.length).toBe(1);
+                    done();
+                });
+            });
+        });
+
         it('handles larger volume', function(done) {
             $T.clearRenderedTestComponents();
-            jasmine.DEFAULT_TIMEOUT_INTERVAL = 50000;
             var renderInto = document.getElementById("renderTestComponents");
             $T.createComponent("c:DataGridImpl", {"dataSize": 1000}, renderInto)
                 .then(function(component) {

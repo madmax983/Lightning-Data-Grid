@@ -1,11 +1,13 @@
 [![Deploy](https://deploy-to-sfdx.com/dist/assets/images/DeployToSFDX.svg)](https://deploy-to-sfdx.com)
 
 # Lightning-Data-Grid [![Build Status](https://travis-ci.org/madmax983/Lightning-Data-Grid.svg?branch=master)](https://travis-ci.org/madmax983/Lightning-Data-Grid)
-A data grid for Lightning Component Framework  
+A data grid for the Lightning Component Framework  
 
 ![screenshot of lightning data grid](/assets/screenshot.png "Lighting Data Grid Screenshot")
 
-Currently supports inline-editing of hierarchical data , and virtual scrolling. This is a huge WIP, use as your own risk.
+You probably do not need this. The lightning:datatable and lightning:treegrid(Coming in Spring '18!) base components probably fulfill your use case, and you should look at those components first.
+However, if your use case for a data grid is not fulfilled by either of those two base components, Lightning-Data-Grid might be the answer. This component is intended as an extensible and low-level data grid that can be built up into more usable components. 
+Currently supports inline-editing of hierarchical data , virtual scrolling, and global search. This is still a huge WIP, use as your own risk.
 
 ## Quick Demo Setup
 
@@ -66,6 +68,6 @@ parent: id of the parent row for a child row. In the future, I would like to be 
 
 Decorators and Editors implement the cellFacet interface. Check out the defaultDecorator, defaultEditor, programmaticDecorator, and programmaticEditor for examples. The two default use aura:if for their implementation, while the two programmatic components perform their logic with a javascript controller and $A.createComponent. They get fed the cell value and the associated column data. The general idea is to conditionally render a component based on that information.
 
-Look at DataGridImpl component for an example of all of this being setup.  
+You can look at the DefaultSearch component to see how a global search for the grid is being implemented, and how you could change it to implement your own search. The GetAttribute event can be used to get any attribute off of the grid, and takes a callback that can be invoked with that value. The DefaultSearch uses this get the grid data, but it can be used for other use cases outside of this. It then filters out the matches it wants, and sends a GridViewMutation event, which sets the current grid view. The plan is to use this event for sorting and filtering as well. 
 
-Lots of things to add. Search. Pagination. Filtering. Etc.
+Look at DataGridImpl component for an example of all of this being setup.

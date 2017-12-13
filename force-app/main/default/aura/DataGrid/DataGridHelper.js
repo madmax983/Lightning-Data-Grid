@@ -112,11 +112,12 @@
 
         this.toggleSpinner(component);
         var offSetData = data.slice(offSetIndex, displaySize);
+        component.set("v.hierarchy", data);
         component.set("v.view", offSetData);
         component.set("v.offSetIndex", displaySize);
 
         if(scrollable) {
-            component.mouseWheelHandler = this.mouseWheelHandler("v.data", component);
+            component.mouseWheelHandler = this.mouseWheelHandler("v.hierarchy", component);
         }
     },
     mouseWheelHandler: function(attribute, component) {
@@ -132,6 +133,7 @@
             newOffSetData;
         return function(e) {
             e.preventDefault();
+            e.stopImmediatePropagation();
             if(!ticking) {
                 window.requestAnimationFrame($A.getCallback(function() {
                     if(component.isValid()) {
@@ -177,6 +179,41 @@
                 }));
             }
             ticking = true;
+        }
+    },
+    updateView: function(component) {
+        var view = component.get("v.view");
+        var hierarchy = component.get("v.hierarchy");
+        var tree = tree = component.get("v.config.tree");
+        var displaySize = component.get("v.config.rowsDisplayed");
+        var newData = hierarchy.slice(0, displaySize);
+        var self = this;
+
+        if(!_.isEqual(component._lastSearch, newData)) {
+            component._lastSearch = _.cloneDeep(newData);
+            if(tree) {
+                var promises = self.getRootNodes(hierarchy);
+
+                Promise.all(promises).then(function(response) {
+                    var parents = [].concat.apply([], response);
+                    if(parents.length > 0) {
+                        var offSetData = parents.slice(0, displaySize);
+                        self.setHasChildren(offSetData, component.mChildren);
+                        component.set("v.hierarchy", parents);
+                        component.set("v.view", offSetData);
+                        component.set("v.offSetIndex", displaySize);
+                    } else {
+                        var offSetData = hierarchy.slice(0, displaySize);
+                        self.setHasChildren(offSetData, component.mChildren);
+
+                        component.set("v.hierarchy", hierarchy);
+                        component.set("v.view", offSetData);
+                        component.set("v.offSetIndex", displaySize);
+                    }
+                });
+            } else {
+                component.set("v.view", newData);
+            }
         }
     },
     getRootNodes: function(data) {

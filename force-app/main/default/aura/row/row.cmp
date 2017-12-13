@@ -5,11 +5,11 @@
                     description="Name of the grid" />
     <aura:attribute name="rowData"
                     access="public"
-                    type="object"
+                    type="Map"
                     description="Individual data item" />
     <aura:attribute name="columns"
                     access="public"
-                    type="object"
+                    type="Map"
                     description="Column Data" />
     <aura:attribute name="childrenVisible"
                     access="public"
@@ -29,8 +29,8 @@
         <aura:iteration items="{!v.columns}" var="column" indexVar="index">
             <c:cell aura:id="cells"
                     column="{#column}"
-                    dataItem="{#v.rowData}"
-                    childrenVisible="{#v.childrenVisible}"
+                    dataItem="{!v.rowData}"
+                    childrenVisible="{!v.childrenVisible}"
                     rowIndex="{!v.indexVar}"
                     indexVar="{#index}"
                     decorators="{#v.cellDecorators}"

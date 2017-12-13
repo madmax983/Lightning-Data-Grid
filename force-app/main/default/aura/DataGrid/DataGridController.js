@@ -78,5 +78,18 @@
             }
 
         }));
+    },
+    handleViewMutation: function(component, event, helper) {
+        var values = event.getParam("values");
+        component.set("v.hierarchy", values);
+        helper.updateView(component, values);
+    },
+    getAttribute: function(component, event) {
+        var callback = event.getParam("callback");
+        var attributeName = event.getParam("attributeName");
+        var source = event.getSource();
+        if(typeof source[callback] == "function") {
+            source[callback](component.get(attributeName));
+        }
     }
 });

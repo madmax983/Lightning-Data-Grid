@@ -6,15 +6,15 @@
                     description="Name of the grid"/>
     <aura:attribute name="config"
                     access="global"
-                    type="object"
+                    type="Map"
                     description="Configuration properties for the data grid"/>
     <aura:attribute name="data"
                     access="global"
-                    type="object"
+                    type="Map"
                     description="The data that the grid will iterate over"/>
     <aura:attribute name="hierarchy"
                     access="global"
-                    type="object"
+                    type="Map"
                     description="Virtualization of the grid hierarchy"/>
     <aura:attribute name="view"
                     access="public"
@@ -51,6 +51,14 @@
     <aura:handler name="childToggle"
                   event="c:childToggle"
                   action="{!c.handleChildToggle}"/>
+    <aura:handler name="getAttribute"
+                  event="c:GetGridAttribute"
+                  action="{!c.getAttribute}"
+                  includeFacets="true"/>
+    <aura:handler name="viewMutation"
+                  event="c:GridViewMutation"
+                  action="{!c.handleViewMutation}"
+                  includeFacets="true"/>
 
     <!--        Body         -->
     <c:toolbar aura:id="toolbar" config="{!v.config}">
@@ -73,7 +81,7 @@
             <tbody aura:id="tbody">
             <aura:iteration aura:id="rowIteration" items="{!v.view}" var="item" indexVar="index">
                 <c:row aura:id="rows"
-                       rowData="{#item}"
+                       rowData="{!item}"
                        columns="{#v.config.columns}"
                        indexVar="{!index}"
                        cellDecorators="{!v.cellDecorators}"

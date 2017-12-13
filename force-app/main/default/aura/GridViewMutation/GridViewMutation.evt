@@ -1,0 +1,4 @@
+<aura:event type="COMPONENT" description="GridViewMutation">
+    <aura:attribute name="type" type="String"/>
+    <aura:attribute name="values" type="Map"/>
+</aura:event>

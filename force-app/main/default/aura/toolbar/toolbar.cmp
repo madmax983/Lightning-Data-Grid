@@ -1,6 +1,6 @@
 <aura:component description="toolbar">
     <aura:attribute name="config" access="public"
-                    type="object"
+                    type="Map"
                     description="Configuration object for the toolbar"/>
     <aura:attribute name="title" type="Aura.Component[]" access="public"/>
     <aura:attribute name="buttons" type="Aura.Component[]" access="public"/>
