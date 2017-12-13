@@ -54,26 +54,14 @@
             onkeypress="{!c.handleEdit}"
             tabindex="0">
             <lightning:layout horizontalAlign="end">
-                <aura:if isTrue="{!v.childrenVisible}">
-                    <lightning:buttonIcon aura:id="collapseButton"
-                                          alternativeText="toggle"
-                                          iconName="utility:chevrondown"
-                                          size="{!$Browser.isPhone ? 'large' : 'small'}"
-                                          class="{!v.hasChildren == true ? '' : 'slds-is-disabled'}"
-                                          variant="bare"
-                                          tabindex="0"
-                                          onclick="{!c.childrenToggle}"/>
-                    <aura:set attribute="else">
-                        <lightning:buttonIcon aura:id="expandButton"
-                                              alternativeText="toggle"
-                                              iconName="utility:chevronright"
-                                              size="{!$Browser.isPhone ? 'large' : 'small'}"
-                                              class="{!v.hasChildren == true ? '' : 'slds-is-disabled'}"
-                                              variant="bare"
-                                              tabindex="0"
-                                              onclick="{!c.childrenToggle}"/>
-                    </aura:set>
-                </aura:if>
+                <lightning:buttonIcon aura:id="expandButton"
+                                      alternativeText="toggle"
+                                      iconName="utility:chevronright"
+                                      size="{!$Browser.isPhone ? 'large' : 'small'}"
+                                      class="{!v.hasChildren == true ? '' : 'slds-is-disabled'}"
+                                      variant="bare"
+                                      tabindex="0"
+                                      onclick="{!c.childrenToggle}"/>
                 <aura:if isTrue="{!v.editMode}">
                     <div class="slds-popover slds-popover--edit" role="dialog" style="position:absolute;top:0px;left:0.0625rem;">
                         <span aura:id="form-start" id="form-start" tabindex="0"></span>
@@ -99,7 +87,7 @@
                             <lightning:buttonIcon aura:id="editButton"
                                                   alternativeText="edit"
                                                   iconName="utility:edit"
-                                                  class="slds-button slds-button--icon slds-cell-edit__button slds-m-left--x-small slds-button__icon slds-button__icon--hint slds-button__icon--edit"
+                                                  class="not_chevron slds-button slds-cell-edit__button slds-m-left--x-small slds-button__icon--hint slds-button__icon--edit"
                                                   variant="bare"
                                                   tabindex="-1"
                                                   onclick="{!c.editCell}"/>
@@ -141,7 +129,7 @@
                                     <lightning:buttonIcon aura:id="editButton"
                                                           alternativeText="edit"
                                                           iconName="utility:edit"
-                                                          class="slds-button slds-button--icon slds-cell-edit__button slds-m-left--x-small slds-button__icon slds-button__icon--hint slds-button__icon--edit"
+                                                          class="not_chevron slds-button slds-cell-edit__button slds-m-left--x-small slds-button__icon slds-button__icon--hint slds-button__icon--edit"
                                                           variant="bare"
                                                           tabindex="-1"
                                                           onclick="{!c.editCell}"/>
