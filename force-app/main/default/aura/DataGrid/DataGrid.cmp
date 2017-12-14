@@ -24,7 +24,7 @@
                     access="global"
                     type="string"
                     description="The list of classes applied to the table"
-                    default="slds-table slds-table--bordered slds-no-cell-focus slds-tree slds-table--tree slds-max-medium-table--stacked-horizontal data-grid"/>
+                    default="slds-table slds-table_bordered slds-no-cell-focus slds-tree slds-table_tree slds-max-medium-table_stacked-horizontal data-grid"/>
     <aura:attribute name="offSetIndex"
                     access="public"
                     type="integer"
@@ -74,7 +74,7 @@
             {!v.toolbarBody}
     </c:toolbar>
     <lightning:spinner aura:id="spinner" variant="brand" size="large"/>
-    <div aura:id="tableDiv" id="{!v.name}" class="slds-table--edit_container slds-scrollable">
+    <div aura:id="tableDiv" id="{!v.name}" class="slds-table_edit_container slds-scrollable">
         <table aura:id="table" class="{!v.tableClassList}" role="treegrid" onmouseenter="{!c.bindMouseWheel}"
                onmouseleave="{!c.unbindMouseWheel}">
             <c:headers aura:id="headers" columns="{!v.config.columns}"/>
