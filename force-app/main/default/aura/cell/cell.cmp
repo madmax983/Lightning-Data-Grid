@@ -87,7 +87,7 @@
                             <lightning:buttonIcon aura:id="editButton"
                                                   alternativeText="edit"
                                                   iconName="utility:edit"
-                                                  class="not_chevron slds-button slds-cell-edit__button slds-m-left--x-small slds-button__icon--hint slds-button__icon--edit"
+                                                                                  class="not_chevron slds-button slds-cell-edit__button slds-m-left--x-small slds-button__icon--hint slds-button__icon--edit"
                                                   variant="bare"
                                                   tabindex="-1"
                                                   onclick="{!c.editCell}"/>

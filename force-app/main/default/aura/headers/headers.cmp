@@ -4,13 +4,26 @@
                     type="Map"
                     description="The columns the header will generate"/>
     <thead>
-        <tr class="slds-text-title--caps">
+        <tr class="slds-line-height_reset slds-hint-parent">
             <aura:iteration items="{!v.columns}" var="column">
-                <th scope="col" >
-                    <div class="slds-truncate" title="{#column.label}">
-                        {#column.label}
-                    </div>
-                </th>
+                <aura:if isTrue="{!column.sortable}">
+                    <th aura:id="header-th" scope="col" class="slds-cell-edit slds-text-title_caps" aria-label="{#column.label}" aria-sort="none"  >
+                        <a class="slds-th__action slds-text-link_reset" href="javascript:void(0);" role="button" tabindex="-1">
+                            <span class="slds-assistive-text">Sort by: </span>
+                            <span class="slds-truncate" title="{#column.label}">{#column.label}</span>
+                            <lightning:buttonIcon   class="slds-button slds-button_icon slds-cell-edit__button slds-m-left_x-small"
+                                                    iconClass="slds-button__icon_hint slds-button__icon_edit"
+                                                    iconName="utility:arrowdown"
+                                                    alternativeText="sortDescending"
+                                                    variant="bare"/>
+                        </a>
+                    </th>
+                    <aura:set attribute="else">
+                        <th aura:id="header-th" scope="col" class="slds-text-title_caps" aria-label="{#column.label}" aria-sort="none"  >
+                            <span class="slds-truncate" title="{#column.label}">{#column.label}</span>
+                        </th>
+                    </aura:set>
+                </aura:if>
             </aura:iteration>
         </tr>
     </thead>

@@ -9,7 +9,8 @@
                     name: "name",
                     label: "Name",
                     type: "text",
-                    editable: true
+                    editable: true,
+                    sortable: true
                 },
                 {
                     name: "title",
