@@ -4,7 +4,7 @@
                     type="Map"
                     description="The columns the header will generate"/>
     <thead>
-        <tr class="slds-text-title--caps">
+        <tr class="slds-text-title_caps">
             <aura:iteration items="{!v.columns}" var="column">
                 <th scope="col" >
                     <div class="slds-truncate" title="{#column.label}">

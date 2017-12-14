@@ -15,7 +15,7 @@
         <aura:set attribute="actions">
                 {!v.buttons}
         </aura:set>
-        <p class="slds-p-horizontal--small">
+        <p class="slds-p-horizontal_small">
             {!v.body}
         </p>
     </lightning:card>

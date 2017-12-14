@@ -63,11 +63,11 @@
                                       tabindex="0"
                                       onclick="{!c.childrenToggle}"/>
                 <aura:if isTrue="{!v.editMode}">
-                    <div class="slds-popover slds-popover--edit" role="dialog" style="position:absolute;top:0px;left:0.0625rem;">
+                    <div class="slds-popover slds-popover_edit" role="dialog" style="position:absolute;top:0px;left:0.0625rem;">
                         <span aura:id="form-start" id="form-start" tabindex="0"></span>
                         <div class="slds-popover__body">
                           <div class="slds-form-element slds-grid">
-                            <label class="slds-form-element__label slds-form-element__label--edit slds-no-flex" for="{!v.column.name + v.rowIndex}">
+                            <label class="slds-form-element__label slds-form-element__label_edit slds-no-flex" for="{!v.column.name + v.rowIndex}">
                               <span class="slds-assistive-text">{!v.column.name}</span>
                             </label>
                             <div tabindex="-1" aura:id="editorContainer" class="slds-form-element__control slds-grow" onfocusout="{!c.handleBlur}">
@@ -87,7 +87,7 @@
                             <lightning:buttonIcon aura:id="editButton"
                                                   alternativeText="edit"
                                                   iconName="utility:edit"
-                                                  class="not_chevron slds-button slds-cell-edit__button slds-m-left--x-small slds-button__icon--hint slds-button__icon--edit"
+                                                  class="not_chevron slds-button slds-cell-edit__button slds-m-left_x-small slds-button__icon_hint slds-button__icon_edit"
                                                   variant="bare"
                                                   tabindex="-1"
                                                   onclick="{!c.editCell}"/>
@@ -105,11 +105,11 @@
                 tabindex="0">
                 <lightning:layout horizontalAlign="end" >
                     <aura:if isTrue="{!v.editMode}">
-                        <div class="slds-popover slds-popover--edit" role="dialog" style="position:absolute;top:0px;left:0.0625rem;">
+                        <div class="slds-popover slds-popover_edit" role="dialog" style="position:absolute;top:0px;left:0.0625rem;">
                             <span aura:id="form-start" id="form-start" tabindex="0"></span>
                             <div class="slds-popover__body">
                               <div class="slds-form-element slds-grid">
-                                <label class="slds-form-element__label slds-form-element__label--edit slds-no-flex" for="{!v.column.name + v.rowIndex}">
+                                <label class="slds-form-element__label slds-form-element__label_edit slds-no-flex" for="{!v.column.name + v.rowIndex}">
                                   <span class="slds-assistive-text">{!v.column.name}</span>
                                 </label>
                                 <div tabindex="-1" aura:id="editorContainer" class="slds-form-element__control slds-grow" onfocusout="{!c.handleBlur}">
@@ -129,7 +129,7 @@
                                     <lightning:buttonIcon aura:id="editButton"
                                                           alternativeText="edit"
                                                           iconName="utility:edit"
-                                                          class="not_chevron slds-button slds-cell-edit__button slds-m-left--x-small slds-button__icon slds-button__icon--hint slds-button__icon--edit"
+                                                          class="not_chevron slds-button slds-cell-edit__button slds-m-left_x-small slds-button__icon slds-button__icon_hint slds-button__icon_edit"
                                                           variant="bare"
                                                           tabindex="-1"
                                                           onclick="{!c.editCell}"/>
