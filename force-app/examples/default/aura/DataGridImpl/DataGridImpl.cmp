@@ -21,7 +21,7 @@
                     access="global"
                     type="string"
                     description="The data that the grid will iterate over" />
-    <c:DataGrid aura:id="exampleGrid" name="Example" data="{!v.data}" config="{!v.config}">'
+    <c:DataGrid aura:id="exampleGrid" name="Example" data="{!v.data}" config="{!v.config}">
         <aura:set attribute="title">
             <aura:text value="Data Grid Example Implementation"/>
         </aura:set>
