@@ -28,8 +28,7 @@
     <aura:attribute name="offSetIndex"
                     access="public"
                     type="integer"
-                    description="The index of the current data offset"
-                    default="0"/>
+                    description="The index of the current data offset"/>
     <aura:attribute name="title" type="Aura.Component[]" access="global"/>
     <aura:attribute name="toolbarButtons" type="Aura.Component[]" access="global"/>
     <aura:attribute name="toolbarBody" type="Aura.Component[]" access="global"/>
@@ -46,6 +45,7 @@
 
     <!--         Methods        -->
     <aura:method name="init" action="{!c.dataGridInit}"/>
+    <aura:method name="refresh" action="{!c.refresh}"/>
 
     <!--        Handlers        -->
     <aura:handler name="childToggle"

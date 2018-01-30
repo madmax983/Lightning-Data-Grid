@@ -14,6 +14,10 @@
             component.set("v.initFired", true)
         }
     },
+    refresh: function(component, event, helper) {
+        helper.toggleSpinner(component);
+        component.init();
+    },
     lodashLoaded: function(component) {
         component.set("v.lodashLoaded", true);
         var initFired = component.get("v.initFired");

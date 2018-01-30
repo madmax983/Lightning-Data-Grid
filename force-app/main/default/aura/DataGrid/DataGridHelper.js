@@ -70,10 +70,10 @@
     treeInit: function(component) {
         var config = component.get("v.config"), scrollable = config.scrollable;
         var data = component.get("v.data"),
-            offSetIndex = component.get("v.offSetIndex"),
             displaySize = component.get("v.config.rowsDisplayed")
                 ? component.get("v.config.rowsDisplayed")
                 : 20,
+            offSetIndex = component.get("v.offSetIndex") ? component.get("v.offSetIndex") : displaySize,
             self = this;
 
         var promises = self.getRootNodes(data);
@@ -88,14 +88,14 @@
                     var mChildren = component.mChildren.entries();
                     component.mChildren = new Map([...component.mChildren, ...value]);
                 });
-
-                var offSetData = parents.slice(offSetIndex, displaySize);
+                var rangeStart = offSetIndex - displaySize;
+                var offSetData = parents.slice(rangeStart, offSetIndex);
                 self.setHasChildren(offSetData, component.mChildren);
 
                 self.toggleSpinner(component);
                 component.set("v.hierarchy", parents);
                 component.set("v.view", offSetData);
-                component.set("v.offSetIndex", displaySize);
+                component.set("v.offSetIndex", rangeStart + displaySize);
             });
         });
         if(scrollable) {
@@ -105,16 +105,17 @@
     gridInit: function(component) {
         var config = component.get("v.config"), scrollable = config.scrollable;
         var data = component.get("v.data"),
-            offSetIndex = component.get("v.offSetIndex"),
             displaySize = component.get("v.config.rowsDisplayed")
                 ? component.get("v.config.rowsDisplayed")
-                : 20;
+                : 20,
+            offSetIndex = component.get("v.offSetIndex") ? component.get("v.offSetIndex") : displaySize;
 
         this.toggleSpinner(component);
-        var offSetData = data.slice(offSetIndex, displaySize);
+        var rangeStart = offSetIndex - displaySize;
+        var offSetData = data.slice(rangeStart, offSetIndex);
         component.set("v.hierarchy", data);
         component.set("v.view", offSetData);
-        component.set("v.offSetIndex", displaySize);
+        component.set("v.offSetIndex", rangeStart + displaySize);
 
         if(scrollable) {
             component.mouseWheelHandler = this.mouseWheelHandler("v.hierarchy", component);

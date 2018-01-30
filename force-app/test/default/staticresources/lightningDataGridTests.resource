@@ -136,6 +136,22 @@ describe("Grid Tests", function() {
             });
         });
 
+        it('handles a data refresh', function(done) {
+           return $T.waitFor(function() {
+               var grid = cmp.find("exampleGrid");
+               return grid.get("v.view").length > 0;
+           }).then(function(){
+               var grid = cmp.find("exampleGrid");
+               var data = grid.get("v.data");
+               data[0].data.name = "Captain Hook";
+               grid.set("v.data", data);
+               grid.refresh();
+               var view = grid.get("v.view");
+               expect(view[0].data.name).toBe("Captain Hook");
+               done();
+           });
+        });
+
         it('handles a cell edit', function(done) {
             return $T.waitFor(function() {
                 var grid = cmp.find("exampleGrid");
