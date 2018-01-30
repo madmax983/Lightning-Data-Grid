@@ -59,6 +59,10 @@
 
             You can look at the DefaultSearch component to see how a global search for the grid is being implemented, and how you could change it to implement your own search. The GetAttribute event can be used to get any attribute off of the grid, and takes a callback that can be invoked with that value. The DefaultSearch uses this get the grid data, but it can be used for other use cases outside of this. It then filters out the matches it wants, and sends a GridViewMutation event, which sets the current grid view. The plan is to use this event for sorting and filtering as well.
 		</p>
+		<p>
+            Init: Once you have the data for the Grid, you can call the init method on it, and the grid will take care of setting everything up and rendering the view.
+            Refresh: Call refresh on the grid when you change the data structure.
+		</p>
 	</aura:description>
 	<aura:example name="DataGrid" ref="c:DataGridImpl" label="DataGrid">
 		This example uses the default Data Grid Implementation
