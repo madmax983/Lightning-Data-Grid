@@ -59,10 +59,10 @@
             </lightning:layout>
         </aura:set>
         <aura:set attribute="cellDecorators">
-            <c:defaultDecorator />
+            <c:programmaticDecorator  />
         </aura:set>
         <aura:set attribute="cellEditors">
-            <c:defaultEditor />
+            <c:programmaticEditor />
         </aura:set>
     </c:DataGrid>
 </aura:component>

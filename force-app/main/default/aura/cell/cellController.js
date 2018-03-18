@@ -12,7 +12,22 @@
             component.set("v.hasChildren", dataItem.hasChildren);
         }
 
-        helper.syncFacets(component)
+        helper.createDynamicCell(component);
+    },
+    dynamicInit: function(component, event, helper) {
+        var dataItem = component.get("v.dataItem");
+        var columnName = component.get("v.column").name;
+        var value = dataItem.data[columnName];
+        component.set("v.value", value);
+        component.set("v.childrenVisible", dataItem.expanded);
+
+        var isDirty = dataItem[columnName] ? dataItem[columnName].isDirty : false;
+        component.set("v.isDirty", isDirty);
+        if(dataItem.hasChildren) {
+            component.set("v.hasChildren", dataItem.hasChildren);
+        }
+
+        helper.syncFacets(component);
     },
     childrenToggle: function(component, event) {
         var dataItem = component.get("v.dataItem");

@@ -1,0 +1,82 @@
+<aura:component description="HeaderCellView">
+    <aura:attribute name="name"
+                    access="public"
+                    type="string"
+                    description="Name of the grid" />
+    <aura:attribute name="dataItem"
+                    access="global"
+                    type="Map"
+                    description="Individual data item" />
+    <aura:attribute name="column"
+                    access="public"
+                    type="Map"
+                    description="Column Data" />
+    <aura:attribute name="indexVar"
+                    access="public"
+                    type="Integer"
+                    description="Cell Index" />
+    <aura:attribute name="rowIndex"
+                    access="public"
+                    type="Integer"
+                    description="Row Index" />
+    <aura:attribute name="hasChildren"
+                    access="public"
+                    type="Boolean"
+                    description="Data Value" />
+    <aura:attribute name="childrenVisible"
+                    access="public"
+                    type="Boolean"
+                    description="Are children visible?" />
+    <aura:attribute name="editMode"
+                    access="public"
+                    type="Boolean"
+                    description="View or Edit Mode"
+                    default="false"/>
+    <aura:attribute name="isDirty"
+                    access="public"
+                    type="Boolean"
+                    description="Value in cell has changed or not"/>
+    <aura:attribute name="value"
+                    access="public"
+                    type="Map"
+                    description="Data Value" />
+    <aura:attribute name="editCell" type="Aura.Action"/>
+    <aura:attribute name="handleEdit" type="Aura.Action"/>
+    <aura:attribute name="childrenToggle" type="Aura.Action"/>
+    <aura:attribute name="handleBlur" type="Aura.Action"/>
+    <aura:attribute name="doInit" type="Aura.Action"/>
+    <aura:attribute name="decorators" type="Aura.Component[]" access="public"/>
+
+    <aura:handler name="init" value="{!this}" action="{!v.doInit}"/>
+
+    <th id="{!'ltng-grid-col-' + v.column.name + '-' + 'row-' + v.rowIndex}"
+        class="{!v.isDirty ? 'slds-tree__item slds-cell-edit slds-is-edited' : 'slds-tree__item slds-cell-edit'}"
+        data-label="{!v.column.name}"
+        onkeypress="{!v.handleEdit}"
+        tabindex="0">
+        <lightning:layout horizontalAlign="end">
+            <lightning:buttonIcon aura:id="expandButton"
+                                  alternativeText="toggle"
+                                  iconName="utility:chevronright"
+                                  size="{!$Browser.isPhone ? 'large' : 'small'}"
+                                  class="{!v.hasChildren == true ? '' : 'slds-is-disabled'}"
+                                  variant="bare"
+                                  tabindex="0"
+                                  onclick="{!v.childrenToggle}"/>
+            <span id="{!'ltng-grid-col-' + v.column.name + '-' + 'row-' + v.rowIndex + '-clickable'}"
+                  class="slds-truncate"
+                  onkeypress="{!v.handleEdit}"
+                  ondblclick="{!v.editCell}"
+                  title="{!v.value}">
+                {!v.decorators}
+                <lightning:buttonIcon aura:id="editButton"
+                                      alternativeText="edit"
+                                      iconName="utility:edit"
+                                      class="not_chevron slds-button slds-cell-edit__button slds-m-left_x-small slds-button__icon_hint slds-button__icon_edit"
+                                      variant="bare"
+                                      tabindex="-1"
+                                      onclick="{!v.editCell}"/>
+            </span>
+        </lightning:layout>
+    </th>
+</aura:component>
