@@ -1,0 +1,11 @@
+<aura:component description="programmaticDecorator" implements="c:cellFacet">
+    <aura:dependency resource="markup://ui:outputText" />
+    <aura:dependency resource="markup://ui:outputDate" />
+    <aura:dependency resource="markup://ui:outputDateTime" />
+    <aura:dependency resource="markup://ui:outputPhone" />
+    <aura:dependency resource="markup://ui:outputEmail" />
+    <aura:dependency resource="markup://ui:outputNumber" />
+    <aura:dependency resource="markup://ui:outputCurrency" />
+    <aura:handler name="change" value="{!v.column}" action="{!c.columnChange}"/>
+        {!v.body}
+</aura:component>

@@ -1,0 +1,4 @@
+<aura:interface description="cellFacet" access="global">
+    <aura:attribute name="value" type="Map" />
+    <aura:attribute name="column" type="Map" />
+</aura:interface>

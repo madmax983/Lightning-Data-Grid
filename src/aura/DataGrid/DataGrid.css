@@ -1,0 +1,7 @@
+.THIS .data-grid{
+    will-change: transform;
+}
+
+.THIS .slds-tree [aria-expanded=true]>.slds-tree__item .not_chevron svg{
+    transform: rotate(0deg);
+}
