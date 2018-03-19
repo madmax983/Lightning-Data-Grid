@@ -1,0 +1,17 @@
+<aura:component description="headers">
+    <aura:attribute name="columns"
+                    access="public"
+                    type="Map"
+                    description="The columns the header will generate"/>
+    <thead>
+        <tr class="slds-text-title_caps">
+            <aura:iteration items="{!v.columns}" var="column">
+                <th scope="col" >
+                    <div class="slds-truncate" title="{#column.label}">
+                        {#column.label}
+                    </div>
+                </th>
+            </aura:iteration>
+        </tr>
+    </thead>
+</aura:component>

@@ -1,0 +1,4 @@
+<aura:event type="COMPONENT" description="GetGridAttribute">
+    <aura:attribute name="attributeName" type="String" />
+    <aura:attribute name="callback" type="String" />
+</aura:event>

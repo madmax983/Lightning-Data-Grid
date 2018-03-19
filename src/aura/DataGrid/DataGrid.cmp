@@ -1,0 +1,93 @@
+<aura:component description="DataGrid" access="global">
+    <!--        Attributes         -->
+    <aura:attribute name="name"
+                    access="global"
+                    type="string"
+                    description="Name of the grid"/>
+    <aura:attribute name="config"
+                    access="global"
+                    type="Map"
+                    description="Configuration properties for the data grid"/>
+    <aura:attribute name="data"
+                    access="global"
+                    type="Map"
+                    description="The data that the grid will iterate over"/>
+    <aura:attribute name="hierarchy"
+                    access="global"
+                    type="Map"
+                    description="Virtualization of the grid hierarchy"/>
+    <aura:attribute name="view"
+                    access="public"
+                    type="List"
+                    description="The current data that is visible on the screen"/>
+    <aura:attribute name="tableClassList"
+                    access="global"
+                    type="string"
+                    description="The list of classes applied to the table"
+                    default="slds-table slds-table_bordered slds-no-cell-focus slds-tree slds-table_tree slds-max-medium-table_stacked-horizontal data-grid"/>
+    <aura:attribute name="offSetIndex"
+                    access="public"
+                    type="integer"
+                    description="The index of the current data offset"/>
+    <aura:attribute name="title" type="Aura.Component[]" access="global"/>
+    <aura:attribute name="toolbarButtons" type="Aura.Component[]" access="global"/>
+    <aura:attribute name="toolbarBody" type="Aura.Component[]" access="global"/>
+    <aura:attribute name="toolbarFooter" type="Aura.Component[]" access="global"/>
+    <aura:attribute name="cellDecorators" type="Aura.ComponentDefRef[]" access="global"/>
+    <aura:attribute name="cellEditors" type="Aura.ComponentDefRef[]" access="global"/>
+    <aura:attribute access="private" name="error" type="String" default=""/>
+    <aura:attribute access="private" name="lodashLoaded" type="Boolean" default="false"/>
+    <aura:attribute access="private" name="initFired" type="Boolean" default="false"/>
+
+    <!--        External Scripts        -->
+    <ltng:require scripts="{!$Resource.lodash}"
+                    afterScriptsLoaded="{!c.lodashLoaded}"/>
+
+    <!--         Methods        -->
+    <aura:method name="init" action="{!c.dataGridInit}"/>
+    <aura:method name="refresh" action="{!c.refresh}"/>
+
+    <!--        Handlers        -->
+    <aura:handler name="childToggle"
+                  event="c:childToggle"
+                  action="{!c.handleChildToggle}"/>
+    <aura:handler name="getAttribute"
+                  event="c:GetGridAttribute"
+                  action="{!c.getAttribute}"
+                  includeFacets="true"/>
+    <aura:handler name="viewMutation"
+                  event="c:GridViewMutation"
+                  action="{!c.handleViewMutation}"
+                  includeFacets="true"/>
+
+    <!--        Body         -->
+    <c:toolbar aura:id="toolbar" config="{!v.config}">
+        <aura:set attribute="title">
+                {!v.title}
+        </aura:set>
+        <aura:set attribute="buttons">
+                {!v.toolbarButtons}
+        </aura:set>
+        <aura:set attribute="footer">
+                {!v.toolbarFooter}
+        </aura:set>
+            {!v.toolbarBody}
+    </c:toolbar>
+    <lightning:spinner aura:id="spinner" variant="brand" size="large"/>
+    <div aura:id="tableDiv" id="{!v.name}" class="slds-table_edit_container slds-scrollable">
+        <table aura:id="table" class="{!v.tableClassList}" role="treegrid" onmouseenter="{!c.bindMouseWheel}"
+               onmouseleave="{!c.unbindMouseWheel}">
+            <c:headers aura:id="headers" columns="{!v.config.columns}"/>
+            <tbody aura:id="tbody">
+            <aura:iteration aura:id="rowIteration" items="{!v.view}" var="item" indexVar="index">
+                <c:row aura:id="rows"
+                       rowData="{!item}"
+                       columns="{#v.config.columns}"
+                       indexVar="{!index}"
+                       cellDecorators="{!v.cellDecorators}"
+                       cellEditors="{!v.cellEditors}"/>
+            </aura:iteration>
+            </tbody>
+        </table>
+    </div>
+</aura:component>

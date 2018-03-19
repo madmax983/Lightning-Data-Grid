@@ -1,0 +1,68 @@
+<aura:component description="DataGridImpl" implements="force:appHostable,flexipage:availableForAllPageTypes" access="global">
+    <ltng:require scripts="{!$Resource.exampleData2}"
+                  afterScriptsLoaded="{!c.doInit}"/>
+    <aura:attribute name="type"
+                    type="string"
+                    default="tree"/>
+    <aura:attribute name="dataSize"
+                    type="Integer"
+                    default="100"/>
+    <aura:attribute name="secondLevelDepth"
+                    type="Integer"
+                    default="1"/>
+    <aura:attribute name="thirdLevelDepth"
+                    type="Integer"
+                    default="1"/>
+    <aura:attribute name="config"
+                    access="global"
+                    type="object"
+                    description="Configuration properties for the data grid" />
+    <aura:attribute name="data"
+                    access="global"
+                    type="string"
+                    description="The data that the grid will iterate over" />
+    <c:DataGrid aura:id="exampleGrid" name="Example" data="{!v.data}" config="{!v.config}">
+        <aura:set attribute="title">
+            <aura:text value="Data Grid Example Implementation"/>
+        </aura:set>
+        <aura:set attribute="toolbarButtons">
+            <aura:if isTrue="{!$Browser.isPhone}">
+                <lightning:buttonMenu alternativeText="Actions" menuAlignment="right">
+                    <lightning:menuItem label="Refresh" value="refresh"/>
+                    <lightning:menuItem label="Edit" value="edit"/>
+                    <lightning:menuItem label="Save" value="save"/>
+                </lightning:buttonMenu>
+                <aura:set attribute="else">
+                    <lightning:buttonGroup >
+                        <lightning:button label="Refresh" />
+                        <lightning:button label="Edit" />
+                        <lightning:button label="Save" />
+                    </lightning:buttonGroup>
+                </aura:set>
+            </aura:if>
+        </aura:set>
+        <aura:set attribute="toolbarBody">
+            <lightning:badge label="{!v.data.length + ' records'}" />
+        </aura:set>
+        <aura:set attribute="toolbarFooter">
+            <lightning:layout horizontalAlign="end" verticalAlign="end">
+                <lightning:layoutItem flexibility="auto" padding="horizontal-small">
+                    <c:DefaultSearch aura:id="search"/>
+                </lightning:layoutItem>
+                <lightning:layoutItem flexibility="auto">
+                    <lightning:buttonMenu iconName="utility:settings" alternativeText="Settings" menuAlignment="right">
+                        <lightning:menuItem label="Font" value="font" />
+                        <lightning:menuItem label="Size" value="size"/>
+                        <lightning:menuItem label="Format" value="format" />
+                    </lightning:buttonMenu>
+                </lightning:layoutItem>
+            </lightning:layout>
+        </aura:set>
+        <aura:set attribute="cellDecorators">
+            <c:defaultDecorator />
+        </aura:set>
+        <aura:set attribute="cellEditors">
+            <c:defaultEditor />
+        </aura:set>
+    </c:DataGrid>
+</aura:component>

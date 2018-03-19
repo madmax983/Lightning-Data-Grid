@@ -1,0 +1,4 @@
+<aura:event type="COMPONENT" description="childToggle">
+    <aura:attribute name="childrenVisible" type="boolean" />
+    <aura:attribute name="dataItem" type="Map" />
+</aura:event>

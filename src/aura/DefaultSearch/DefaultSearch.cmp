@@ -1,0 +1,16 @@
+<aura:component description="DefaultSearch">
+    <aura:attribute name="data" type="Map" />
+    <aura:attribute name="query" type="String" />
+    <aura:registerEvent name="viewMutation" type="c:GridViewMutation" />
+    <aura:registerEvent name="getAttribute" type="c:GetGridAttribute" />
+    <aura:method name="setHierarchy" action="{!c.setHierarchy}" />
+    <aura:method name="search" action="{!c.handleSearch}" />
+    <lightning:layout horizontalAlign="center">
+        <lightning:layoutItem >
+            <lightning:input label="Search" name="searchField" value="{!v.query}" variant="label-hidden"/>
+        </lightning:layoutItem>
+        <lightning:layoutItem >
+            <lightning:buttonIcon iconName="utility:search" alternativeText="Search" onclick="{!c.handleSearch}" />
+        </lightning:layoutItem>
+    </lightning:layout>
+</aura:component>

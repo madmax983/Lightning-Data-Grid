@@ -1,0 +1,143 @@
+<aura:component description="cell">
+    <aura:attribute name="name"
+                    access="public"
+                    type="string"
+                    description="Name of the grid" />
+    <aura:attribute name="dataItem"
+                    access="global"
+                    type="Map"
+                    description="Individual data item" />
+    <aura:attribute name="column"
+                    access="public"
+                    type="Map"
+                    description="Column Data" />
+    <aura:attribute name="indexVar"
+                    access="public"
+                    type="Integer"
+                    description="Cell Index" />
+    <aura:attribute name="rowIndex"
+                    access="public"
+                    type="Integer"
+                    description="Row Index" />
+    <aura:attribute name="hasChildren"
+                    access="public"
+                    type="Boolean"
+                    description="Data Value" />
+    <aura:attribute name="childrenVisible"
+                    access="public"
+                    type="Boolean"
+                    description="Are children visible?" />
+    <aura:attribute name="editMode"
+                    access="public"
+                    type="Boolean"
+                    description="View or Edit Mode"
+                    default="false"/>
+    <aura:attribute name="isDirty"
+                    access="public"
+                    type="Boolean"
+                    description="Value in cell has changed or not"/>
+    <aura:attribute name="value"
+                    access="public"
+                    type="Map"
+                    description="Data Value" />
+    <aura:attribute name="decorators" type="Aura.Component[]" access="public"/>
+    <aura:attribute name="editors" type="Aura.Component[]" access="public"/>
+    <aura:method name="editCell" action="{!c.handleEdit}"/>
+    <aura:method name="toggleChildren" action="{!c.childrenToggle}"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:handler name="change" value="{!v.value}" action="{!c.handleValueChange}"/>
+    <aura:registerEvent name="childToggle" type="c:childToggle"/>
+    <aura:if isTrue="{!v.indexVar == 0}">
+        <th id="{!'ltng-grid-col-' + v.column.name + '-' + 'row-' + v.rowIndex}"
+            class="{!v.isDirty ? 'slds-tree__item slds-cell-edit slds-is-edited' : 'slds-tree__item slds-cell-edit'}"
+            data-label="{!v.column.name}"
+            onkeypress="{!c.handleEdit}"
+            tabindex="0">
+            <lightning:layout horizontalAlign="end">
+                <lightning:buttonIcon aura:id="expandButton"
+                                      alternativeText="toggle"
+                                      iconName="utility:chevronright"
+                                      size="{!$Browser.isPhone ? 'large' : 'small'}"
+                                      class="{!v.hasChildren == true ? '' : 'slds-is-disabled'}"
+                                      variant="bare"
+                                      tabindex="0"
+                                      onclick="{!c.childrenToggle}"/>
+                <aura:if isTrue="{!v.editMode}">
+                    <div class="slds-popover slds-popover_edit" role="dialog" style="position:absolute;top:0px;left:0.0625rem;">
+                        <span aura:id="form-start" id="form-start" tabindex="0"></span>
+                        <div class="slds-popover__body">
+                          <div class="slds-form-element slds-grid">
+                            <label class="slds-form-element__label slds-form-element__label_edit slds-no-flex" for="{!v.column.name + v.rowIndex}">
+                              <span class="slds-assistive-text">{!v.column.name}</span>
+                            </label>
+                            <div tabindex="-1" aura:id="editorContainer" class="slds-form-element__control slds-grow" onfocusout="{!c.handleBlur}">
+                                    {!v.editors}
+                            </div>
+                          </div>
+                        </div>
+                        <span id="form-end" tabindex="0"></span>
+                    </div>
+                    <aura:set attribute="else">
+                        <span id="{!'ltng-grid-col-' + v.column.name + '-' + 'row-' + v.rowIndex + '-clickable'}"
+                              class="slds-truncate"
+                              onkeypress="{!c.handleEdit}"
+                              ondblclick="{!c.editCell}"
+                              title="{!v.value}">
+                            {!v.decorators}
+                            <lightning:buttonIcon aura:id="editButton"
+                                                  alternativeText="edit"
+                                                  iconName="utility:edit"
+                                                  class="not_chevron slds-button slds-cell-edit__button slds-m-left_x-small slds-button__icon_hint slds-button__icon_edit"
+                                                  variant="bare"
+                                                  tabindex="-1"
+                                                  onclick="{!c.editCell}"/>
+                        </span>
+                    </aura:set>
+                </aura:if>
+            </lightning:layout>
+        </th>
+        <aura:set attribute="else">
+            <td id="{!'ltng-grid-col-' + v.column.name + '-' + 'row-' + v.rowIndex}"
+                data-label="{!v.column.name}"
+                role="gridcell"
+                class="{!v.isDirty ? 'slds-cell-edit slds-is-edited' : 'slds-cell-edit'}"
+                onkeypress="{!c.handleEdit}"
+                tabindex="0">
+                <lightning:layout horizontalAlign="end" >
+                    <aura:if isTrue="{!v.editMode}">
+                        <div class="slds-popover slds-popover_edit" role="dialog" style="position:absolute;top:0px;left:0.0625rem;">
+                            <span aura:id="form-start" id="form-start" tabindex="0"></span>
+                            <div class="slds-popover__body">
+                              <div class="slds-form-element slds-grid">
+                                <label class="slds-form-element__label slds-form-element__label_edit slds-no-flex" for="{!v.column.name + v.rowIndex}">
+                                  <span class="slds-assistive-text">{!v.column.name}</span>
+                                </label>
+                                <div tabindex="-1" aura:id="editorContainer" class="slds-form-element__control slds-grow" onfocusout="{!c.handleBlur}">
+                                        {!v.editors}
+                                </div>
+                              </div>
+                            </div>
+                            <span id="form-end" tabindex="0"></span>
+                        </div>
+                        <aura:set attribute="else">
+                                <span id="{!'ltng-grid-col-' + v.column.name + '-' + 'row-' + v.rowIndex + '-clickable'}"
+                                      class="slds-truncate"
+                                      onkeypress="{!c.handleEdit}"
+                                      ondblclick="{!c.editCell}"
+                                      title="{!v.value}">
+                                {!v.decorators}
+                                    <lightning:buttonIcon aura:id="editButton"
+                                                          alternativeText="edit"
+                                                          iconName="utility:edit"
+                                                          class="not_chevron slds-button slds-cell-edit__button slds-m-left_x-small slds-button__icon slds-button__icon_hint slds-button__icon_edit"
+                                                          variant="bare"
+                                                          tabindex="-1"
+                                                          onclick="{!c.editCell}"/>
+                                </span>
+                        </aura:set>
+                    </aura:if>
+                </lightning:layout>
+            </td>
+        </aura:set>
+    </aura:if>
+</aura:component>

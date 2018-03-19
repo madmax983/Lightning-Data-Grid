@@ -1,0 +1,23 @@
+<aura:component description="defaultEditor" implements="c:cellFacet">
+    <aura:if isTrue="{!v.column.type == 'text'}">
+        <lightning:input type="text" messageWhenBadInput="Wrong input" label="{!v.column.name}" name="{!v.column.name}" aura:id="input" value="{!v.value}" />
+    </aura:if>
+    <aura:if isTrue="{!v.column.type == 'date'}">
+        <lightning:input type="date" messageWhenBadInput="Wrong input" label="{!v.column.name}" name="{!v.column.name}" aura:id="input" value="{!v.value}" />
+    </aura:if>
+    <aura:if isTrue="{!v.column.type == 'datetime'}">
+        <lightning:input type="datetime-local" messageWhenBadInput="Wrong input" label="{!v.column.name}" name="{!v.column.name}" aura:id="input" value="{!v.value}" />
+    </aura:if>
+    <aura:if isTrue="{!v.column.type == 'phone'}">
+        <lightning:input type="tel" messageWhenBadInput="Wrong input" label="{!v.column.name}" name="{!v.column.name}" aura:id="input" value="{!v.value}" />
+    </aura:if>
+    <aura:if isTrue="{!v.column.type == 'email'}">
+        <lightning:input type="email" messageWhenBadInput="Wrong input" label="{!v.column.name}" name="{!v.column.name}" aura:id="input" value="{!v.value}" />
+    </aura:if>
+    <aura:if isTrue="{!v.column.type == 'number'}">
+        <lightning:input type="number" messageWhenBadInput="Wrong input" label="{!v.column.name}" name="{!v.column.name}" aura:id="input" value="{!v.value}" />
+    </aura:if>
+    <aura:if isTrue="{!v.column.type == 'currency'}">
+        <lightning:input type="number" messageWhenBadInput="Wrong input" step="0.01" formatter="currency" label="{!v.column.name}" name="{!v.column.name}" aura:id="input" value="{!v.value}" />
+    </aura:if>
+</aura:component>

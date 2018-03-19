@@ -1,0 +1,22 @@
+<aura:component description="toolbar">
+    <aura:attribute name="config" access="public"
+                    type="Map"
+                    description="Configuration object for the toolbar"/>
+    <aura:attribute name="title" type="Aura.Component[]" access="public"/>
+    <aura:attribute name="buttons" type="Aura.Component[]" access="public"/>
+    <aura:attribute name="footer" type="Aura.Component[]" access="public"/>
+    <lightning:card >
+        <aura:set attribute="title">
+                {!v.title}
+        </aura:set>
+        <aura:set attribute="footer">
+                {!v.footer}
+        </aura:set>
+        <aura:set attribute="actions">
+                {!v.buttons}
+        </aura:set>
+        <p class="slds-p-horizontal_small">
+            {!v.body}
+        </p>
+    </lightning:card>
+</aura:component>
