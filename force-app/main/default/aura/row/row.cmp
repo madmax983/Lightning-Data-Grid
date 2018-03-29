@@ -21,6 +21,7 @@
                     description="Row Index" />
     <aura:attribute name="cellDecorators" type="Aura.ComponentDefRef[]" access="public"/>
     <aura:attribute name="cellEditors" type="Aura.ComponentDefRef[]" access="public"/>
+    <aura:method name="toggleChildren" action="{!c.childrenToggle}"/>
     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
     <tr id="{!'ltng-grid-row-' + v.indexVar}"
         class="slds-hint-parent"
