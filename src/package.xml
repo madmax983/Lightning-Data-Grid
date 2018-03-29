@@ -2,11 +2,13 @@
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
   <types>
     <name>AuraDefinitionBundle</name>
+    <members>BaseTestRunnerCmp</members>
     <members>DataGrid</members>
     <members>DataGridImpl</members>
     <members>DefaultSearch</members>
     <members>GetGridAttribute</members>
     <members>GridViewMutation</members>
+    <members>Tests</members>
     <members>cell</members>
     <members>cellFacet</members>
     <members>childToggle</members>
@@ -18,6 +20,15 @@
     <members>row</members>
     <members>toolbar</members>
   </types>
+  <types>
+    <name>StaticResource</name>
+    <members>exampleData2</members>
+    <members>jasmine</members>
+    <members>jasmineReporter</members>
+    <members>jasmineboot</members>
+    <members>lightningDataGridTests</members>
+    <members>lodash</members>
+    <members>testutil</members>
+  </types>
   <version>39.0</version>
-  <fullName>Lightning-Data-Grid</fullName>
 </Package>
