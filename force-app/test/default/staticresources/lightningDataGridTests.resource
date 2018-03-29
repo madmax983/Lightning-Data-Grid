@@ -94,7 +94,7 @@ describe("Grid Tests", function() {
                 var grid = cmp.find("exampleGrid");
                 var rows = grid.find("rows");
                 var cells = rows[9].find("cells");
-                cells[0].toggleChildren();
+                rows[9].toggleChildren();
 
                 return $T.waitFor(function() {
                     var grid = cmp.find("exampleGrid");
