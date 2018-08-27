@@ -4,7 +4,7 @@
        src="https://raw.githubusercontent.com/afawcett/githubsfdeploy/master/deploy.png">
 </a>
 
-# Lightning-Data-Grid [![Build Status](https://travis-ci.org/madmax983/Lightning-Data-Grid.svg?branch=master)](https://travis-ci.org/madmax983/Lightning-Data-Grid)
+# Lightning-Data-Grid [![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
 A data grid for the Lightning Component Framework  
 
 ![screenshot of lightning data grid](/assets/screenshot.png "Lighting Data Grid Screenshot")
